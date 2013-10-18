@@ -1,4 +1,15 @@
 MeurioAccounts::Application.routes.draw do
+  devise_for :users
+
+  devise_scope :user do 
+    authenticated :user do
+      root to: 'users#me', as: :authenticated
+    end
+    unauthenticated :user do
+      root to: 'devise/sessions#new', as: :unauthenticated
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -39,7 +50,7 @@ MeurioAccounts::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
