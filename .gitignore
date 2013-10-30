@@ -15,5 +15,6 @@
 /log/*.log
 /tmp
 config/database.yml
+db/schema.rb
 *.swp
 config/initializers/01_envvars.rb
