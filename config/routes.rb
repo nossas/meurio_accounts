@@ -1,14 +1,6 @@
 MeurioAccounts::Application.routes.draw do
   devise_for :users
-
-  devise_scope :user do 
-    authenticated :user do
-      root to: 'users#me', as: :authenticated
-    end
-    unauthenticated :user do
-      root to: 'devise/sessions#new', as: :unauthenticated
-    end
-  end
+  root to: 'devise/sessions#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
