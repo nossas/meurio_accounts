@@ -56,3 +56,4 @@ end
 
 gem 'devise'
 gem 'slim-rails'
+gem 'coveralls', require: false
