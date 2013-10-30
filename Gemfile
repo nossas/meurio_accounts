@@ -51,6 +51,7 @@ group :test do
   gem 'machinist', '>= 2.0.0.beta2'
   gem 'faker'
   gem 'launchy'
+  gem 'selenium-webdriver'
 end
 
 gem 'devise'
