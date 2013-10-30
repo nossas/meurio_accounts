@@ -58,3 +58,4 @@ end
 gem 'devise'
 gem 'slim-rails'
 gem 'coveralls', require: false
+gem 'ffi', '1.9.3'
