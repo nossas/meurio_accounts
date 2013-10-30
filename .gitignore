@@ -12,9 +12,10 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+*.swp
 /log/*.log
 /tmp
-config/database.yml
 db/schema.rb
-*.swp
+config/database.yml
 config/initializers/01_envvars.rb
+coverage
