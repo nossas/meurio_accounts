@@ -1,0 +1,6 @@
+.row
+  .large-12.columns
+    h2= "#{@user.first_name} #{@user.last_name}"
+    hr
+    h2= @user.email
+    h2= link_to 'Sair', destroy_user_session_path, method: :delete, class: 'logout'
