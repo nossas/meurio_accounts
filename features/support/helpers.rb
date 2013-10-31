@@ -5,7 +5,8 @@ def to_url string
   return new_user_registration_path                                       if string == "the register page"
   return "/pdp"                                                           if string == "Panela de Pressão"
   return "/users/#{@user.id}"                                             if string == "my profile page"
-  return string
+  return edit_user_path(@current_user)                                    if string == "the edit page of my profile"
+  raise "I don't know what #{string} means"
 end
 
 def to_element string

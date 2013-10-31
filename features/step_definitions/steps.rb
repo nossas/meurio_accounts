@@ -1,3 +1,12 @@
+Given(/^I'm logged in$/) do
+  password = '12345678'
+  @current_user = User.make! password: password
+  visit root_path
+  fill_in 'user_email', with: @current_user.email
+  fill_in 'user_password', with: password
+  click_button 'Entrar'
+end
+
 Given(/^I'm in "(.*?)"$/) do |arg1|
   visit to_url(arg1)
 end
