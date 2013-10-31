@@ -16,7 +16,7 @@ Feature: login
     And I fill "the login email" with "trashmail@meurio.org.br"
     And I fill "the login password" with "12345678"
     When I submit "the login form"
-    Then I should be redirected to "my profile page"
+    Then I should be redirected to "the edit page of my profile"
 
   Scenario: when I fill the login form wrong
     Given I'm in "the login page"

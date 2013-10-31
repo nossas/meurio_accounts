@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_action { session[:redirect_url] ||= params[:redirect_url] }
 
   def after_sign_in_path_for(resource)
-    session.delete(:redirect_url) || "#{ENV["MR_USER_PATH"]}/#{current_user.id}"
+    session.delete(:redirect_url) || edit_user_path(current_user)
   end
 
   protected

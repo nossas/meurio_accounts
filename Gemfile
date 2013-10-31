@@ -54,6 +54,7 @@ group :test do
   gem 'machinist', '>= 2.0.0.beta2'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'webmock'
 end
 
 gem 'devise'

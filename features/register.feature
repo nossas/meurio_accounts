@@ -22,7 +22,7 @@ Feature: register
     And I fill "the register password" with "12345678"
     When I submit "the register form"
     Then an user should be created
-    And I should be redirected to "my profile page"
+    And I should be redirected to "the edit page of my profile"
 
   @javascript
   Scenario: when I'm already registered

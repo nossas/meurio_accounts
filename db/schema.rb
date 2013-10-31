@@ -11,15 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031162820) do
+ActiveRecord::Schema.define(version: 20131031185311) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",   null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -28,6 +31,21 @@ ActiveRecord::Schema.define(version: 20131031162820) do
     t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "profession"
+    t.string   "website"
+    t.text     "bio"
+    t.string   "facebook"
+    t.string   "twitter"
+    t.boolean  "public",                 default: true
+    t.string   "secondary_email"
+    t.date     "birthday"
+    t.string   "gender"
+    t.string   "postal_code"
+    t.string   "phone"
+    t.string   "city"
+    t.string   "address_street"
+    t.string   "address_district"
+    t.string   "state"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
