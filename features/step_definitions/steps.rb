@@ -28,3 +28,8 @@ end
 Then(/^I should see "(.*?)"$/) do |arg1|
   page.should have_css to_element(arg1), to_text(arg1)
 end
+
+Then(/^an user should be created$/) do
+  @user = User.first
+  @user.should_not be_nil
+end
