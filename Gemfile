@@ -59,3 +59,5 @@ gem 'devise'
 gem 'slim-rails'
 gem 'coveralls', require: false
 gem 'ffi', '1.9.3'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
+gem 'zurb-foundation', '~> 4.0.0'
