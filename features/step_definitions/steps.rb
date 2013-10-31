@@ -42,3 +42,7 @@ Then(/^an user should be created$/) do
   @user = User.first
   @user.should_not be_nil
 end
+
+Then(/^show me the page$/) do
+  save_and_open_page
+end

@@ -20,7 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 1.1.1'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -49,16 +49,19 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner', '1.0.0.RC1'
-  gem 'machinist', '>= 2.0.0.beta2'
   gem 'faker'
   gem 'launchy'
+  gem 'machinist', '>= 2.0.0.beta2'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
 
 gem 'devise'
-gem 'slim-rails'
 gem 'coveralls', require: false
 gem 'ffi', '1.9.3'
+gem 'slim-rails'
+gem 'client_side_validations', github: 'bcardarella/client_side_validations', branch: "4-0-beta"
+gem 'client_side_validations-turbolinks', '~> 1.1.1'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
 gem 'zurb-foundation', '~> 4.0.0'
 gem 'rails_12factor'

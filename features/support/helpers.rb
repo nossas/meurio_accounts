@@ -10,16 +10,20 @@ def to_url string
 end
 
 def to_element string
-  return 'user_email'                         if string == "the login email"
-  return 'user_password'                      if string == "the login password"
-  return 'form#new_user input[type="submit"]' if string == "the login form"
-  return '.flash.alert'                       if string == "the login form errors"
-  return 'user_first_name'                    if string == "the register first name"
-  return 'user_last_name'                     if string == "the register last name"
-  return 'user_email'                         if string == "the register email"
-  return 'user_password'                      if string == "the register password"
-  return 'form#new_user input[type="submit"]' if string == "the register form"
-  return '.flash.alert'                       if string == "an error message"
+  return 'user_email'                                      if string == "the login email"
+  return 'user_password'                                   if string == "the login password"
+  return 'form#new_user input[type="submit"]'              if string == "the login form"
+  return '.flash.alert'                                    if string == "the login form errors"
+  return 'user_first_name'                                 if string == "the register first name"
+  return 'user_last_name'                                  if string == "the register last name"
+  return 'user_email'                                      if string == "the register email"
+  return 'user_password'                                   if string == "the register password"
+  return 'form#new_user input[type="submit"]'              if string == "the register form"
+  return '.field_with_errors label[for="user_first_name"]' if string == "first name field error"
+  return '.field_with_errors label[for="user_last_name"]'  if string == "last name field error"
+  return '.field_with_errors label[for="user_email"]'      if string == "email field error"
+  return '.field_with_errors label[for="user_password"]'   if string == "password field error"
+  return '.flash.alert'                                    if string == "an error message"
 end
 
 def to_text string
