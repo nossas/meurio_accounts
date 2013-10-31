@@ -1,5 +1,6 @@
 @import compass/css3
 @import fonts
+
 $row-width: 980px
 $black-text: #323232
 
@@ -11,16 +12,43 @@ body, h1, h2, label
   font-family: Proxima Nova
   color: $black-text
 
+header
+  text-align: center
+  margin: 2em 0
+  img
+    width: 80px
+    margin-bottom: 1em
+  h1
+    font-size: 1.9em
+    line-height: 1.1em
+
 a
   color: orange
   &:hover
     color: lighten(orange, 5%)
 
-input[type='email'], input[type='password'], input[type='text']
+input[type='email'], input[type='password'], input[type='text'], textarea, label[for='user_facebook'], label[for='user_twitter']
   font-size: 1em
   margin: .8em 0 .4em 0
   border: 2px solid lightgray
   +border-radius(3px)
+  display: block
+  padding: .5em
+  *
+    *:after, *:before
+      +box-sizing(content-box)
+  input
+    padding: 0
+    border: 0
+    width: 130px
+    display: inline-block
+    height: auto
+    +box-shadow(none)
+    +box-sizing(content-box)
+    &:after, &:before
+      +box-sizing(content-box)
+    &:hover
+      background: white
 
 input[type='submit']
   background: #008e46
@@ -53,15 +81,6 @@ input[type='submit']
       padding-right: .3em
     .last_name
       padding-left: .3em
-  header
-    text-align: center
-    margin: 2em 0
-    img
-      width: 80px
-      margin-bottom: 1em
-    h1
-      font-size: 1.9em
-      line-height: 1.1em
   form
     background: white
     padding: 2.5em
@@ -93,3 +112,34 @@ input[type='submit']
     .flash
       font-size: .9em
       font-weight: bold
+
+.users.edit
+  form
+    background: white
+    padding: 2em
+    +border-radius(5px)
+    .row
+      margin-bottom: 2em
+      &:last-child
+        margin-bottom: 0
+      &.header
+        h2
+          font-size: 1.5em
+          line-height: normal
+          margin: 0
+    input, textarea
+      margin: 0
+    label[for='user_gender_male'], label[for='user_gender_female'], label[for='user_gender_other'], label[for='user_public']
+      display: inline
+      margin-right: 1em
+    input[type='radio'], input[type='checkbox']
+      margin-right: .5em
+    input[type='radio']
+      margin-top: 26px
+    textarea
+      height: 100px
+    label[for='user_facebook'], label[for='user_twitter']
+      width: auto
+      display: inline
+    label[for='user_facebook'], label[for='user_twitter']
+      margin-right: .5em

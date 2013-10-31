@@ -213,6 +213,16 @@ pt-BR:
         first_name: Nome
         last_name: Sobrenome
         remember_me: Continuar conectado
+        profession: Profissão
+        website: Website
+        bio: Um pouco mais sobre você
+        facebook: facebook.com/
+        twitter: twitter.com/
+        public: Outros podem ver meu perfil?
+        secondary_email: Email secundário
+        birthday: Data de nascimento
+        postal_code: CEP
+        phone: Celular
     errors:
       <<: *errors
   unauthorized:

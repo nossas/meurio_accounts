@@ -1,21 +1,79 @@
-= form_for @user, validate: true do |f|
-  = f.text_field :first_name
-  = f.text_field :last_name
-  = f.text_field :profession
-  = f.text_field :website
-  = f.text_area :bio
-  = f.text_field :facebook
-  = f.text_field :twitter
-  = f.check_box :public
-  = f.email_field :email
-  = f.email_field :secondary_email
-  = f.text_field :birthday
-  = f.radio_button :gender, 'male'
-  = f.label :gender, 'Masculino', value: 'male'
-  = f.radio_button :gender, 'female'
-  = f.label :gender, 'Feminino', value: 'female'
-  = f.radio_button :gender, 'other'
-  = f.label :gender, 'Outro', value: 'other'
-  = f.text_field :postal_code
-  = f.text_field :phone
-  = f.submit 'Salvar Pefil'
+.row
+  .large-4.columns
+  .large-8.columns
+    = form_for @user, validate: true do |f|
+      .row.header
+        .large-12.columns
+          h2 Dados Públicos
+          | Esses dados serão visualizados pelos membros em seu perfil.
+      .row
+        .large-6.columns
+          = f.label :first_name
+          = f.text_field :first_name
+        .large-6.columns
+          = f.label :last_name
+          = f.text_field :last_name
+
+      .row
+        .large-6.columns
+          = f.label :profession
+          = f.text_field :profession
+        .large-6.columns
+          = f.label :website
+          = f.text_field :website, placeholder: "meurio.org.br"
+
+      .row
+        .large-12.columns
+          = f.label :bio
+          = f.text_area :bio
+
+      .row
+        .large-6.columns
+          = f.label :facebook
+            | facebook.com/
+            = f.text_field :facebook
+        .large-6.columns
+          = f.label :twitter
+            | twitter.com/
+            = f.text_field :twitter
+
+      .row
+        .large-12.columns
+          = f.check_box :public
+          = f.label :public
+
+      hr
+      .row.header
+        .large-12.columns
+          h2 Dados Privados
+          | Somente você e a equipe do Meu Rio terão acesso a esses dados.
+      .row
+        .large-6.columns
+          = f.label :email
+          = f.email_field :email
+        .large-6.columns
+          = f.label :secondary_email
+          = f.email_field :secondary_email
+
+      .row
+        .large-6.columns
+          = f.label :birthday
+          = f.text_field :birthday, class: [:date]
+        .large-6.columns
+          = f.radio_button :gender, 'male'
+          = f.label :gender, 'Masculino', value: 'male'
+          = f.radio_button :gender, 'female'
+          = f.label :gender, 'Feminino', value: 'female'
+          = f.radio_button :gender, 'other'
+          = f.label :gender, 'Outro', value: 'other'
+
+      .row
+        .large-6.columns
+          = f.label :postal_code
+          = f.text_field :postal_code, class: [:postal_code]
+        .large-6.columns
+          = f.label :phone
+          = f.text_field :phone, class: [:phone]
+
+      .row
+        .large-12.columns= f.submit 'Salvar Pefil'

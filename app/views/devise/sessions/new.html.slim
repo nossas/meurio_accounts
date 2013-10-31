@@ -1,11 +1,5 @@
 .row
   .login.large-5.large-centered.columns
-    header
-      = image_tag 'meurio.png'
-      h1
-        | Uma conta.
-        br
-        | Diversas formas de mobilizar.
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       h2 Entre com a sua conta do Meu Rio
       .signup Não é membro? #{link_to 'Cadastre-se', new_registration_path(resource_name)}
