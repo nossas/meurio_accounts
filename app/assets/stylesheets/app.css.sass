@@ -1,21 +1,26 @@
 @import compass/css3
+@import fonts
+$row-width: 980px
+$black-text: #323232
 
 body
   background: #f4f5f7
   color: #494949
+
+body, h1, h2, label
+  font-family: Proxima Nova
+  color: $black-text
 
 a
   color: orange
   &:hover
     color: lighten(orange, 5%)
 
-input[type='email'], input[type='password']
+input[type='email'], input[type='password'], input[type='text']
+  font-size: 1em
+  margin: .8em 0 .4em 0
   border: 2px solid lightgray
   +border-radius(3px)
-
-label
-  font-weight: normal
-  font-size: .8em
 
 input[type='submit']
   background: #008e46
@@ -24,6 +29,7 @@ input[type='submit']
   padding: 1em
   font-size: 1em
   cursor: pointer
+  font-weight: bold
   +transition(.25s)
   +border-radius(3px)
   &:hover
@@ -33,15 +39,32 @@ input[type='submit']
   &.alert
     color: red
 
-.sessions.new
+.field_with_errors
+  label
+    color: red !important
+    font-weight: bold
+  input
+    border-color: red
+
+.sessions.new, .registrations.new
+  .registration, .login
+    padding: 0
+    .first_name
+      padding-right: .3em
+    .last_name
+      padding-left: .3em
   header
     text-align: center
-    margin: 1.25em 0
+    margin: 2em 0
     img
-      width: 60px
+      width: 80px
+      margin-bottom: 1em
+    h1
+      font-size: 1.9em
+      line-height: 1.1em
   form
     background: white
-    padding: 2em
+    padding: 2.5em
     +border-radius(5px)
     input[type='submit']
       display: block
@@ -50,19 +73,23 @@ input[type='submit']
     h2, .signup
       text-align: center
     h2
-      font-size: .9em
+      font-size: 1.3em
       line-height: normal
     .signup
-      font-size: .7em
+      font-size: 1em
       margin-bottom: 3em
+      a 
+        font-weight: bold
     .remember_me
-      a, label[for='user_remember_me']
-        font-size: 11px
       a
         display: block
         float: right
-        line-height: 21px
+        font-size: .9em
+        line-height: 1.8em
+      input[type='checkbox']
+        margin-top: .2em
       label[for='user_remember_me']
         display: inline
     .flash
-      font-size: .8em
+      font-size: .9em
+      font-weight: bold
