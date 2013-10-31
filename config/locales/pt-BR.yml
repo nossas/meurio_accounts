@@ -215,3 +215,6 @@ pt-BR:
         remember_me: Continuar conectado
     errors:
       <<: *errors
+  unauthorized:
+    manage:
+      all: "Você tentou acessar uma página que não tem autorização."

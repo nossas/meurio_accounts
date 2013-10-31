@@ -4,6 +4,7 @@ def to_url string
   return new_user_registration_path(redirect_url: "http://127.0.0.1/pdp") if string == "the register page comming from Panela de Pressão"
   return new_user_registration_path                                       if string == "the register page"
   return edit_user_path(current_user)                                     if string == "the edit page of my profile"
+  return edit_user_path(@user)                                            if string == "this user edit page"
   return "/pdp"                                                           if string == "Panela de Pressão"
   return "/users/#{current_user.id}"                                      if string == "my profile page"
   raise "Sorry dude but I don't know what '#{string}' means"
@@ -42,11 +43,13 @@ def to_element string
   return 'label[for="user_phone"].message'                  if string == "the phone error"
   return 'label[for="user_website"].message'                if string == "the website error"
   return 'form.edit_user input[type="submit"]'              if string == "the edit profile form submition button"
+  return '.flash.alert'                                     if string == "you have no authorization to access this page"
   raise "Sorry dude but I don't know what '#{string}' means"
 end
 
 def to_text string
   return I18n.t("devise.failure.not_found_in_database") if string == "the login form errors"
+  return I18n.t("unauthorized.manage.all")              if string == "you have no authorization to access this page"
 end
 
 def current_user

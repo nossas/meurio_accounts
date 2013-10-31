@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action { session[:redirect_url] ||= params[:redirect_url] }
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to new_user_session_path, :alert => exception.message
+  end
+
   def after_sign_in_path_for(resource)
     session.delete(:redirect_url) || edit_user_path(current_user)
   end

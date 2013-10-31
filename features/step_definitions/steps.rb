@@ -12,7 +12,7 @@ Given(/^I'm in "(.*?)"$/) do |arg1|
 end
 
 Given(/^I'm a registered user with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
-  @current_user = User.make! email: arg1, password: arg2
+  User.make! email: arg1, password: arg2
 end
 
 Given(/^I'm not a registered user$/) do
@@ -24,6 +24,10 @@ end
 
 Given(/^I choose "(.*?)"$/) do |arg1|
   choose to_element(arg1)
+end
+
+Given(/^there is an user$/) do
+  @user = User.make!
 end
 
 When(/^I submit "(.*?)"$/) do |arg1|

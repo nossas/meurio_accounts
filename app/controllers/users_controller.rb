@@ -1,4 +1,6 @@
 class UsersController < InheritedResources::Base
+  load_and_authorize_resource
+
   def update
     update! do |success, failure|
       success.html { redirect_to "#{ENV['MR_USER_PATH']}/#{@user.id}" }
