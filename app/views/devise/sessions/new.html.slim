@@ -1,0 +1,19 @@
+.row
+  .large-4.large-centered.columns
+    header= image_tag 'meurio.png'
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      h2 Entre com a sua conta do Meu Rio
+      .signup Não é membro? #{link_to 'Cadastre-se', new_registration_path(resource_name)}
+      div
+        = f.label :email
+        = f.email_field :email, :autofocus => true
+      div
+        = f.label :password
+        = f.password_field :password
+      - if flash[:alert]
+        .flash.alert= flash[:alert]
+      div= f.submit "Entrar"
+      .remember_me
+        = f.check_box :remember_me, checked: true
+        = f.label :remember_me
+        = link_to "Esqueci minha senha", new_password_path(resource_name)

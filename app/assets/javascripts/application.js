@@ -12,7 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
 //= require rails.validations
 //= require rails.validations.turbolinks
 //= require_tree .
+
+$(document).foundation();

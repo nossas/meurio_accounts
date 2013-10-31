@@ -1,0 +1,68 @@
+@import compass/css3
+
+body
+  background: #f4f5f7
+  color: #494949
+
+a
+  color: orange
+  &:hover
+    color: lighten(orange, 5%)
+
+input[type='email'], input[type='password']
+  border: 2px solid lightgray
+  +border-radius(3px)
+
+label
+  font-weight: normal
+  font-size: .8em
+
+input[type='submit']
+  background: #008e46
+  border: none
+  color: white
+  padding: 1em
+  font-size: 1em
+  cursor: pointer
+  +transition(.25s)
+  +border-radius(3px)
+  &:hover
+    background: lighten(#008e46, 5%)
+
+.flash
+  &.alert
+    color: red
+
+.sessions.new
+  header
+    text-align: center
+    margin: 1.25em 0
+    img
+      width: 60px
+  form
+    background: white
+    padding: 2em
+    +border-radius(5px)
+    input[type='submit']
+      display: block
+      width: 100%
+      margin: 1em 0
+    h2, .signup
+      text-align: center
+    h2
+      font-size: .9em
+      line-height: normal
+    .signup
+      font-size: .7em
+      margin-bottom: 3em
+    .remember_me
+      a, label[for='user_remember_me']
+        font-size: 11px
+      a
+        display: block
+        float: right
+        line-height: 21px
+      label[for='user_remember_me']
+        display: inline
+    .flash
+      font-size: .8em

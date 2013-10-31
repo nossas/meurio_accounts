@@ -62,3 +62,6 @@ gem 'ffi', '1.9.3'
 gem 'slim-rails'
 gem 'client_side_validations', github: 'bcardarella/client_side_validations', branch: "4-0-beta"
 gem 'client_side_validations-turbolinks', '~> 1.1.1'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
+gem 'zurb-foundation', '~> 4.0.0'
+gem 'rails_12factor'
