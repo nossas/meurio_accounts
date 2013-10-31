@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -57,3 +58,4 @@ end
 gem 'devise'
 gem 'slim-rails'
 gem 'coveralls', require: false
+gem 'ffi', '1.9.3'
