@@ -7,6 +7,11 @@ Given(/^I'm logged in$/) do
   click_button 'Entrar'
 end
 
+Given(/^I'm logged in as admin$/) do
+  step "I'm logged in"
+  User.find_by_email("trashmail@meurio.org.br").update_attribute :admin, true
+end
+
 Given(/^I'm in "(.*?)"$/) do |arg1|
   visit to_url(arg1)
 end

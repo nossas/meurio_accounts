@@ -44,6 +44,7 @@ def to_element string
   return 'label[for="user_website"].message'                if string == "the website error"
   return 'form.edit_user input[type="submit"]'              if string == "the edit profile form submition button"
   return '.flash.alert'                                     if string == "you have no authorization to access this page"
+  return "form#edit_user_#{@user.id}"                       if string == "this user form edit"
   raise "Sorry dude but I don't know what '#{string}' means"
 end
 
