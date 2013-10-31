@@ -1,21 +1,27 @@
-h2 Sign up
-
-= form_for(resource, as: resource_name, url: registration_path(resource_name), validate: true) do |f|
-  = devise_error_messages!
-
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field  
-    = f.label :email
-    = f.email_field :email
-  .field
-    = f.label :password
-    = f.password_field :password
-
-  = f.submit "Sign up"
-
-= render "devise/shared/links"
+.row
+  .registration.large-5.large-centered.columns
+    header
+      = image_tag 'meurio.png'
+      h1
+        | Uma conta.
+        br
+        | Diversas formas de mobilizar.
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), validate: true) do |f|
+      h2 Faça seu cadastro no Meu Rio
+      .signup Já é membro? #{link_to 'Faça seu login', new_session_path(resource_name)}
+      .row
+        .first_name.large-6.columns
+            = f.text_field :first_name, placeholder: 'Nome'
+        .last_name.large-6.columns
+            = f.text_field :last_name, placeholder: 'Sobrenome'
+      .row
+        .large-12.columns
+          = f.email_field :email, placeholder: 'Email'
+      .row
+        .large-12.columns
+          = f.password_field :password, placeholder: 'Senha'
+      - if flash[:alert]
+        .flash.alert= flash[:alert]
+      .row
+        .large-12.columns
+          = f.submit "Entrar"

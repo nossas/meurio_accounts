@@ -120,8 +120,8 @@ pt-BR:
         one: "Não é possível excluir o registro pois existe um %{record} dependente"
         many: "Não é possível excluir o registro pois existem %{record} dependentes"
       taken: já está em uso
-      too_long: ! 'é muito longo (máximo: %{count} caracteres)'
-      too_short: ! 'é muito curto (mínimo: %{count} caracteres)'
+      too_long: ! 'é muito longa (máximo: %{count} caracteres)'
+      too_short: ! 'é muito curta (mínimo: %{count} caracteres)'
       wrong_length: não possui o tamanho esperado (%{count} caracteres)
     template:
       body: ! 'Por favor, verifique o(s) seguinte(s) campo(s):'
@@ -208,8 +208,10 @@ pt-BR:
       <<: *errors
   activerecord:
     attributes:
-        user:
-          password: 'Senha'
-          remember_me: 'Continuar conectado'
+      user:
+        password: Senha
+        first_name: Nome
+        last_name: Sobrenome
+        remember_me: Continuar conectado
     errors:
       <<: *errors
