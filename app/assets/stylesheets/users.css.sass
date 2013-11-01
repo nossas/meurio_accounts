@@ -1,3 +1,37 @@
-// Place all the styles related to the users controller here.
-// They will automatically be included in application.css.
-// You can use Sass here: http://sass-lang.com/
+.users.edit, .users.update
+  form.edit_user
+    background: white
+    padding: 2em
+    +border-radius(5px)
+    .row
+      margin-bottom: 2em
+      &:last-child
+        margin-bottom: 0
+      &.header
+        h2
+          font-size: 1.5em
+          line-height: normal
+          margin: 0
+    input, textarea
+      margin: 0
+    label[for='user_gender_male'], label[for='user_gender_female'], label[for='user_gender_other'], label[for='user_public']
+      display: inline
+      margin-right: 1em
+    input[type='radio'], input[type='checkbox']
+      margin-right: .5em
+    input[type='radio']
+      margin-top: 26px
+    textarea
+      height: 100px
+    label[for='user_facebook'], label[for='user_twitter']
+      width: auto
+      display: inline
+    label[for='user_facebook'], label[for='user_twitter']
+      margin-right: .5em
+  form.edit_user_avatar
+    text-align: center
+    input
+      position: absolute
+      top: -1000px
+    img
+      +border-radius(100%)

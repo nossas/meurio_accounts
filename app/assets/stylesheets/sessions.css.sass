@@ -1,0 +1,38 @@
+.sessions.new, .registrations.new
+  .registration, .login
+    padding: 0
+    .first_name
+      padding-right: .3em
+    .last_name
+      padding-left: .3em
+  form
+    background: white
+    padding: 2.5em
+    +border-radius(5px)
+    input[type='submit']
+      display: block
+      width: 100%
+      margin: 1em 0
+    h2, .signup
+      text-align: center
+    h2
+      font-size: 1.3em
+      line-height: normal
+    .signup
+      font-size: 1em
+      margin-bottom: 3em
+      a 
+        font-weight: bold
+    .remember_me
+      a
+        display: block
+        float: right
+        font-size: .9em
+        line-height: 1.8em
+      input[type='checkbox']
+        margin-top: .2em
+      label[for='user_remember_me']
+        display: inline
+    .flash
+      font-size: .9em
+      font-weight: bold

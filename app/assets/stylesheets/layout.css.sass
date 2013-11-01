@@ -1,0 +1,83 @@
+$row-width: 980px
+$black-text: #323232
+
+body
+  background: #f4f5f7
+  color: #494949
+
+body, h1, h2, label
+  font-family: Proxima Nova
+  color: $black-text
+
+header
+  text-align: center
+  margin: 2em 0
+  img
+    width: 80px
+    margin-bottom: 1em
+  h1
+    font-size: 1.9em
+    line-height: 1.1em
+
+footer
+  margin: 2.25em 0
+  text-align: center
+  font-size: .9em
+  img
+    margin-right: .25em
+    margin-top: 1em
+
+a
+  color: orange
+  &:hover
+    color: lighten(orange, 5%)
+
+input[type='email'], input[type='password'], input[type='text'], textarea, label[for='user_facebook'], label[for='user_twitter']
+  font-size: 1em
+  margin: .8em 0 .4em 0
+  border: 2px solid lightgray
+  +border-radius(3px)
+  display: block
+  padding: .5em
+  *
+    *:after, *:before
+      +box-sizing(content-box)
+  input
+    padding: 0
+    border: 0
+    width: 110px
+    display: inline-block
+    height: auto
+    +box-shadow(none)
+    +box-sizing(content-box)
+    &:after, &:before
+      +box-sizing(content-box)
+    &:hover
+      background: white
+
+input[type='submit'], .btn
+  background: #008e46
+  border: none
+  color: white
+  padding: 1em
+  font-size: 1em
+  cursor: pointer
+  font-weight: bold
+  display: inline-block
+  +transition(.25s)
+  +border-radius(3px)
+  &:hover
+    background: lighten(#008e46, 5%)
+    color: white
+
+.flash
+  &.alert
+    color: red
+
+.field_with_errors
+  label
+    color: red !important
+    font-weight: bold
+  input
+    border-color: red
+
