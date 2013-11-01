@@ -1,7 +1,8 @@
 MeurioAccounts::Application.routes.draw do
   devise_for :users
   devise_scope :user do
-    root to: "devise/sessions#new"
+    get '/login' => "devise/sessions#new"
+    root to: 'devise/sessions#new'
   end
 
   resources :users, only: [:edit, :update, :show]
