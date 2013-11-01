@@ -30,4 +30,12 @@ body class=[controller.controller_name, controller.action_name]
       | Muitas formas de mobilizar.
 
   == yield
+
+  footer
+    | Mobilize-se de várias formas com as ferramentas do Meu Rio
+    .apps
+      = link_to image_tag("pdp.png", title: "Panela de Pressão"), "http://paneladepressao.org.br/"
+      = link_to image_tag("imagine.png", title: "Imagine"), "http://imagine.meurio.org.br/"
+      = link_to image_tag("facaacontecer.png", title: "Faça Acontecer"), "http://facaacontecer.meurio.org.br/"
+      = link_to image_tag("deolho.png", title: "De Olho"), "http://deolho.meurio.org.br/"
   = javascript_include_tag "application"
