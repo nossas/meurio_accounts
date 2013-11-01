@@ -22,6 +22,10 @@ head
   = csrf_meta_tag
 
 body class=[controller.controller_name, controller.action_name]
+  - if flash[:notice]
+    .flash.notice
+      .row
+        .large-12.columns= flash[:notice]
   header
     = image_tag 'meurio.png'
     h1

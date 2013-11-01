@@ -1,0 +1,9 @@
+.row
+  .large-5.large-centered.columns
+    = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+      h2 Escolha uma nova senha
+      .signup Não é membro? #{link_to 'Cadastre-se', new_registration_path(resource_name)}
+      = f.hidden_field :reset_password_token
+      = f.password_field :password, :autofocus => true, placeholder: "Nova senha"
+      = f.password_field :password_confirmation, placeholder: "Confirmar nova senha"
+      div= f.submit "Salvar nova senha"
