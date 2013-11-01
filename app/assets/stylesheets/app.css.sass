@@ -40,7 +40,7 @@ input[type='email'], input[type='password'], input[type='text'], textarea, label
   input
     padding: 0
     border: 0
-    width: 130px
+    width: 110px
     display: inline-block
     height: auto
     +box-shadow(none)
@@ -50,7 +50,7 @@ input[type='email'], input[type='password'], input[type='text'], textarea, label
     &:hover
       background: white
 
-input[type='submit']
+input[type='submit'], .btn
   background: #008e46
   border: none
   color: white
@@ -58,10 +58,12 @@ input[type='submit']
   font-size: 1em
   cursor: pointer
   font-weight: bold
+  display: inline-block
   +transition(.25s)
   +border-radius(3px)
   &:hover
     background: lighten(#008e46, 5%)
+    color: white
 
 .flash
   &.alert
@@ -113,8 +115,8 @@ input[type='submit']
       font-size: .9em
       font-weight: bold
 
-.users.edit
-  form
+.users.edit, .users.update
+  form.edit_user
     background: white
     padding: 2em
     +border-radius(5px)
@@ -143,3 +145,10 @@ input[type='submit']
       display: inline
     label[for='user_facebook'], label[for='user_twitter']
       margin-right: .5em
+  form.edit_user_avatar
+    text-align: center
+    input
+      position: absolute
+      top: -1000px
+    img
+      +border-radius(100%)

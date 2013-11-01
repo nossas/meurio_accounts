@@ -35,4 +35,7 @@ $(function(){
     nextText: 'Próximo',
     prevText: 'Anterior'
   });
+
+  $('form.edit_user_avatar a.btn').click(function(){ $('input#user_avatar').trigger('click'); });
+  $('input#user_avatar').change(function(){ $('form.edit_user_avatar').submit(); });
 });

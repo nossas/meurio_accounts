@@ -19,3 +19,4 @@ db/schema.rb
 config/database.yml
 config/initializers/01_envvars.rb
 coverage
+public/uploads

@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
 
+  mount_uploader :avatar, AvatarUploader
+
+  after_save { self.delay.fetch_address }
+
   def fetch_address
     json = JSON.parse(open("http://brazilapi.herokuapp.com/api?cep=#{self.postal_code}").read)
     if(json[0]["cep"]["result"])
