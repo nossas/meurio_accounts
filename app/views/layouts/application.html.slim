@@ -28,6 +28,7 @@ body class=[controller.controller_name, controller.action_name]
       | Uma conta.
       br
       | Muitas formas de mobilizar.
+    = link_to 'Sair', destroy_user_session_path, method: :delete, class: 'logout' if user_signed_in?
 
   == yield
 
