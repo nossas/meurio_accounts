@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
 
   after_save { self.delay.fetch_address }
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def fetch_address
     json = JSON.parse(open("http://brazilapi.herokuapp.com/api?cep=#{self.postal_code}").read)
     if(json[0]["cep"]["result"])
