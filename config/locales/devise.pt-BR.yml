@@ -53,7 +53,7 @@ pt-BR:
       already_confirmed: "já foi confirmado, por favor tente fazer login"
       confirmation_period_expired: "precisa ser confirmado em %{period}, solicite novamente por favor"
       expired: "expirou, por favor solicite um novo"
-      not_found: "não encontrado"
+      not_found: "não cadastrado"
       not_locked: "não estava bloqueado"
       not_saved:
         one: "1 erro impediu que %{resource} fosse salvo:"
