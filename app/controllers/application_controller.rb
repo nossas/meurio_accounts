@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    session[:ssi_user_id] = current_user.id
     session.delete(:redirect_url) || edit_user_path(current_user)
   end
 
