@@ -6,6 +6,7 @@ MeurioAccounts::Application.routes.draw do
   end
 
   resources :users, only: [:edit, :update, :show]
+  get 'ssi_redirect' => 'users#ssi_redirect', as: :ssi_redirect
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
