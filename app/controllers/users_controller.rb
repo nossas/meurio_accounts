@@ -1,5 +1,6 @@
 class UsersController < InheritedResources::Base
   load_and_authorize_resource
+  before_filter(only: :edit) { session.delete(:flash) }
 
   def update
     update! do |success, failure|
