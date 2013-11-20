@@ -1,7 +1,7 @@
 class UsersController < InheritedResources::Base
   load_and_authorize_resource
   before_filter(only: :edit) { session.delete(:flash) }
-  before_action(only: [:edit, :update]) { @user = current_user }
+  before_action(only: [:edit, :update]) { @user = current_user if @user.nil? or not current_user.admin? }
 
   def update
     update! do |success, failure|
