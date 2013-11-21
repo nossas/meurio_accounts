@@ -223,8 +223,22 @@ pt-BR:
         birthday: Data de nascimento
         postal_code: CEP
         phone: Celular
+        availability: Disponibilidade
     errors:
       <<: *errors
   unauthorized:
     manage:
       all: "Você tentou acessar uma página que não tem autorização."
+
+  remote: Disponibilidade remota
+  local: Disponibilidade presencial
+  sunday: Domingo
+  monday: Segunda
+  tuesday: Terça
+  wednesday: Quarta
+  thursday: Quinta
+  friday: Sexta
+  saturday: Sábado
+  morning: Manhã
+  afternoon: Tarde
+  night: Noite
