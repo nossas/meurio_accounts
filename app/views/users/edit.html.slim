@@ -49,10 +49,6 @@
               = f.check_box :public
               = f.label :public
 
-          .row
-            - [ values_for_local_availability, values_for_remote_availability ].each do |values|
-              = render 'availability', availability_options: values
-
           hr
           .row.header
             .large-12.columns
@@ -85,6 +81,10 @@
             .large-6.columns
               = f.label :phone
               = f.text_field :phone, class: [:phone]
+
+          .row
+            - [ values_for_local_availability, values_for_remote_availability ].each do |values|
+              = render 'availability', availability_options: values
     
           .row
             .large-12.columns= f.submit 'Salvar Perfil'
