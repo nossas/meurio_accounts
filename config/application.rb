@@ -21,6 +21,5 @@ module MeurioAccounts
     config.i18n.default_locale = "pt-BR"
 
     config.sass.preferred_syntax = :sass
-    config.active_record.schema_format = :sql
   end
 end
