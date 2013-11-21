@@ -112,7 +112,8 @@ CREATE TABLE users (
     address_district character varying(255),
     state character varying(255),
     admin boolean,
-    avatar character varying(255)
+    avatar character varying(255),
+    availability bigint
 );
 
 
@@ -248,3 +249,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131121153900');
 INSERT INTO schema_migrations (version) VALUES ('20131121154028');
 
 INSERT INTO schema_migrations (version) VALUES ('20131121154100');
+
+INSERT INTO schema_migrations (version) VALUES ('20131121165448');

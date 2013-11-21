@@ -14,8 +14,7 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  store_accessor :local_availability
-  store_accessor :remote_availability
+  bitmask :availability, as: AVAILABILITY_OPTIONS
 
   after_save { self.delay.fetch_address }
 

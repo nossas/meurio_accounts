@@ -13,6 +13,26 @@ describe User do
   it { should allow_value("99999-999").for(:postal_code) }
   it { should_not allow_value("99999999").for(:postal_code) }
 
+  describe "#availability" do
+    before do
+      subject.availability << :remote_monday_night
+      subject.availability.delete(:local_friday_morning)
+      subject.save
+    end
+
+    it 'has availability' do
+      subject.availability?.should be_true
+    end
+
+    it 'has remote availability on Monday night' do
+      subject.availability?(:remote_monday_night).should be_true
+    end
+
+    it 'has not local availability on Friday morning' do
+      subject.availability?(:local_friday_morning).should be_false
+    end
+  end
+
   describe "#fetch_address" do
     context "when the postcode is valid" do
       before do
