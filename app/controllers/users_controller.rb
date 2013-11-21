@@ -4,8 +4,10 @@ class UsersController < InheritedResources::Base
   before_action(only: [:edit, :update]) { @user = current_user if @user.nil? or not current_user.admin? }
 
   def update
+    @user.availability = params[:user][:availability]
+    
     update! do |success, failure|
-      success.html { redirect_to "#{ENV['MR_USER_PATH']}/#{@user.id}" }
+      success.html { puts @user.availability; redirect_to "#{ENV['MR_USER_PATH']}/#{@user.id}" }
       failure.html { render :edit }
     end
   end
@@ -16,6 +18,6 @@ class UsersController < InheritedResources::Base
   end
 
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability)}
   end
 end
