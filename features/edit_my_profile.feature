@@ -15,6 +15,7 @@ Feature: edit my profile
     And I choose "male as gender"
     And I fill "the postal code field" with "22280-020"
     And I fill "the phone field" with "(21) 99999-9999"
+    And I check "monday morning as local availability"
     When I press "the edit profile form submition button"
     Then I should be in "my profile page"
 

@@ -31,6 +31,10 @@ Given(/^I choose "(.*?)"$/) do |arg1|
   choose to_element(arg1)
 end
 
+Given(/^I check "(.*?)"$/) do |arg1|
+  check to_element(arg1)
+end
+
 Given(/^there is an user$/) do
   @user = User.make!
 end
