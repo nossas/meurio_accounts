@@ -74,7 +74,4 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 gem 'delayed_job_active_record'
-
-# HStore
-gem 'activerecord-postgres-hstore'
-gem 'nested-hstore'
+gem 'bitmask_attributes'
