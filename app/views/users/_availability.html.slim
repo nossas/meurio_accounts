@@ -2,7 +2,8 @@
   .availability
     h3= t slice_type(availability_options.first)
     - availability_options.each_slice(3) do |values|
-      .day= t slice_day(values.first)
-      - values.each do |value|
-        input *{type: 'checkbox', name: 'user[availability][]', value: value, checked: @user.availability?(value), id: "user_availability_#{value}"}
-        = label_tag "user_availability_#{value}", t(slice_shift(value))
+      .day
+        span= t slice_day(values.first)
+        - values.each do |value|
+          input *{type: 'checkbox', name: 'user[availability][]', value: value, checked: @user.availability?(value), id: "user_availability_#{value}"}
+          = label_tag "user_availability_#{value}", t(slice_shift(value))
