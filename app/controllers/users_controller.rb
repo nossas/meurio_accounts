@@ -7,7 +7,7 @@ class UsersController < InheritedResources::Base
     @user.availability = params[:user][:availability]
     
     update! do |success, failure|
-      success.html { puts @user.availability; redirect_to "#{ENV['MR_USER_PATH']}/#{@user.id}" }
+      success.html { redirect_to edit_user_path(current_user) }
       failure.html { render :edit }
     end
   end
