@@ -1,4 +1,5 @@
 def to_url string
+  return root_path                                                        if string == "the homepage"
   return new_user_session_path(redirect_url: "http://127.0.0.1/pdp")      if string == "the login page comming from Panela de Pressão"
   return new_user_session_path                                            if string == "the login page"
   return new_user_registration_path(redirect_url: "http://127.0.0.1/pdp") if string == "the register page comming from Panela de Pressão"
@@ -46,6 +47,8 @@ def to_element string
   return '.flash.alert'                                     if string == "you have no authorization to access this page"
   return "form#edit_user_#{@user.id}"                       if string == "this user form edit"
   return "user_availability_local_monday_morning"           if string == "monday morning as local availability"
+  return '.flash'                                           if string == "any message"
+  return 'a.logout'                                         if string == "the logout link"
   raise "Sorry dude but I don't know what '#{string}' means"
 end
 
