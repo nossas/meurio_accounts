@@ -47,6 +47,10 @@ When(/^I press "(.*?)"$/) do |arg1|
   page.find(to_element(arg1)).click
 end
 
+When(/^I click "(.*?)"$/) do |arg1|
+  page.find(to_element(arg1)).click
+end
+
 Then(/^I should be redirected to "(.*?)"$/) do |arg1|
   current_path.should be == to_url(arg1)
 end
@@ -57,6 +61,10 @@ end
 
 Then(/^I should see "(.*?)"$/) do |arg1|
   page.should have_css to_element(arg1), to_text(arg1)
+end
+
+Then(/^I should not see "(.*?)"$/) do |arg1|
+  page.should_not have_css to_element(arg1), text: to_text(arg1)
 end
 
 Then(/^an user should be created$/) do

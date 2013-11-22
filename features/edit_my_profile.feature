@@ -40,7 +40,6 @@ Feature: edit my profile
     Given there is an user
     When I'm in "this user edit page"
     Then I should be in "the login page"
-    And I should see "you have no authorization to access this page"
 
   Scenario: when I try to edit somebody elses profile as an admin
     Given I'm logged in as admin
