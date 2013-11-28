@@ -91,5 +91,13 @@
             - [ values_for_local_availability, values_for_remote_availability ].each do |values|
               = render 'availability', availability_options: values
 
+          .row.skills
+            .large-12.columns
+              h3 Talentos
+            - User.values_for_skills.sort.each do |value|
+              .large-12.columns
+                input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills?(value), id: value}
+                = label_tag value, t("skills.#{value}")
+
           .row
             .large-12.columns= f.submit 'Salvar Perfil'

@@ -242,3 +242,31 @@ pt-BR:
   morning: Manhã
   afternoon: Tarde
   night: Noite
+
+  skills:
+    adminstracao_e_politicas_publicas: "Adminstração e Políticas Públicas"
+    artes_plasticas_e_performances_artisticas: "Artes plásticas e performances artísticas"
+    artesanato_e_trabalhos_manuais: "Artesanato e trabalhos manuais"
+    ciencias_politicas: "Ciências políticas"
+    design_grafico: "Design Gráfico"
+    design_web_ux: "Design Web / UX"
+    direito: "Direito"
+    economia_econometria: "Economia / Econometria"
+    edicao_de_video_pos_producao: "Edição de Vídeo / Pós-produção"
+    engenharia_de_transportes_e_trafego: "Engenharia de transportes e tráfego"
+    estatistica: "Estatística"
+    filmagem: "Filmagem"
+    fotografia: "Fotografia"
+    intervencoes_urbanas_grafite: "Intervenções Urbanas / Grafite"
+    jornalismo_assessoria_de_imprensa: "Jornalismo / Assessoria de imprensa"
+    linguas_e_traducao: "Línguas e tradução"
+    marketing_publicidade: "Marketing / Publicidade"
+    meio_ambiente_e_sustentabilidade: "Meio ambiente e Sustentabilidade"
+    organizacao_de_mobilizacao_de_rua_ocupacoes_do_espaco_publico: "Organização de mobilização de rua / Ocupações do espaço público"
+    pedagogia_e_compartilhamento_de_conhecimento: "Pedagogia e compartilhamento de conhecimento"
+    producao_cultural_e_eventos: "Produção cultural e eventos"
+    programacao_de_softwares_e_aplicativos_ou_web: "Programação de softwares, aplicativos ou web"
+    servico_e_assistencia_social: "Serviço e Assistência Social"
+    sociologia_antropologia: "Sociologia / Antropologia"
+    urbanismo_e_planejamento_urbano: "Urbanismo e planejamento urbano"
+    experiencia_de_relacionamento_com_comunidades_e_favela: "Experiência de relacionamento com comunidades e favela"

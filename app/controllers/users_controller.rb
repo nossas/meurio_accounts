@@ -5,6 +5,7 @@ class UsersController < InheritedResources::Base
 
   def update
     @user.availability = params[:user][:availability]
+    @user.skills = params[:user][:skills]
     
     update! do |success, failure|
       success.html { redirect_to edit_user_path(current_user) }
