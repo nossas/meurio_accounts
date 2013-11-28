@@ -26,9 +26,3 @@ Feature: login
     When I submit "the login form"
     Then I should be in "the login page"
     And I should see "the login form errors"
-
-  Scenario: when I logout
-    Given I'm logged in
-    When I click "the logout link"
-    Then I should be in "the homepage"
-    And I should not see "any message"
