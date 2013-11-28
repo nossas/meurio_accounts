@@ -17,7 +17,7 @@ AVAILABILITY_OPTIONS = [
 ]
 
 SKILL_OPTIONS = [
-  :adminstracao_e_politicas_publicas,
+  :administracao_e_politicas_publicas,
   :artes_plasticas_e_performances_artisticas,
   :artesanato_e_trabalhos_manuais,
   :ciencias_politicas,
