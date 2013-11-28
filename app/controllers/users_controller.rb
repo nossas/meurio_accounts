@@ -6,6 +6,7 @@ class UsersController < InheritedResources::Base
   def update
     @user.availability = params[:user][:availability]
     @user.skills = params[:user][:skills]
+    @user.topics = params[:user][:topics]
     
     update! do |success, failure|
       success.html { redirect_to edit_user_path(current_user) }
@@ -19,6 +20,6 @@ class UsersController < InheritedResources::Base
   end
 
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics)}
   end
 end

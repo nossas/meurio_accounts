@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :skills, as: SKILL_OPTIONS
+  bitmask :topics, as: TOPIC_OPTIONS
 
   after_save { self.delay.fetch_address }
 

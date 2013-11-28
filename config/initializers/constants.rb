@@ -44,3 +44,20 @@ SKILL_OPTIONS = [
   :urbanismo_e_planejamento_urbano,
   :experiencia_de_relacionamento_com_comunidades_e_favela
 ]
+
+TOPIC_OPTIONS = [
+  :industria_comercio_e_emprego,
+  :ciencia_e_tecnologia,
+  :direitos_humanos,
+  :educacao,
+  :esportes_lazer_e_cultura,
+  :orcamento_e_fiscalizacao_financeira,
+  :saude_e_drogas,
+  :criancas_e_adolescentes,
+  :pessoas_de_terceira_idade,
+  :meio_ambiente_e_direitos_dos_animais,
+  :defesa_do_consumidor,
+  :obras_publicas_e_infraestrutura,
+  :transportes_e_transito,
+  :turismo
+]
