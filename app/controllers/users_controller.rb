@@ -21,6 +21,7 @@ class UsersController < InheritedResources::Base
 
   def logout
     sign_out current_user
+    session.delete(:ssi_user_id)
     redirect_to session.delete(:redirect_url) || root_path
   end
 
