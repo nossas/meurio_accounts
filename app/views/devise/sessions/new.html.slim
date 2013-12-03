@@ -2,7 +2,7 @@
   .login.large-5.large-centered.columns
     = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
       h2 Entre com a sua conta do Meu Rio
-      .signup Não é membro? #{link_to 'Cadastre-se', new_registration_path(resource_name)}
+      .signup Não é membro? #{link_to 'Cadastre-se', validate_email_path}
       .row
         .large-12.columns
           = f.email_field :email, placeholder: 'Email'

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action { session[:redirect_url] ||= params[:redirect_url] }
-  before_action { session.delete :flash }
+  before_action { session.delete(:flash) }
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, :alert => exception.message
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(resource_or_scope)
     session.delete(:ssi_user_id)
-    root_path
+    session[:redirect_url] ? ssi_redirect_path(redirect_url: session[:redirect_url]) : root_path
   end
 
   protected

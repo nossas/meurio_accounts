@@ -10,7 +10,7 @@
             = f.text_field :last_name, placeholder: 'Sobrenome'
       .row
         .large-12.columns
-          = f.email_field :email, placeholder: 'Email'
+          = f.email_field :email, placeholder: 'Email', value: params[:email]
       .row
         .large-12.columns
           = f.password_field :password, placeholder: 'Senha'
