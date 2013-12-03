@@ -7,8 +7,14 @@ MeurioAccounts::Application.routes.draw do
   end
 
   resources :users, only: [:edit, :update, :show]
+
   get 'ssi_redirect' => 'users#ssi_redirect', as: :ssi_redirect
   get 'edit_profile' => 'users#edit', as: :edit_profile
+
+  get 'validate_email' => "users#validate_email"
+  post 'validate_email' => "users#validate_email"
+  get 'create_password' => "users#create_password"
+  post 'create_password' => "users#create_password"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
