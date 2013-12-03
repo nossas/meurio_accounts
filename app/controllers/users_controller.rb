@@ -21,7 +21,11 @@ class UsersController < InheritedResources::Base
 
   def validate_email
     if request.post?
-      redirect_to create_password_path(email: params[:email])
+      if User.find_by_email(params[:email]).present?
+        redirect_to create_password_path(email: params[:email])
+      else
+        redirect_to new_user_registration_path(email: params[:email])
+      end
     end
   end
 
