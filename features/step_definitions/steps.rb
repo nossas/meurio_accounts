@@ -75,3 +75,7 @@ end
 Then(/^show me the page$/) do
   save_and_open_page
 end
+
+Then(/^I should receive "(.*?)" by email$/) do |arg1|
+  ActionMailer::Base.deliveries.should_not be_empty
+end
