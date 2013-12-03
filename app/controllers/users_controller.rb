@@ -1,6 +1,6 @@
 class UsersController < InheritedResources::Base
-  load_and_authorize_resource
-  before_filter(only: :edit) { session.delete(:flash) }
+  load_and_authorize_resource 
+  skip_authorize_resource :only => :ssi_redirect
   before_action(only: [:edit, :update]) { @user = current_user if @user.nil? or not current_user.admin? }
 
   def update
@@ -16,13 +16,7 @@ class UsersController < InheritedResources::Base
 
   def ssi_redirect
     session.delete(:flash)
-    redirect_to session.delete(:redirect_url)
-  end
-
-  def logout
-    sign_out current_user
-    session.delete(:ssi_user_id)
-    redirect_to session.delete(:redirect_url) || root_path
+    redirect_to session.delete(:redirect_url) || params[:redirect_url]
   end
 
   def permitted_params
