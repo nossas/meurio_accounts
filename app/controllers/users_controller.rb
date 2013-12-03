@@ -19,6 +19,12 @@ class UsersController < InheritedResources::Base
     redirect_to session.delete(:redirect_url)
   end
 
+  def logout
+    sign_out current_user
+    session.delete(:ssi_user_id)
+    redirect_to session.delete(:redirect_url) || root_path
+  end
+
   def permitted_params
     {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics)}
   end

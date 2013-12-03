@@ -2,6 +2,7 @@ MeurioAccounts::Application.routes.draw do
   devise_for :users
   devise_scope :user do
     get '/login' => "devise/sessions#new"
+    get '/logout' => "users#logout"
     root to: 'devise/sessions#new'
   end
 
