@@ -85,7 +85,7 @@
           hr
           .row.header
             .large-12.columns
-              h2 Trabalho Voluntário
+              h2 Trabalhe por uma cidade melhor!
 
           .row
             - [ values_for_local_availability, values_for_remote_availability ].each do |values|
@@ -101,7 +101,7 @@
 
           .row.topics
             .large-12.columns
-              h3 Quais temas despertam o seu interesse?
+              h3 Que temas são do seu interesse?
             - User.values_for_topics.sort.each do |value|
               .large-12.columns
                 input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}

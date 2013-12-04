@@ -230,7 +230,7 @@ pt-BR:
     manage:
       all: "Você tentou acessar uma página que não tem autorização."
 
-  remote: Disponibilidade remota
+  remote: Disponibilidade online
   local: Disponibilidade presencial
   sunday: Domingo
   monday: Segunda

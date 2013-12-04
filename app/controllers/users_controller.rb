@@ -9,7 +9,7 @@ class UsersController < InheritedResources::Base
     @user.topics = params[:user][:topics]
     
     update! do |success, failure|
-      success.html { redirect_to edit_user_path(current_user) }
+      success.html { redirect_to "#{ENV['MR_PATH']}/users/#{current_user.id}" }
       failure.html { render :edit }
     end
   end
