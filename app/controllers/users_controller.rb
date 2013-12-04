@@ -21,21 +21,12 @@ class UsersController < InheritedResources::Base
 
   def validate_email
     if request.post?
-      if User.find_by_email(params[:email]).present?
-        redirect_to create_password_path(email: params[:email])
+      if user = User.find_by_email(params[:email])
+        user.send_reset_password_instructions
+        redirect_to root_path(flash: "Enviamos um email para você com instruções para criar sua senha")
       else
         redirect_to new_user_registration_path(email: params[:email])
       end
-    end
-  end
-
-  def create_password
-    if request.post?
-      user = User.find_by_email(params[:email])
-      user.password = params[:password]
-      user.save
-      sign_in(user)
-      redirect_to ssi_redirect_path(redirect_url: edit_user_path(current_user, flash: "Sua senha foi cadastrada com sucesso"))
     end
   end
 

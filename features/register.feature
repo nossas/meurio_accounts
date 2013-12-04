@@ -42,10 +42,8 @@ Feature: register
     And I'm a registered user with email "trashmail@meurio.org.br" and password "12345678"
     And I fill "the validation email" with "trashmail@meurio.org.br"
     When I submit "the validation email form"
-    Then I should be in "the create password page"
-    Given I fill "the new password" with "12345678"
-    When I submit "the new password form"
-    Then I should be in "the edit page of my profile"
+    Then I should be in "the homepage"
+    And I should receive "the password reset instructions" by email
 
   Scenario: when I'm a totally new user
     Given I'm in "the email validation page"
