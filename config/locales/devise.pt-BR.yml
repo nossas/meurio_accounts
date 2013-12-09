@@ -21,7 +21,7 @@ pt-BR:
       confirmation_instructions:
         subject: "Instruções para confirmação de conta"
       reset_password_instructions:
-        subject: "Instruções para reinicialização de senha"
+        subject: "Crie sua senha na Rede Meu Rio!"
       unlock_instructions:
         subject: "Instruções para desbloqueio de conta"
     omniauth_callbacks:
