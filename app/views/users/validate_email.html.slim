@@ -1,6 +1,16 @@
 .row
-  .login.large-5.large-centered.columns
+  .registration.large-5.large-centered.columns
     = form_tag validate_email_path, method: :post, class: :validate_email
-      | Por favor, nos informe o seu email
-      = email_field_tag 'email', nil, placeholder: "Email", required: true
-      = submit_tag "Avançar"
+      h2 Faça seu cadastro no Meu Rio
+      .signup Já é membro? #{link_to 'Faça seu login', new_session_path(:user)}
+      .row
+        .first_name.large-6.columns
+            = text_field_tag :first_name, nil, placeholder: 'Nome'
+        .last_name.large-6.columns
+            = text_field_tag :last_name, nil, placeholder: 'Sobrenome'
+      .row
+        .large-12.columns
+      		= email_field_tag :email, nil, placeholder: 'Email', required: true
+      .row
+        .large-12.columns
+          = submit_tag 'Avançar'

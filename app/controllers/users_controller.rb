@@ -25,7 +25,7 @@ class UsersController < InheritedResources::Base
         user.send_reset_password_instructions
         redirect_to root_path(flash: "Enviamos um email para você com instruções para criar sua senha")
       else
-        redirect_to new_user_registration_path(email: params[:email])
+        redirect_to new_user_registration_path(email: params[:email], first_name: params[:first_name], last_name: params[:last_name])
       end
     end
   end
