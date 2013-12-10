@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :redirect_back_if_logged_in
   before_action { session[:redirect_url] ||= params[:redirect_url] }
   before_action { session.delete(:flash) }
 
@@ -25,5 +26,11 @@ class ApplicationController < ActionController::Base
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name]
+  end
+
+  def redirect_back_if_logged_in
+    if current_user.present? && params[:redirect_url]
+      redirect_to params[:redirect_url]
+    end
   end
 end
