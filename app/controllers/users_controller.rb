@@ -9,7 +9,7 @@ class UsersController < InheritedResources::Base
     @user.topics = params[:user][:topics]
     
     update! do |success, failure|
-      success.html { redirect_to edit_user_path(current_user) }
+      success.html { redirect_to "#{ENV['MR_PATH']}/users/#{current_user.id}" }
       failure.html { render :edit }
     end
   end
@@ -23,9 +23,9 @@ class UsersController < InheritedResources::Base
     if request.post?
       if user = User.find_by_email(params[:email])
         user.send_reset_password_instructions
-        redirect_to root_path(flash: "Enviamos um email para você com instruções para criar sua senha")
+        redirect_to root_path(flash: 'Enviamos um email para você criar sua senha')
       else
-        redirect_to new_user_registration_path(email: params[:email])
+        redirect_to new_user_registration_path(email: params[:email], first_name: params[:first_name], last_name: params[:last_name])
       end
     end
   end

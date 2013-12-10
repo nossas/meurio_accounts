@@ -230,8 +230,8 @@ pt-BR:
     manage:
       all: "Você tentou acessar uma página que não tem autorização."
 
-  remote: Disponibilidade remota
-  local: Disponibilidade presencial
+  remote: Quando você estaria disponível para trabalhar pela cidade de forma virtual?
+  local: Quando você estaria disponível para trabalhar pela cidade nas ruas?
   sunday: Domingo
   monday: Segunda
   tuesday: Terça

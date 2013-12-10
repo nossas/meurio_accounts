@@ -85,11 +85,15 @@
           hr
           .row.header
             .large-12.columns
-              h2 Trabalho Voluntário
+              h2 Trabalhe por uma cidade melhor!
 
-          .row
-            - [ values_for_local_availability, values_for_remote_availability ].each do |values|
-              = render 'availability', availability_options: values
+          .row.topics
+            .large-12.columns
+              h3 Que temas são do seu interesse?
+            - User.values_for_topics.sort.each do |value|
+              .large-12.columns
+                input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
+                = label_tag value, t("topics.#{value}")
 
           .row.skills
             .large-12.columns
@@ -99,13 +103,9 @@
                 input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills?(value), id: value}
                 = label_tag value, t("skills.#{value}")
 
-          .row.topics
-            .large-12.columns
-              h3 Quais temas despertam o seu interesse?
-            - User.values_for_topics.sort.each do |value|
-              .large-12.columns
-                input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
-                = label_tag value, t("topics.#{value}")
+          .row
+            - [ values_for_local_availability, values_for_remote_availability ].each do |values|
+              = render 'availability', availability_options: values
 
           .row
             .large-12.columns= f.submit 'Salvar Perfil'
