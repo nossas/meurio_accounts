@@ -116,7 +116,8 @@ CREATE TABLE users (
     availability bigint,
     skills integer,
     topics integer,
-    CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text))
+    CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text)),
+    CONSTRAINT proper_phone CHECK (((phone)::text ~* '[(]{1}[0-9]{2}[)]{1} [0-9]{8,9}'::text))
 );
 
 
@@ -258,3 +259,5 @@ INSERT INTO schema_migrations (version) VALUES ('20131217105732');
 INSERT INTO schema_migrations (version) VALUES ('20131217110047');
 
 INSERT INTO schema_migrations (version) VALUES ('20131217110513');
+
+INSERT INTO schema_migrations (version) VALUES ('20131217125300');
