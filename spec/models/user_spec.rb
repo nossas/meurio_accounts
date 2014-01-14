@@ -33,6 +33,25 @@ describe User do
     end
   end
 
+  describe "#skills" do
+    before do
+      subject.skills = ['administracao_e_politicas_publicas']
+      subject.save
+    end
+
+    it 'has skills' do
+      subject.skills.any?.should be_true
+    end
+
+    it 'has skill in Administracao e Politicas Publicas' do
+      subject.skills.include?('administracao_e_politicas_publicas').should be_true
+    end
+
+    it 'has not skill in Jornalismo Assessoria de Imprensa' do
+      subject.skills.include?('jornalismo_assessoria_de_imprensa').should be_false
+    end
+  end
+
   describe "#fetch_address" do
     context "when the postcode is valid" do
       before do
