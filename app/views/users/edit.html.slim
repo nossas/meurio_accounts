@@ -97,10 +97,10 @@
 
           .row.skills
             .large-12.columns
-              h3 Quais são os seus talentos?
-            - User.values_for_skills.sort.each do |value|
+              h3 Quais são os seus talentos?              
+            - SKILL_OPTIONS.sort.each do |value|
               .large-12.columns
-                input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills?(value), id: value}
+                input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills && @user.skills.include?(value), id: "user_skills_#{value}"}
                 = label_tag value, t("skills.#{value}")
 
           .row

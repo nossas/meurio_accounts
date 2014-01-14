@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   bitmask :availability, as: AVAILABILITY_OPTIONS
-  bitmask :skills, as: SKILL_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
   after_save { self.delay.fetch_address }
