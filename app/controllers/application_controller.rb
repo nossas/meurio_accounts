@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:ssi_user_id] = current_user.id
-    session[:redirect_url] ? ssi_redirect_path : edit_user_path(current_user)
+    session[:redirect_url] ? ssi_redirect_path(redirect_url: session[:redirect_url]) : edit_user_path(current_user)
   end
 
   def after_sign_out_path_for(resource_or_scope)
