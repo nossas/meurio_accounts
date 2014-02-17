@@ -13,9 +13,11 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     session[:ssi_user_id] = current_user.id
-    puts "Redirect URL (in after_sign_in_path_for): #{session[:redirect_url]}"
-    puts "Redirect URL (in after_sign_in_path_for): #{params[:redirect_url]}"
-    session[:redirect_url] ? ssi_redirect_path(redirect_url: session[:redirect_url]) : edit_user_path(current_user)
+    puts "$$$$$$$$$$$$$ Session Redirect URL (in after_sign_in_path_for): #{session[:redirect_url]}"
+    puts "************* Params Redirect URL (in after_sign_in_path_for): #{params[:redirect_url]}"
+    
+    redirect_url = session[:redirect_url] || params[:redirect_url]
+    redirect_url ? ssi_redirect_path(redirect_url: redirect_url) : edit_user_path(current_user)
   end
 
   def after_sign_out_path_for(resource_or_scope)
