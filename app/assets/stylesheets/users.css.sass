@@ -2,9 +2,10 @@
 
 .users.edit, .users.update
   form.edit_user
-    background: white
-    padding: 2em
-    +border-radius(5px)
+    .wrapper
+      background: white
+      padding: 2em
+      +border-radius(5px)
     .row
       margin-bottom: 2em
       &:last-child
@@ -51,7 +52,7 @@
       input, label
         display: inline-block
 
-  form.edit_user_avatar
+  .large-3.columns
     text-align: center
     input
       position: absolute

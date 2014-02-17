@@ -1,111 +1,111 @@
 .row
   .large-10.columns.large-centered
     .row
-      .large-3.columns
-        = form_for @user, html: { class: [:edit_user_avatar], multipart: true } do |f|
+      = form_for @user, validate: true do |f|
+        .large-3.columns
           = image_tag @user.avatar.square.url
           = f.file_field :avatar
           = f.hidden_field :avatar_cache
           a.btn Alterar Imagem
-      .large-9.columns
-        = form_for @user, validate: true do |f|
-          .row.header
-            .large-12.columns
-              h2 Dados Públicos
-              | Esses dados serão visualizados pelos membros em seu perfil.
-          .row
-            .large-6.columns
-              = f.label :first_name
-              = f.text_field :first_name
-            .large-6.columns
-              = f.label :last_name
-              = f.text_field :last_name
-    
-          .row
-            .large-6.columns
-              = f.label :profession
-              = f.text_field :profession
-            .large-6.columns
-              = f.label :website
-              = f.text_field :website, placeholder: "meurio.org.br"
-    
-          .row
-            .large-12.columns
-              = f.label :bio
-              = f.text_area :bio
-    
-          .row
-            .large-6.columns
-              = f.label :facebook
-                | facebook.com/
-                = f.text_field :facebook
-            .large-6.columns
-              = f.label :twitter
-                | twitter.com/
-                = f.text_field :twitter
-    
-          .row
-            .large-12.columns
-              = f.check_box :public
-              = f.label :public
-
-          hr
-          .row.header
-            .large-12.columns
-              h2 Dados Privados
-              | Somente você e a equipe do Meu Rio terão acesso a esses dados.
-          .row
-            .large-6.columns
-              = f.label :email
-              = f.email_field :email
-            .large-6.columns
-              = f.label :secondary_email
-              = f.email_field :secondary_email
-    
-          .row
-            .large-6.columns
-              = f.label :birthday
-              = f.text_field :birthday, class: [:date], value: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%Y") : nil
-            .large-6.columns
-              = f.radio_button :gender, 'male'
-              = f.label :gender, 'Masculino', value: 'male'
-              = f.radio_button :gender, 'female'
-              = f.label :gender, 'Feminino', value: 'female'
-              = f.radio_button :gender, 'other'
-              = f.label :gender, 'Outro', value: 'other'
-    
-          .row
-            .large-6.columns
-              = f.label :postal_code
-              = f.text_field :postal_code, class: [:postal_code]
-            .large-6.columns
-              = f.label :phone
-              = f.text_field :phone, class: [:phone]
-
-          hr
-          .row.header
-            .large-12.columns
-              h2 Trabalhe por uma cidade melhor!
-
-          .row.topics
-            .large-12.columns
-              h3 Que temas são do seu interesse?
-            - User.values_for_topics.sort.each do |value|
+        .large-9.columns
+          .wrapper
+            .row.header
               .large-12.columns
-                input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
-                = label_tag value, t("topics.#{value}")
-
-          .row.skills
-            .large-12.columns
-              h3 Quais são os seus talentos?              
-            - SKILL_OPTIONS.sort.each do |value|
+                h2 Dados Públicos
+                | Esses dados serão visualizados pelos membros em seu perfil.
+            .row
+              .large-6.columns
+                = f.label :first_name
+                = f.text_field :first_name
+              .large-6.columns
+                = f.label :last_name
+                = f.text_field :last_name
+      
+            .row
+              .large-6.columns
+                = f.label :profession
+                = f.text_field :profession
+              .large-6.columns
+                = f.label :website
+                = f.text_field :website, placeholder: "meurio.org.br"
+      
+            .row
               .large-12.columns
-                input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills && @user.skills.include?(value), id: "user_skills_#{value}"}
-                = label_tag value, t("skills.#{value}")
-
-          .row
-            - [ values_for_local_availability, values_for_remote_availability ].each do |values|
-              = render 'availability', availability_options: values
-
-          .row
-            .large-12.columns= f.submit 'Salvar Perfil'
+                = f.label :bio
+                = f.text_area :bio
+      
+            .row
+              .large-6.columns
+                = f.label :facebook
+                  | facebook.com/
+                  = f.text_field :facebook
+              .large-6.columns
+                = f.label :twitter
+                  | twitter.com/
+                  = f.text_field :twitter
+      
+            .row
+              .large-12.columns
+                = f.check_box :public
+                = f.label :public
+  
+            hr
+            .row.header
+              .large-12.columns
+                h2 Dados Privados
+                | Somente você e a equipe do Meu Rio terão acesso a esses dados.
+            .row
+              .large-6.columns
+                = f.label :email
+                = f.email_field :email
+              .large-6.columns
+                = f.label :secondary_email
+                = f.email_field :secondary_email
+      
+            .row
+              .large-6.columns
+                = f.label :birthday
+                = f.text_field :birthday, class: [:date], value: @user.birthday.present? ? @user.birthday.strftime("%d/%m/%Y") : nil
+              .large-6.columns
+                = f.radio_button :gender, 'male'
+                = f.label :gender, 'Masculino', value: 'male'
+                = f.radio_button :gender, 'female'
+                = f.label :gender, 'Feminino', value: 'female'
+                = f.radio_button :gender, 'other'
+                = f.label :gender, 'Outro', value: 'other'
+      
+            .row
+              .large-6.columns
+                = f.label :postal_code
+                = f.text_field :postal_code, class: [:postal_code]
+              .large-6.columns
+                = f.label :phone
+                = f.text_field :phone, class: [:phone]
+  
+            hr
+            .row.header
+              .large-12.columns
+                h2 Trabalhe por uma cidade melhor!
+  
+            .row.topics
+              .large-12.columns
+                h3 Que temas são do seu interesse?
+              - User.values_for_topics.sort.each do |value|
+                .large-12.columns
+                  input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
+                  = label_tag value, t("topics.#{value}")
+  
+            .row.skills
+              .large-12.columns
+                h3 Quais são os seus talentos?              
+              - SKILL_OPTIONS.sort.each do |value|
+                .large-12.columns
+                  input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills && @user.skills.include?(value), id: "user_skills_#{value}"}
+                  = label_tag value, t("skills.#{value}")
+  
+            .row
+              - [ values_for_local_availability, values_for_remote_availability ].each do |values|
+                = render 'availability', availability_options: values
+  
+            .row
+              .large-12.columns= f.submit 'Salvar Perfil'

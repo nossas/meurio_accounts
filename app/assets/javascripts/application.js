@@ -36,8 +36,7 @@ $(function(){
     prevText: 'Anterior'
   });
 
-  $('form.edit_user_avatar a.btn').click(function(){ $('input#user_avatar').trigger('click'); });
-  $('input#user_avatar').change(function(){ $('form.edit_user_avatar').submit(); });
+  $('form.edit_user a.btn').click(function(){ $('input#user_avatar').trigger('click'); });
 
   $(".flash.notice").css('bottom', '0')
   setTimeout( function(){ $(".flash.notice").css('bottom', '-48px') }, 16000)
