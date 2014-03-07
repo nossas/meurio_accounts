@@ -16,6 +16,7 @@ class UsersController < InheritedResources::Base
 
   def ssi_redirect
     session.delete(:flash)
+    puts "Redirect URL (in users#ssi_redirect): #{session[:redirect_url]}"
     redirect_to session.delete(:redirect_url) || params[:redirect_url]
   end
 
