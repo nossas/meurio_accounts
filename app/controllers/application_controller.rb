@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   prepend_before_action { session[:redirect_url] ||= params[:redirect_url] }
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action { session.delete(:flash) }
+  before_action { session[:ssi_user_id] = current_user.id if current_user.present? }
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, :alert => exception.message
