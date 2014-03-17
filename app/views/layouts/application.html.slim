@@ -20,7 +20,6 @@ head
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/custom.modernizr"
   = csrf_meta_tag
-  = analytics_init if Rails.env.production?
 
 body class=[controller.controller_name, controller.action_name]
   - if flash[:notice] || params[:flash]
@@ -43,4 +42,5 @@ body class=[controller.controller_name, controller.action_name]
       = link_to image_tag("imagine.png", title: "Imagine"), "http://imagine.meurio.org.br/"
       = link_to image_tag("facaacontecer.png", title: "Faça Acontecer"), "http://facaacontecer.meurio.org.br/"
       = link_to image_tag("deolho.png", title: "De Olho"), "http://deolho.meurio.org.br/"
+    = render 'layouts/analytics' if Rails.env.production?
   = javascript_include_tag "application"
