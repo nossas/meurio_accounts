@@ -91,4 +91,6 @@ MeurioAccounts::Application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
+
+  GA.tracker = 'UA-26278513-21'
 end
