@@ -1,7 +1,7 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, request = nil)
     if user
       can(:manage, User) {|u| user.id == u.id}
       if user.admin?

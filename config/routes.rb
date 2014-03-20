@@ -6,7 +6,7 @@ MeurioAccounts::Application.routes.draw do
     root to: 'devise/sessions#new'
   end
 
-  resources :users, only: [:edit, :update, :show]
+  resources :users, only: [:edit, :create, :update, :show]
 
   get 'ssi_redirect' => 'users#ssi_redirect', as: :ssi_redirect
   get 'edit_profile' => 'users#edit', as: :edit_profile
