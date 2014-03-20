@@ -1,6 +1,7 @@
 class UsersController < InheritedResources::Base
-  load_and_authorize_resource 
+  load_and_authorize_resource
   skip_authorize_resource :only => [:ssi_redirect, :validate_email, :create_password]
+  skip_before_filter :verify_authenticity_token
   before_action(only: [:edit, :update]) { @user = current_user if @user.nil? or not current_user.admin? }
 
   def update
