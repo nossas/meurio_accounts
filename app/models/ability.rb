@@ -8,5 +8,13 @@ class Ability
         can(:manage, User)
       end
     end
+
+    if request && request.params[:format] == "json"
+      if request.params[:token] == ENV["API_TOKEN"]
+        can :create, User
+      else
+        cannot :create, User
+      end
+    end
   end
 end
