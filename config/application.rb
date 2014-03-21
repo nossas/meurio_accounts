@@ -22,5 +22,9 @@ module MeurioAccounts
 
     config.sass.preferred_syntax = :sass
     config.active_record.schema_format = :sql
+
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
 end
