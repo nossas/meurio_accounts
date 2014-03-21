@@ -345,7 +345,7 @@ DEPENDENCIES
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)
   sdoc
-  selenium-webdriver (= 2.40.0)
+  selenium-webdriver
   shoulda-matchers
   slim-rails
   thin
