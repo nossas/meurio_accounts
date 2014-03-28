@@ -9,7 +9,7 @@ class UsersController < InheritedResources::Base
     @user.availability = params[:user][:availability]
     @user.skills = params[:user][:skills]
     @user.topics = params[:user][:topics]
-    
+
     update! do |success, failure|
       success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_user.id}" }
       failure.html { render :edit }
@@ -34,6 +34,6 @@ class UsersController < InheritedResources::Base
   end
 
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip)}
   end
 end
