@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   after_save { self.delay.fetch_address }
   after_save { self.delay.update_mailchimp_subscription }
+  after_create { self.delay.locate_ip if self.ip.present? && self.postal_code.nil? }
 
   def name
     "#{first_name} #{last_name}"
@@ -34,17 +35,30 @@ class User < ActiveRecord::Base
     end
   end
 
+  def locate_ip
+    begin
+      location = Ipaddresslabs.locate(self.ip)
+      self.update_attributes(
+        city: location["geolocation_data"]["city"],
+        state: location["geolocation_data"]["region_name"],
+        country: location["geolocation_data"]["country_name"]
+      )
+    rescue Exception => e
+      Rails.logger.error e
+    end
+  end
+
   def update_mailchimp_subscription
     begin
       Gibbon::API.lists.subscribe(
-        id: ENV["MAILCHIMP_LIST_ID"], 
-        email: {email: self.email}, 
+        id: ENV["MAILCHIMP_LIST_ID"],
+        email: {email: self.email},
         merge_vars: {
-          FNAME: self.first_name, 
-          LNAME: self.last_name, 
+          FNAME: self.first_name,
+          LNAME: self.last_name,
           groupings: [ name: 'Skills', groups: self.translated_skills ]
         },
-        double_optin: false, 
+        double_optin: false,
         update_existing: true,
         replace_interests: true)
     rescue Exception => e
