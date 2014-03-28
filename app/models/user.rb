@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  :recoverable, :rememberable, :trackable, :validatable
 
   validates :email, :first_name, :last_name, presence: true
   validates :email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }
@@ -39,9 +39,9 @@ class User < ActiveRecord::Base
     begin
       location = Ipaddresslabs.locate(self.ip)
       self.update_attributes(
-        city: location["geolocation_data"]["city"],
-        state: location["geolocation_data"]["region_name"],
-        country: location["geolocation_data"]["country_name"]
+      city: location["geolocation_data"]["city"],
+      state: location["geolocation_data"]["region_name"],
+      country: location["geolocation_data"]["country_name"]
       )
     rescue Exception => e
       Rails.logger.error e
@@ -49,8 +49,10 @@ class User < ActiveRecord::Base
   end
 
   def update_mailchimp_subscription
-    begin
-      Gibbon::API.lists.subscribe(
+    # TODO: rewrite this method to support multiple accounts
+    if self.application_slug != "naopassarao"
+      begin
+        Gibbon::API.lists.subscribe(
         id: ENV["MAILCHIMP_LIST_ID"],
         email: {email: self.email},
         merge_vars: {
@@ -61,8 +63,9 @@ class User < ActiveRecord::Base
         double_optin: false,
         update_existing: true,
         replace_interests: true)
-    rescue Exception => e
-      Rails.logger.error e
+      rescue Exception => e
+        Rails.logger.error e
+      end
     end
   end
 

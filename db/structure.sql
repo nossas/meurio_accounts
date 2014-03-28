@@ -123,6 +123,7 @@ CREATE TABLE users (
     country character varying(255),
     skills character varying(255)[] DEFAULT '{}'::character varying[],
     ip character varying(255),
+    application_slug character varying(255),
     CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text)),
     CONSTRAINT proper_phone CHECK ((((phone)::text ~* '[(]{1}[0-9]{2}[)]{1} [0-9]{8,9}'::text) OR ((phone)::text = ''::text)))
 );
@@ -288,3 +289,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140114184655');
 INSERT INTO schema_migrations (version) VALUES ('20140114185243');
 
 INSERT INTO schema_migrations (version) VALUES ('20140328150542');
+
+INSERT INTO schema_migrations (version) VALUES ('20140328181211');
