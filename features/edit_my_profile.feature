@@ -27,14 +27,11 @@ Feature: edit my profile
     And I fill "the email field" with ""
     And I fill "the secondary email field" with "trashmailmeurio.org.br"
     And I fill "the postal code field" with "1234"
-    And I fill "the phone field" with "1234"
     And I fill "the website field" with "meurioorgbr"
     When I press "the edit profile form submition button"
     Then I should be in "the edit page of my profile"
     And I should see "the email error"
     And I should see "the secondary email error"
-    And I should see "the postal code error"
-    And I should see "the phone error"
     And I should see "the website error"
 
   Scenario: when I try to edit somebody elses profile

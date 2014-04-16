@@ -10,8 +10,6 @@ describe User do
   it { should allow_value("(21) 99999999").for(:phone) }
   it { should allow_value("(21) 999999999").for(:phone) }
   it { should_not allow_value("(21) 9999999").for(:phone) }
-  it { should allow_value("99999-999").for(:postal_code) }
-  it { should_not allow_value("99999999").for(:postal_code) }
 
   describe "#availability" do
     before do
@@ -70,7 +68,7 @@ describe User do
       before do
         stub_request(:get, "http://brazilapi.herokuapp.com/api?cep=").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
-          to_return(:status => 200, :body => '[{"cep":{"valid":false}}]', :headers => {})        
+          to_return(:status => 200, :body => '[{"cep":{"valid":false}}]', :headers => {})
       end
 
       it "should not update user attributes" do
