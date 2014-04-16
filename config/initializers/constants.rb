@@ -41,8 +41,7 @@ SKILL_OPTIONS = [
   'programacao_de_softwares_e_aplicativos_ou_web',
   'servico_e_assistencia_social',
   'sociologia_antropologia',
-  'urbanismo_e_planejamento_urbano',
-  'experiencia_de_relacionamento_com_comunidades_e_favela'
+  'urbanismo_e_planejamento_urbano'
 ]
 
 TOPIC_OPTIONS = [
