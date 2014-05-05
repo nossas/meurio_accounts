@@ -30,6 +30,37 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: accounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE accounts (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE accounts_id_seq OWNED BY accounts.id;
+
+
+--
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -122,7 +153,6 @@ CREATE TABLE users (
     address_number character varying(255),
     country character varying(255),
     skills character varying(255)[] DEFAULT '{}'::character varying[],
-    temporary_authentication_token character varying(255),
     ip character varying(255),
     application_slug character varying(255),
     sponsor boolean DEFAULT false,
@@ -154,6 +184,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY accounts ALTER COLUMN id SET DEFAULT nextval('accounts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
@@ -162,6 +199,14 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: accounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY accounts
+    ADD CONSTRAINT accounts_pkey PRIMARY KEY (id);
 
 
 --
@@ -290,10 +335,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140114184655');
 
 INSERT INTO schema_migrations (version) VALUES ('20140114185243');
 
-INSERT INTO schema_migrations (version) VALUES ('20140319194131');
-
 INSERT INTO schema_migrations (version) VALUES ('20140328150542');
 
 INSERT INTO schema_migrations (version) VALUES ('20140328181211');
 
 INSERT INTO schema_migrations (version) VALUES ('20140407204415');
+
+INSERT INTO schema_migrations (version) VALUES ('20140505130346');
