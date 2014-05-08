@@ -1,7 +1,7 @@
 .row
   .large-10.columns.large-centered
     .row
-      = form_for @user, validate: true do |f|
+      = form_for @user, data: {abide: true} do |f|
         .large-3.columns
           = image_tag @user.avatar.square.url
           = f.file_field :avatar
@@ -16,24 +16,25 @@
             .row
               .large-6.columns
                 = f.label :first_name
-                = f.text_field :first_name
+                = f.text_field :first_name, required: true
               .large-6.columns
                 = f.label :last_name
-                = f.text_field :last_name
-      
+                = f.text_field :last_name, required: true
+
             .row
               .large-6.columns
                 = f.label :profession
                 = f.text_field :profession
               .large-6.columns
                 = f.label :website
-                = f.text_field :website, placeholder: "meurio.org.br"
-      
+                = f.url_field :website, placeholder: "meurio.org.br"
+                small.error O website deve ser válido
+
             .row
               .large-12.columns
                 = f.label :bio
                 = f.text_area :bio
-      
+
             .row
               .large-6.columns
                 = f.label :facebook
@@ -43,12 +44,12 @@
                 = f.label :twitter
                   | twitter.com/
                   = f.text_field :twitter
-      
+
             .row
               .large-12.columns
                 = f.check_box :public
                 = f.label :public
-  
+
             hr
             .row.header
               .large-12.columns
@@ -57,11 +58,13 @@
             .row
               .large-6.columns
                 = f.label :email
-                = f.email_field :email
+                = f.email_field :email, required: true
+                small.error O email é obrigatório e deve ser válido
               .large-6.columns
                 = f.label :secondary_email
                 = f.email_field :secondary_email
-      
+                small.error O email secundário deve ser válido
+
             .row
               .large-6.columns
                 = f.label :birthday
@@ -73,7 +76,7 @@
                 = f.label :gender, 'Feminino', value: 'female'
                 = f.radio_button :gender, 'other'
                 = f.label :gender, 'Outro', value: 'other'
-      
+
             .row
               .large-6.columns
                 = f.label :postal_code
@@ -81,12 +84,12 @@
               .large-6.columns
                 = f.label :phone
                 = f.text_field :phone, class: [:phone]
-  
+
             hr
             .row.header
               .large-12.columns
                 h2 Trabalhe por uma cidade melhor!
-  
+
             .row.topics
               .large-12.columns
                 h3 Que temas são do seu interesse?
@@ -94,18 +97,18 @@
                 .large-12.columns
                   input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
                   = label_tag value, t("topics.#{value}")
-  
+
             .row.skills
               .large-12.columns
-                h3 Quais são os seus talentos?              
+                h3 Quais são os seus talentos?
               - SKILL_OPTIONS.sort.each do |value|
                 .large-12.columns
                   input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills && @user.skills.include?(value), id: "user_skills_#{value}"}
                   = label_tag value, t("skills.#{value}")
-  
+
             .row
               - [ values_for_local_availability, values_for_remote_availability ].each do |values|
                 = render 'availability', availability_options: values
-  
+
             .row
               .large-12.columns= f.submit 'Salvar Perfil'

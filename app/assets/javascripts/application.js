@@ -15,13 +15,12 @@
 //= require jquery.ui.datepicker
 //= require foundation
 //= require turbolinks
-//= require rails.validations
-//= require rails.validations.turbolinks
 //= require_tree .
 
-$(document).foundation();
-
 $(function(){
+  Foundation.libs.abide.settings.patterns.password = /^\S{6,128}$/;
+  $(document).foundation();
+
   $('.phone').mask('(00) 000000000');
   $('.postal_code').mask('00000-000');
   $('.date').mask('00/00/0000');

@@ -52,24 +52,23 @@ When(/^I click "(.*?)"$/) do |arg1|
 end
 
 Then(/^I should be redirected to "(.*?)"$/) do |arg1|
-  current_path.should be == to_url(arg1)
+  expect(current_path).to eq to_url(arg1)
 end
 
 Then(/^I should be in "(.*?)"$/) do |arg1|
-  current_path.should be == to_url(arg1)
+  expect(current_path).to eq to_url(arg1)
 end
 
 Then(/^I should see "(.*?)"$/) do |arg1|
-  page.should have_css to_element(arg1), to_text(arg1)
+  expect(page).to have_css to_element(arg1), to_text(arg1)
 end
 
 Then(/^I should not see "(.*?)"$/) do |arg1|
-  page.should_not have_css to_element(arg1), text: to_text(arg1)
+  expect(page).to_not have_css to_element(arg1), text: to_text(arg1)
 end
 
 Then(/^an user should be created$/) do
-  @user = User.first
-  @user.should_not be_nil
+  expect(User.count).to be > 0
 end
 
 Then(/^show me the page$/) do
@@ -77,5 +76,5 @@ Then(/^show me the page$/) do
 end
 
 Then(/^I should receive "(.*?)" by email$/) do |arg1|
-  ActionMailer::Base.deliveries.should_not be_empty
+  expect(ActionMailer::Base.deliveries).to_not be_empty
 end

@@ -18,7 +18,7 @@ head
   title= content_for?(:title) ? yield(:title) : 'Meu Rio'
 
   = stylesheet_link_tag "application"
-  = javascript_include_tag "vendor/custom.modernizr"
+  = javascript_include_tag "vendor/modernizr"
   = csrf_meta_tag
 
 body class=[controller.controller_name, controller.action_name]

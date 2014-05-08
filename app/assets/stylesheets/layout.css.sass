@@ -33,29 +33,6 @@ a
   &:hover
     color: lighten(orange, 5%)
 
-input[type='email'], input[type='password'], input[type='text'], textarea, label[for='user_facebook'], label[for='user_twitter']
-  font-size: 1em
-  margin: .8em 0 .4em 0
-  border: 2px solid lightgray
-  +border-radius(3px)
-  display: block
-  padding: .5em
-  *
-    *:after, *:before
-      +box-sizing(content-box)
-  input
-    padding: 0
-    border: 0
-    width: 110px
-    display: inline-block
-    height: auto
-    +box-shadow(none)
-    +box-sizing(content-box)
-    &:after, &:before
-      +box-sizing(content-box)
-    &:hover
-      background: white
-
 input[type='submit'], .btn
   border: none
   color: white
@@ -74,13 +51,6 @@ input[type='submit'], .btn
 .flash
   &.alert
     color: red
-
-.field_with_errors
-  label
-    color: red !important
-    font-weight: bold
-  input
-    border-color: red
 
 .flash.notice
   position: fixed

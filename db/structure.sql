@@ -153,6 +153,7 @@ CREATE TABLE users (
     address_number character varying(255),
     country character varying(255),
     skills character varying(255)[] DEFAULT '{}'::character varying[],
+    temporary_authentication_token character varying(255),
     ip character varying(255),
     application_slug character varying(255),
     sponsor boolean DEFAULT false,
@@ -335,6 +336,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140114184655');
 
 INSERT INTO schema_migrations (version) VALUES ('20140114185243');
 
+INSERT INTO schema_migrations (version) VALUES ('20140319194131');
+
 INSERT INTO schema_migrations (version) VALUES ('20140328150542');
 
 INSERT INTO schema_migrations (version) VALUES ('20140328181211');
@@ -342,3 +345,4 @@ INSERT INTO schema_migrations (version) VALUES ('20140328181211');
 INSERT INTO schema_migrations (version) VALUES ('20140407204415');
 
 INSERT INTO schema_migrations (version) VALUES ('20140505130346');
+

@@ -19,15 +19,15 @@ describe User do
     end
 
     it 'has availability' do
-      subject.availability?.should be_true
+      expect(subject.availability?).to be true
     end
 
     it 'has remote availability on Monday night' do
-      subject.availability?(:remote_monday_night).should be_true
+      expect(subject.availability?(:remote_monday_night)).to be true
     end
 
     it 'has not local availability on Friday morning' do
-      subject.availability?(:local_friday_morning).should be_false
+      expect(subject.availability?(:local_friday_morning)).to be false
     end
   end
 
@@ -38,15 +38,15 @@ describe User do
     end
 
     it 'has skills' do
-      subject.skills.any?.should be_true
+      expect(subject.skills.any?).to be true
     end
 
     it 'has skill in Administracao e Politicas Publicas' do
-      subject.skills.include?('administracao_e_politicas_publicas').should be_true
+      expect(subject.skills.include?('administracao_e_politicas_publicas')).to be true
     end
 
     it 'has not skill in Jornalismo Assessoria de Imprensa' do
-      subject.skills.include?('jornalismo_assessoria_de_imprensa').should be_false
+      expect(subject.skills.include?('jornalismo_assessoria_de_imprensa')).to be false
     end
   end
 
@@ -59,7 +59,7 @@ describe User do
       end
 
       it "should update user attributes" do
-        subject.should_receive(:update_attributes).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
+        expect(subject).to receive(:update_attributes).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
         subject.fetch_address
       end
     end
@@ -72,7 +72,7 @@ describe User do
       end
 
       it "should not update user attributes" do
-        subject.should_not_receive(:update_attributes)
+        expect(subject).to_not receive(:update_attributes)
         subject.fetch_address
       end
     end

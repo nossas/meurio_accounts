@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.1.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -43,7 +43,7 @@ end
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 3.0.0.beta2'
   gem 'mailcatcher'
 end
 
@@ -62,10 +62,8 @@ gem 'devise'
 gem 'coveralls', require: false
 gem 'ffi', '1.9.3'
 gem 'slim-rails'
-gem 'client_side_validations', github: 'bcardarella/client_side_validations', branch: "4-0-beta"
-gem 'client_side_validations-turbolinks', '~> 1.1.1'
-gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack'
-gem 'zurb-foundation', '~> 4.0.0'
+gem 'compass-rails'
+gem 'foundation-rails'
 gem 'rails_12factor'
 gem 'inherited_resources'
 gem 'cancan'
@@ -81,3 +79,5 @@ gem 'thin'
 gem 'gibbon'
 gem 'google-analytics-rails'
 gem 'ipaddresslabs'
+gem 'casino'
+gem 'casino-activerecord_authenticator', github: 'rbCAS/casino-activerecord_authenticator', branch: 'casino3'
