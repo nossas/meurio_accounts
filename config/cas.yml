@@ -45,14 +45,18 @@ test:
 production:
   <<: *defaults
   authenticators:
-    my_company_ldap:
-      authenticator: "ldap"
+    meurio_accounts:
+      authenticator: "ActiveRecord"
       options:
-        host: "localhost"
-        port: 12445
-        base: "dc=users,dc=example.com"
-        username_attribute: "uid"
-        encryption: "simple_tls"
-        extra_attributes:
-          email: "mail"
-          fullname: "displayname"
+        connection:
+          adapter: "postgresql"
+          host: ENV["DB_HOST"]
+          username: ENV["DB_USER"]
+          database: ENV["DB_NAME"]
+          password: ENV["DB_PASSWORD"]
+        table: "users"
+        username_column: "email"
+        password_column: "encrypted_password"
+
+staging:
+  <<: *production
