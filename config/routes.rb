@@ -1,4 +1,5 @@
 MeurioAccounts::Application.routes.draw do
+  mount CASino::Engine => '/casino', :as => 'casino'
   devise_for :users
   devise_scope :user do
     get '/login' => "devise/sessions#new"

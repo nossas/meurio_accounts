@@ -1,7 +1,7 @@
 def to_url string
   return root_path if string == "the homepage"
   return new_user_session_path(redirect_url: "http://127.0.0.1/pdp") if string == "the login page comming from Panela de Pressão"
-  return new_user_session_path if string == "the login page"
+  return '/users/sign_in' if string == "the login page"
   return new_user_registration_path(redirect_url: "http://127.0.0.1/pdp") if string == "the register page comming from Panela de Pressão"
   return new_user_registration_path if string == "the register page"
   return edit_user_path(current_user) if string == "the edit page of my profile"
