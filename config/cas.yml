@@ -42,7 +42,7 @@ test:
           testuser:
             password: "foobar123"
 
-production:
+production: &production
   <<: *defaults
   authenticators:
     meurio_accounts:
