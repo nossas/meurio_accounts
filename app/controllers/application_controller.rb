@@ -23,10 +23,6 @@ class ApplicationController < ActionController::Base
     session[:redirect_url] ? ssi_redirect_path(redirect_url: session[:redirect_url]) : root_path
   end
 
-  def current_user
-    @current_user ||= User.first
-  end
-
   protected
 
   def configure_permitted_parameters
