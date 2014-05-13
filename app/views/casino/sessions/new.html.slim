@@ -1,0 +1,29 @@
+.row
+  .login.large-5.large-centered.columns
+    = form_tag(login_path, method: :post, id: 'login-form') do
+
+      h2 Entre com a sua conta do Meu Rio
+      .signup Não é membro? #{ link_to 'Cadastre-se', '/validate_email' }
+
+      = hidden_field_tag :lt, @login_ticket.ticket
+      = hidden_field_tag :service, params[:service] unless params[:service].nil?
+
+      .row
+        .large-12.columns
+          = email_field_tag :username, params[:username], placeholder: 'Email', novalidate: true
+
+      .row
+        .large-12.columns
+          = password_field_tag :password, nil, placeholder: 'Senha'
+
+      - if flash[:error]
+        .flash.alert= flash[:error]
+
+      .row
+        .large-12.columns
+          = submit_tag 'Entrar', class: 'button'
+
+      .remember_me
+        = check_box_tag :rememberMe, checked: true
+        = label_tag :rememberMe, 'Continuar conectado'
+        = link_to "Esqueci minha senha", new_password_path(User)
