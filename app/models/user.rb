@@ -57,6 +57,8 @@ class User < ActiveRecord::Base
         merge_vars: {
           FNAME: self.first_name,
           LNAME: self.last_name,
+          CITY: self.city,
+          PHONE: self.phone,
           groupings: [ name: 'Skills', groups: self.translated_skills ]
         },
         double_optin: false,
