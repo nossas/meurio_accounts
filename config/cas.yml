@@ -18,7 +18,7 @@ development:
       class: "CASino::StaticAuthenticator"
       options:
         users:
-          testuser:
+          testuser@example.com:
             password: "foobar123"
     meurio_accounts:
       authenticator: "ActiveRecord"
@@ -26,7 +26,7 @@ development:
         connection:
           adapter: "postgresql"
           host: "localhost"
-          username: "nicolasiensen"
+          # username: "nicolasiensen"
           database: "meurio_accounts_development"
         table: "users"
         username_column: "email"
