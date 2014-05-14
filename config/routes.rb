@@ -1,12 +1,9 @@
 MeurioAccounts::Application.routes.draw do
-  mount CASino::Engine => 'casino', :as => 'casino'
+  get '/sessions', to: redirect('/edit_profile')
+
+  mount CASino::Engine => '/'
 
   devise_for :users
-  devise_scope :user do
-    get '/login' => "devise/sessions#new"
-    get '/logout' => "devise/sessions#destroy"
-    root to: 'devise/sessions#new'
-  end
 
   resources :users, only: [:edit, :create, :update, :show]
 

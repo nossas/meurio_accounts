@@ -2,7 +2,7 @@ class UsersController < InheritedResources::Base
   load_and_authorize_resource
   skip_authorize_resource :only => [:create, :ssi_redirect, :validate_email, :create_password]
   skip_before_action :verify_authenticity_token, only: :create
-  before_action(only: [:edit, :update]) { @user = current_user if @user.nil? or not current_user.admin? }
+  before_action(only: [:edit, :update]) { @user = current_account if @user.nil? or not current_account.admin? }
   respond_to :json
 
   def update
@@ -11,7 +11,7 @@ class UsersController < InheritedResources::Base
     @user.topics = params[:user][:topics]
 
     update! do |success, failure|
-      success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_user.id}" }
+      success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_account.id}" }
       failure.html { render :edit }
     end
   end
