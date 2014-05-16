@@ -76,6 +76,6 @@ class User < ActiveRecord::Base
   end
 
   def translated_skills
-    self.skills.map { |s| I18n.t("skills.#{s}") }
+    self.skills.map { |s| I18n.t("skills.#{s}") } unless self.skills.blank?
   end
 end
