@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   def update_location_and_mailchimp
     self.fetch_address if self.postal_code.present?
-    self.locate_ip if self.ip.present? and self.postal_code.nil?
+    self.locate_ip if self.ip.present? and self.postal_code.blank?
     self.update_mailchimp_subscription
   end
 
