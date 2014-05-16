@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     if(json[0]["cep"]["result"])
       address = json[0]["cep"]["data"]
       if(self.city != address["cidade"] || self.address_street != "#{address["tp_logradouro"]} #{address["logradouro"]}" || self.address_district != address["bairro"] || self.state != address["uf"])
-        self.update_attributes(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
+        self.update_columns(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
       end
     end
   end
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   def locate_ip
     begin
       location = Ipaddresslabs.locate(self.ip)
-      self.update_attributes(
+      self.update_columns(
         city: location["geolocation_data"]["city"],
         state: location["geolocation_data"]["region_name"],
         country: location["geolocation_data"]["country_name"]
