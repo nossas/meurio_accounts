@@ -16,9 +16,13 @@ class User < ActiveRecord::Base
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
-  after_save { self.delay.fetch_address }
-  after_save { self.delay.update_mailchimp_subscription }
-  after_create { self.delay.locate_ip if self.ip.present? && self.postal_code.nil? }
+  after_save { self.delay.update_location_and_mailchimp }
+
+  def update_location_and_mailchimp
+    self.fetch_address if self.postal_code.present?
+    self.locate_ip if self.ip.present? and self.postal_code.nil?
+    self.update_mailchimp_subscription
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -38,9 +42,9 @@ class User < ActiveRecord::Base
     begin
       location = Ipaddresslabs.locate(self.ip)
       self.update_attributes(
-      city: location["geolocation_data"]["city"],
-      state: location["geolocation_data"]["region_name"],
-      country: location["geolocation_data"]["country_name"]
+        city: location["geolocation_data"]["city"],
+        state: location["geolocation_data"]["region_name"],
+        country: location["geolocation_data"]["country_name"]
       )
     rescue Exception => e
       Rails.logger.error e
@@ -52,18 +56,19 @@ class User < ActiveRecord::Base
     if self.application_slug != "naopassarao"
       begin
         Gibbon::API.lists.subscribe(
-        id: ENV["MAILCHIMP_LIST_ID"],
-        email: {email: self.email},
-        merge_vars: {
-          FNAME: self.first_name,
-          LNAME: self.last_name,
-          CITY: self.city,
-          PHONE: self.phone,
-          groupings: [ name: 'Skills', groups: self.translated_skills ]
-        },
-        double_optin: false,
-        update_existing: true,
-        replace_interests: true)
+          id: ENV["MAILCHIMP_LIST_ID"],
+          email: {email: self.email},
+          merge_vars: {
+            FNAME: self.first_name,
+            LNAME: self.last_name,
+            CITY: self.city,
+            PHONE: self.phone,
+            groupings: [ name: 'Skills', groups: self.translated_skills ]
+          },
+          double_optin: false,
+          update_existing: true,
+          replace_interests: true
+        )
       rescue Exception => e
         Rails.logger.error e
       end
