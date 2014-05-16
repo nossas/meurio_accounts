@@ -59,7 +59,7 @@ describe User do
       end
 
       it "should update user attributes" do
-        subject.should_receive(:update_attributes).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
+        subject.should_receive(:update_columns).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
         subject.fetch_address
       end
     end
@@ -72,7 +72,7 @@ describe User do
       end
 
       it "should not update user attributes" do
-        subject.should_not_receive(:update_attributes)
+        subject.should_not_receive(:update_columns)
         subject.fetch_address
       end
     end
