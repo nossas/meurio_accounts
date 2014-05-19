@@ -16,9 +16,13 @@ class User < ActiveRecord::Base
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
-  after_save { self.delay.fetch_address }
-  after_save { self.delay.update_mailchimp_subscription }
-  after_create { self.delay.locate_ip if self.ip.present? && self.postal_code.nil? }
+  after_save { self.delay.update_location_and_mailchimp }
+
+  def update_location_and_mailchimp
+    self.fetch_address if self.postal_code.present?
+    self.locate_ip if self.ip.present? and self.postal_code.blank?
+    self.update_mailchimp_subscription
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -29,7 +33,7 @@ class User < ActiveRecord::Base
     if(json[0]["cep"]["result"])
       address = json[0]["cep"]["data"]
       if(self.city != address["cidade"] || self.address_street != "#{address["tp_logradouro"]} #{address["logradouro"]}" || self.address_district != address["bairro"] || self.state != address["uf"])
-        self.update_attributes(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
+        self.update_columns(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
       end
     end
   end
@@ -37,10 +41,10 @@ class User < ActiveRecord::Base
   def locate_ip
     begin
       location = Ipaddresslabs.locate(self.ip)
-      self.update_attributes(
-      city: location["geolocation_data"]["city"],
-      state: location["geolocation_data"]["region_name"],
-      country: location["geolocation_data"]["country_name"]
+      self.update_columns(
+        city: location["geolocation_data"]["city"],
+        state: location["geolocation_data"]["region_name"],
+        country: location["geolocation_data"]["country_name"]
       )
     rescue Exception => e
       Rails.logger.error e
@@ -52,18 +56,19 @@ class User < ActiveRecord::Base
     if self.application_slug != "naopassarao"
       begin
         Gibbon::API.lists.subscribe(
-        id: ENV["MAILCHIMP_LIST_ID"],
-        email: {email: self.email},
-        merge_vars: {
-          FNAME: self.first_name,
-          LNAME: self.last_name,
-          CITY: self.city,
-          PHONE: self.phone,
-          groupings: [ name: 'Skills', groups: self.translated_skills ]
-        },
-        double_optin: false,
-        update_existing: true,
-        replace_interests: true)
+          id: ENV["MAILCHIMP_LIST_ID"],
+          email: {email: self.email},
+          merge_vars: {
+            FNAME: self.first_name,
+            LNAME: self.last_name,
+            CITY: self.city,
+            PHONE: self.phone,
+            groupings: [ name: 'Skills', groups: self.translated_skills ]
+          },
+          double_optin: false,
+          update_existing: true,
+          replace_interests: true
+        )
       rescue Exception => e
         Rails.logger.error e
       end
@@ -71,6 +76,6 @@ class User < ActiveRecord::Base
   end
 
   def translated_skills
-    self.skills.map { |s| I18n.t("skills.#{s}") }
+    self.skills.map { |s| I18n.t("skills.#{s}") } unless self.skills.blank?
   end
 end
