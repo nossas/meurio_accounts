@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
 
+  has_many :memberships
+  has_many :organizations, through: :memberships
+
   mount_uploader :avatar, AvatarUploader
 
   bitmask :availability, as: AVAILABILITY_OPTIONS

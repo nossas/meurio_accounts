@@ -11,6 +11,9 @@ describe User do
   it { should allow_value("(21) 999999999").for(:phone) }
   it { should_not allow_value("(21) 9999999").for(:phone) }
 
+  it { should have_many :memberships }
+  it { should have_many :organizations }
+
   describe "#availability" do
     before do
       subject.availability << :remote_monday_night

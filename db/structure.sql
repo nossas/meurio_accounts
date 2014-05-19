@@ -340,6 +340,38 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
+-- Name: memberships; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE memberships (
+    id integer NOT NULL,
+    user_id integer,
+    organization_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: memberships_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE memberships_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: memberships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE memberships_id_seq OWNED BY memberships.id;
+
+
+--
 -- Name: organizations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -518,6 +550,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY memberships ALTER COLUMN id SET DEFAULT nextval('memberships_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY organizations ALTER COLUMN id SET DEFAULT nextval('organizations_id_seq'::regclass);
 
 
@@ -558,6 +597,14 @@ ALTER TABLE ONLY delayed_jobs
 
 ALTER TABLE ONLY casino_login_tickets
     ADD CONSTRAINT login_tickets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY memberships
+    ADD CONSTRAINT memberships_pkey PRIMARY KEY (id);
 
 
 --
@@ -708,6 +755,13 @@ CREATE UNIQUE INDEX index_casino_users_on_authenticator_and_username ON casino_u
 
 
 --
+-- Name: index_memberships_on_organization_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_memberships_on_organization_id_and_user_id ON memberships USING btree (organization_id, user_id);
+
+
+--
 -- Name: index_proxy_granting_tickets_on_granter; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -836,3 +890,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140509130732');
 INSERT INTO schema_migrations (version) VALUES ('20140509130733');
 
 INSERT INTO schema_migrations (version) VALUES ('20140519135656');
+
+INSERT INTO schema_migrations (version) VALUES ('20140519174420');
+
+INSERT INTO schema_migrations (version) VALUES ('20140519175144');
