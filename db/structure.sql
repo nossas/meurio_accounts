@@ -379,7 +379,8 @@ CREATE TABLE organizations (
     id integer NOT NULL,
     name character varying(255),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    mailchimp_list_id integer
 );
 
 
@@ -894,3 +895,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140519135656');
 INSERT INTO schema_migrations (version) VALUES ('20140519174420');
 
 INSERT INTO schema_migrations (version) VALUES ('20140519175144');
+
+INSERT INTO schema_migrations (version) VALUES ('20140520140252');
