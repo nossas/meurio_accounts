@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       :email,
       :ip,
       :application_slug,
-      :organization_ids
+      :organization_ids => []
     ]
   end
 
