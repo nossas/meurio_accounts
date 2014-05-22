@@ -1,4 +1,6 @@
 MeurioAccounts::Application.routes.draw do
+  root 'casino/sessions#new'
+
   get '/sessions', to: redirect('/edit_profile')
 
   mount CASino::Engine => '/'
