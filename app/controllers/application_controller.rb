@@ -34,7 +34,14 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << [:first_name, :last_name, :email, :ip, :application_slug]
+    devise_parameter_sanitizer.for(:sign_up) << [
+      :first_name,
+      :last_name,
+      :email,
+      :ip,
+      :application_slug,
+      :organization_ids => []
+    ]
   end
 
   def current_ability

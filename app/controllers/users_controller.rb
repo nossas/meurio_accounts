@@ -1,8 +1,9 @@
 class UsersController < InheritedResources::Base
   load_and_authorize_resource
-  skip_authorize_resource :only => [:create, :ssi_redirect, :validate_email, :create_password]
-  skip_before_action :verify_authenticity_token, only: :create
-  before_action(only: [:edit, :update]) { @user = current_account if @user.nil? or not current_account.admin? }
+  skip_authorize_resource :only => [:create, :update, :ssi_redirect, :validate_email, :create_password]
+  skip_before_action :verify_authenticity_token, only: [:create, :update]
+  before_action :set_allowed_user, only: [:edit, :update]
+
   respond_to :json
 
   def update
@@ -33,7 +34,14 @@ class UsersController < InheritedResources::Base
     end
   end
 
+  # TODO: We need an API, for God sake!
+  def set_allowed_user
+    unless request.format.json?
+      @user = current_user if @user.nil? or not current_user.admin?
+    end
+  end
+
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug, :organization_ids)}
   end
 end

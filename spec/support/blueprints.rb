@@ -6,3 +6,9 @@ User.blueprint do
   email         { Faker::Internet.email }
   password      { Faker::Internet.password }
 end
+
+Organization.blueprint do
+  name { "Meu Rio" }
+  city { "Rio de Janeiro" }
+  mailchimp_list_id { "123" }
+end
