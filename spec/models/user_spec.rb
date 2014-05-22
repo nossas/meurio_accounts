@@ -55,6 +55,8 @@ describe User do
 
   describe "#fetch_address" do
     context "when the postcode is valid" do
+      subject { User.make! }
+
       before do
         stub_request(:get, "http://brazilapi.herokuapp.com/api?cep=").
           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
@@ -62,7 +64,7 @@ describe User do
       end
 
       it "should update user attributes" do
-        expect(subject).to receive(:update_attributes).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
+        expect(subject).to receive(:update_columns).with({city: "Rio de Janeiro", address_street: "Rua Dona Mariana", address_district: "Botafogo", state: "rj"})
         subject.fetch_address
       end
     end
