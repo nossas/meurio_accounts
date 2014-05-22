@@ -377,11 +377,11 @@ ALTER SEQUENCE memberships_id_seq OWNED BY memberships.id;
 
 CREATE TABLE organizations (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying(255) NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    mailchimp_list_id character varying(255),
-    city character varying(255)
+    mailchimp_list_id character varying(255) NOT NULL,
+    city character varying(255) NOT NULL
 );
 
 
@@ -764,6 +764,13 @@ CREATE UNIQUE INDEX index_memberships_on_organization_id_and_user_id ON membersh
 
 
 --
+-- Name: index_organizations_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_organizations_on_name ON organizations USING btree (name);
+
+
+--
 -- Name: index_proxy_granting_tickets_on_granter; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -900,3 +907,15 @@ INSERT INTO schema_migrations (version) VALUES ('20140519175144');
 INSERT INTO schema_migrations (version) VALUES ('20140520140252');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522105531');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522110815');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522110841');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522110852');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522110941');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522110953');
+
+INSERT INTO schema_migrations (version) VALUES ('20140522111012');
