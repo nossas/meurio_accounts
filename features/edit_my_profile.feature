@@ -3,11 +3,12 @@ Feature: edit my profile
   As an user
   I want to edit my profile
 
+  @javascript
   Scenario: when I submit the form correctly
     Given I'm logged in
     And I'm in "the edit page of my profile"
     And I fill "the profession field" with "Programmer"
-    And I fill "the website field" with "meurio.org.br"
+    And I fill "the website field" with "http://meurio.org.br"
     And I fill "the bio field" with "Hello World"
     And I fill "the Facebook field" with "nicolas.iensen"
     And I fill "the Twitter field" with "nicolasiensen"
@@ -39,6 +40,7 @@ Feature: edit my profile
     When I'm in "this user edit page"
     Then I should be in "the login page"
 
+  @javascript
   Scenario: when I try to edit somebody elses profile as an admin
     Given I'm logged in as admin
     And there is an user
