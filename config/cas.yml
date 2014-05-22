@@ -35,12 +35,16 @@ development:
 test:
   <<: *defaults
   authenticators:
-    static:
-      class: "CASino::StaticAuthenticator"
+    meurio_accounts:
+      authenticator: "ActiveRecord"
       options:
-        users:
-          testuser:
-            password: "foobar123"
+        connection:
+          adapter: "postgresql"
+          host: "localhost"
+          database: "meurio_accounts_test"
+        table: "users"
+        username_column: "email"
+        password_column: "encrypted_password"
 
 production: &production
   <<: *defaults
