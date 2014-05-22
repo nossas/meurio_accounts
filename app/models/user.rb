@@ -36,7 +36,12 @@ class User < ActiveRecord::Base
     if(json[0]["cep"]["result"])
       address = json[0]["cep"]["data"]
       if(self.city != address["cidade"] || self.address_street != "#{address["tp_logradouro"]} #{address["logradouro"]}" || self.address_district != address["bairro"] || self.state != address["uf"])
-        self.update_columns(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
+        self.update_columns(
+          city: address["cidade"],
+          address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}",
+          address_district: address["bairro"],
+          state: address["uf"]
+        )
       end
     end
   end
