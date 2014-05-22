@@ -4,7 +4,7 @@ def to_url string
   return '/login' if string == "the login page"
   return new_user_registration_path(redirect_url: "http://127.0.0.1/pdp") if string == "the register page comming from Panela de Pressão"
   return new_user_registration_path if string == "the register page"
-  return edit_user_path(current_user) if string == "the edit page of my profile"
+  return edit_profile_path if string == "the edit page of my profile"
   return edit_user_path(@user) if string == "this user edit page"
   return validate_email_path if string == "the email validation page"
   return create_password_path if string == "the create password page"
