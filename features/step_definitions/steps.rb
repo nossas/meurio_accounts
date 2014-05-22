@@ -2,8 +2,8 @@ Given(/^I'm logged in$/) do
   password = '12345678'
   User.make! password: password, email: "trashmail@meurio.org.br"
   visit root_path
-  fill_in 'user_email', with: current_user.email
-  fill_in 'user_password', with: password
+  fill_in 'username', with: current_user.email
+  fill_in 'password', with: password
   click_button 'Entrar'
 end
 
