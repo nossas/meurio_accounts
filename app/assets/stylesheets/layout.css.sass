@@ -1,20 +1,20 @@
 $row-width: 980px
 $black-text: #323232
-$green: #008e46
+$primary-color: #3b9fd2
 
 body
   background: #f4f5f7
   color: #494949
 
 body, h1, h2, h3, label
-  font-family: Proxima Nova
+  font-family: Proxima Nova Soft
   color: $black-text
 
 header
   text-align: center
   margin: 2em 0
   img
-    width: 80px
+    width: 200px
     margin-bottom: 1em
   h1
     font-size: 1.9em
@@ -29,9 +29,9 @@ footer
     margin-top: 1em
 
 a
-  color: orange
+  color: $primary-color
   &:hover
-    color: lighten(orange, 5%)
+    color: lighten($primary-color, 10%)
 
 input[type='email'], input[type='password'], input[type='text'], textarea, label[for='user_facebook'], label[for='user_twitter']
   font-size: 1em
@@ -64,11 +64,11 @@ input[type='submit'], .btn
   cursor: pointer
   font-weight: bold
   display: inline-block
-  background: $green
+  background: $primary-color
   +transition(.25s)
   +border-radius(3px)
   &:hover
-    background: lighten(#008e46, 5%)
+    background: lighten($primary-color, 10%)
     color: white
 
 .flash
@@ -86,7 +86,7 @@ input[type='submit'], .btn
   position: fixed
   bottom: -48px
   width: 100%
-  background: $green
+  background: $primary-color
   text-align: center
   font-size: 1em
   color: white
