@@ -381,7 +381,9 @@ CREATE TABLE organizations (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     mailchimp_list_id character varying(255) NOT NULL,
-    city character varying(255) NOT NULL
+    city character varying(255) NOT NULL,
+    avatar character varying(255),
+    email_signature_html text
 );
 
 
@@ -920,3 +922,9 @@ INSERT INTO schema_migrations (version) VALUES ('20140522110953');
 
 INSERT INTO schema_migrations (version) VALUES ('20140522111012');
 
+<<<<<<< HEAD
+=======
+INSERT INTO schema_migrations (version) VALUES ('20140527124305');
+
+INSERT INTO schema_migrations (version) VALUES ('20140529122220');
+>>>>>>> master
