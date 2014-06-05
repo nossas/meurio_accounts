@@ -20,7 +20,7 @@
               .large-6.columns
                 = f.label :last_name
                 = f.text_field :last_name
-      
+
             .row
               .large-6.columns
                 = f.label :profession
@@ -28,12 +28,12 @@
               .large-6.columns
                 = f.label :website
                 = f.text_field :website, placeholder: "meurio.org.br"
-      
+
             .row
               .large-12.columns
                 = f.label :bio
                 = f.text_area :bio
-      
+
             .row
               .large-6.columns
                 = f.label :facebook
@@ -43,17 +43,17 @@
                 = f.label :twitter
                   | twitter.com/
                   = f.text_field :twitter
-      
+
             .row
               .large-12.columns
                 = f.check_box :public
                 = f.label :public
-  
+
             hr
             .row.header
               .large-12.columns
                 h2 Dados Privados
-                | Somente você e a equipe do Meu Rio terão acesso a esses dados.
+                | Somente você e a equipe do Minhas Cidades terão acesso a esses dados.
             .row
               .large-6.columns
                 = f.label :email
@@ -61,7 +61,7 @@
               .large-6.columns
                 = f.label :secondary_email
                 = f.email_field :secondary_email
-      
+
             .row
               .large-6.columns
                 = f.label :birthday
@@ -73,7 +73,7 @@
                 = f.label :gender, 'Feminino', value: 'female'
                 = f.radio_button :gender, 'other'
                 = f.label :gender, 'Outro', value: 'other'
-      
+
             .row
               .large-6.columns
                 = f.label :postal_code
@@ -81,12 +81,12 @@
               .large-6.columns
                 = f.label :phone
                 = f.text_field :phone, class: [:phone]
-  
+
             hr
             .row.header
               .large-12.columns
                 h2 Trabalhe por uma cidade melhor!
-  
+
             .row.topics
               .large-12.columns
                 h3 Que temas são do seu interesse?
@@ -94,18 +94,18 @@
                 .large-12.columns
                   input *{type: 'checkbox', name: 'user[topics][]', value: value, checked: @user.topics?(value), id: value}
                   = label_tag value, t("topics.#{value}")
-  
+
             .row.skills
               .large-12.columns
-                h3 Quais são os seus talentos?              
+                h3 Quais são os seus talentos?
               - SKILL_OPTIONS.sort.each do |value|
                 .large-12.columns
                   input *{type: 'checkbox', name: 'user[skills][]', value: value, checked: @user.skills && @user.skills.include?(value), id: "user_skills_#{value}"}
                   = label_tag value, t("skills.#{value}")
-  
+
             .row
               - [ values_for_local_availability, values_for_remote_availability ].each do |values|
                 = render 'availability', availability_options: values
-  
+
             .row
               .large-12.columns= f.submit 'Salvar Perfil'
