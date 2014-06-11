@@ -383,7 +383,9 @@ CREATE TABLE organizations (
     mailchimp_list_id character varying(255) NOT NULL,
     city character varying(255) NOT NULL,
     avatar character varying(255),
-    email_signature_html text
+    email_signature_html text,
+    bio text,
+    pdp_sender_email character varying(255)
 );
 
 
@@ -925,3 +927,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140522111012');
 INSERT INTO schema_migrations (version) VALUES ('20140527124305');
 
 INSERT INTO schema_migrations (version) VALUES ('20140529122220');
+
+INSERT INTO schema_migrations (version) VALUES ('20140530174655');
+
+INSERT INTO schema_migrations (version) VALUES ('20140611134544');
