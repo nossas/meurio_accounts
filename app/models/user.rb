@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   bitmask :topics, as: TOPIC_OPTIONS
 
   after_save { self.delay.update_location_and_mailchimp }
+  after_create { self.delay.import_image_from_gravatar }
 
   def update_location_and_mailchimp
     self.fetch_address if self.postal_code.present?
@@ -80,5 +81,21 @@ class User < ActiveRecord::Base
 
   def translated_skills
     self.skills.map { |s| I18n.t("skills.#{s}") } unless self.skills.blank?
+  end
+
+  def import_image_from_gravatar
+    if (self.avatar_url == self.avatar.default_url) and self.gravatar_exists?
+      self.update_attribute(:remote_avatar_url, self.gravatar_url) 
+    end
+  end
+
+  def gravatar_url
+    "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.downcase)}.png"
+  end
+
+  def gravatar_exists?
+    url = "#{self.gravatar_url}?d=404"
+    response = Net::HTTP.get_response(URI.parse(url))
+    response.code.to_i != 404
   end
 end
