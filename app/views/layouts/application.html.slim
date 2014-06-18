@@ -15,7 +15,7 @@ head
   / Set the viewport width to device width for mobile
   meta name="viewport" content="width=device-width, initial-scale=1.0"
 
-  title= content_for?(:title) ? yield(:title) : 'Meu Rio'
+  title= content_for?(:title) ? yield(:title) : 'Minhas Cidades'
 
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/modernizr"
@@ -27,7 +27,7 @@ body class=[controller.controller_name, controller.action_name]
       .row
         .large-12.columns= flash[:notice] || params[:flash]
   header
-    = link_to image_tag('meurio.png'), 'http://meurio.org.br'
+    = link_to image_tag('minhascidades.png'), 'http://meurio.org.br'
     h1
       | Uma conta.
       br
@@ -36,7 +36,7 @@ body class=[controller.controller_name, controller.action_name]
   == yield
 
   footer
-    | Mobilize-se de várias formas com as ferramentas do Meu Rio
+    | Mobilize-se de várias formas com os aplicativos do Minhas Cidades
     .apps
       = link_to image_tag("pdp.png", title: "Panela de Pressão"), "http://paneladepressao.org.br/"
       = link_to image_tag("imagine.png", title: "Imagine"), "http://imagine.meurio.org.br/"

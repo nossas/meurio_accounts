@@ -82,4 +82,43 @@ describe User do
       end
     end
   end
+
+  describe '#import_image_from_gravatar' do
+    let(:user_image) { "#{Rails.root}/features/support/profile.png" }
+    let(:default_image) { 'http://i.imgur.com/hq2wZJm.jpg' }
+
+    context 'when the user already has a profile image' do
+      before { @user = User.make! avatar: File.open(user_image) }
+
+      it 'returns the avatar uploaded by the user' do
+        expect(@user.avatar_url).to include 'profile.png'
+      end
+    end
+
+    context "when the user doesn't have a profile image" do
+      context 'but he has a gravatar image' do
+        before do
+          allow_any_instance_of(User).to receive(:gravatar_exists?).and_return(true)
+          @user = User.make avatar: nil
+        end
+
+        it 'returns the gravatar image' do
+          expect(@user).to receive(:update_attribute).once
+          @user.save
+        end
+      end
+
+      context "and doesn't have a gravatar image" do
+        before do
+          allow_any_instance_of(User).to receive(:gravatar_exists?).and_return(false)
+          @user = User.make! avatar: nil
+        end
+
+        it 'returns the default image' do
+          expect(@user.avatar_url).to eq(default_image)
+        end
+      end
+    end
+
+  end
 end
