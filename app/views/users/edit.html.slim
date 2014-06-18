@@ -3,7 +3,7 @@
     .row
       = form_for @user, data: {abide: true} do |f|
         .large-3.columns
-          = image_tag @user.avatar.square.url
+          = image_tag @user.avatar.square.url, class: :avatar
           = f.file_field :avatar
           = f.hidden_field :avatar_cache
           a.btn Alterar Imagem
