@@ -22,6 +22,7 @@ head
   = csrf_meta_tag
 
 body class=[controller.controller_name, controller.action_name]
+  = current_account.inspect
   - if flash[:notice] || params[:flash]
     .flash.notice
       .row

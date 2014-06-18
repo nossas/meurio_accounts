@@ -2,6 +2,9 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, request = nil)
+    puts "********************************************"
+    puts "Ability user: #{user.inspect}"
+    puts "********************************************"
     if user
       can(:manage, User) {|u| user.id == u.id}
       if user.admin?
