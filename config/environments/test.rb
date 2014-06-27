@@ -37,4 +37,5 @@ MeurioAccounts::Application.configure do
   config.active_support.deprecation = :stderr
 
   default_url_options[:host] = "localhost:3000"
+  Delayed::Worker.delay_jobs = false
 end

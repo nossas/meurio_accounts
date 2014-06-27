@@ -85,7 +85,7 @@ class User < ActiveRecord::Base
 
   def import_image_from_gravatar
     if (self.avatar_url == self.avatar.default_url) and self.gravatar_exists?
-      self.update_attribute(:remote_avatar_url, self.gravatar_url) 
+      self.update_attribute(:remote_avatar_url, self.gravatar_url)
     end
   end
 
