@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
 
   rescue_from CanCan::AccessDenied do |exception|
+    puts "CanCan alert: #{exception.message}"
     redirect_to '/login', :alert => exception.message
   end
 
