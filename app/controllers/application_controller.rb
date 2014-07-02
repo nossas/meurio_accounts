@@ -7,16 +7,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_account
 
-  # prepend_before_action { session[:redirect_url] ||= params[:redirect_url] }
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  # prepend_before_action { session[:redirect_url] ||= params[:redirect_url] }
   # before_action { session.delete(:flash) }
   # before_action { session[:ssi_user_id] = current_account.id if current_account.present? }
-
-  before_filter do
-    puts "Query-String: #{request.headers["Query-String"].inspect}"
-    puts "Path-Info: #{request.headers["Path-Info"].inspect}"
-    puts "Remote-Address: #{request.headers["Remote-Address"].inspect}"
-  end
 
   skip_before_action :verify_authenticity_token
 
