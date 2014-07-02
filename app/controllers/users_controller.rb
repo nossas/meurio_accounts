@@ -2,7 +2,7 @@ class UsersController < InheritedResources::Base
   include CASino::ProcessorConcern::LoginTickets
 
   load_and_authorize_resource
-  skip_authorize_resource :only => [:create, :update, :ssi_redirect, :validate_email, :create_password, :sign_in]
+  skip_authorize_resource :only => [:create, :update, :validate_email, :create_password, :sign_in]
   skip_before_action :verify_authenticity_token, only: [:create, :update]
   before_action :set_allowed_user, only: [:edit, :update]
 
@@ -14,15 +14,10 @@ class UsersController < InheritedResources::Base
     @user.topics = params[:user][:topics]
 
     update! do |success, failure|
+      # TODO: find out why we are using redirect_url here, if it's useless, take it off
       success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_account.id}" }
       failure.html { render :edit }
     end
-  end
-
-  def ssi_redirect
-    session.delete(:flash)
-    puts "Redirect URL (in users#ssi_redirect): #{session[:redirect_url]}"
-    redirect_to session.delete(:redirect_url) || params[:redirect_url]
   end
 
   def sign_in
