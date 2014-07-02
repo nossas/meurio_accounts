@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   helper_method :current_account
 
@@ -15,8 +15,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
 
   rescue_from CanCan::AccessDenied do |exception|
-    puts "CanCan alert: #{exception.message}"
-    redirect_to '/login', :alert => exception.message
+    redirect_to '/login', flash: {alert: exception.message}
   end
 
   # def after_sign_in_path_for(resource)
