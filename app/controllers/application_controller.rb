@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to '/login', flash: {alert: exception.message}
+    redirect_to '/login', alert: exception.message
   end
 
   # def after_sign_in_path_for(resource)
