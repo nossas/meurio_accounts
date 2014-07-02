@@ -22,10 +22,10 @@ head
   = csrf_meta_tag
 
 body class=[controller.controller_name, controller.action_name]
-  - if flash[:notice] || params[:flash]
+  - if flash[:notice] || params[:flash] || flash[:alert]
     .flash.notice
       .row
-        .large-12.columns= flash[:notice] || params[:flash]
+        .large-12.columns= flash[:notice] || params[:flash] || flash[:alert]
   header
     = link_to image_tag('minhascidades.png'), 'http://meurio.org.br'
     h1
