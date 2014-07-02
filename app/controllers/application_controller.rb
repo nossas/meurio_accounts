@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   # before_action { session.delete(:flash) }
   # before_action { session[:ssi_user_id] = current_account.id if current_account.present? }
 
+  skip_before_action :verify_authenticity_token
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to '/login', :alert => exception.message
   end
