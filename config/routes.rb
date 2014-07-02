@@ -4,6 +4,8 @@ MeurioAccounts::Application.routes.draw do
   get '/sessions', to: redirect('/edit_profile')
 
   mount CASino::Engine => '/'
+  get '/logout', to: 'casino/sessions#logout', as: :logout
+  get '/login', to: 'casino/sessions#login', as: :login
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
