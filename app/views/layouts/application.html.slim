@@ -22,7 +22,6 @@ head
   = csrf_meta_tag
 
 body class=[controller.controller_name, controller.action_name]
-  = flash[:alert]
   - if flash[:notice] || flash[:alert] || params[:flash]
     .flash.notice
       .row

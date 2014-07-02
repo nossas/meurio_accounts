@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
   # before_action { session.delete(:flash) }
   # before_action { session[:ssi_user_id] = current_account.id if current_account.present? }
 
+  before_filter do
+    puts "Query-String: #{request.headers["Query-String"].inspect}"
+    puts "Path-Info: #{request.headers["Path-Info"].inspect}"
+    puts "Remote-Address: #{request.headers["Remote-Address"].inspect}"
+  end
+
   skip_before_action :verify_authenticity_token
 
   rescue_from CanCan::AccessDenied do |exception|
