@@ -26,6 +26,7 @@ body class=[controller.controller_name, controller.action_name]
     .flash.notice
       .row
         .large-12.columns= flash[:notice] || flash[:alert] || params[:flash]
+
   header
     = link_to image_tag('minhascidades.png'), 'http://meurio.org.br'
     h1
