@@ -22,7 +22,7 @@
 en:
   login_credential_acceptor:
     invalid_login_ticket: "Your login request did not include a valid login ticket."
-    invalid_login_credentials: "Incorrect username or password."
+    invalid_login_credentials: "Email ou senha incorretos."
   login:
     label_username: "Username"
     label_password: "Password"
