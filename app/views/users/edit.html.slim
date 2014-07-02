@@ -111,4 +111,6 @@
                 = render 'availability', availability_options: values
 
             .row
-              .large-12.columns= f.submit 'Salvar Perfil'
+              .large-12.columns
+                / TODO: replace the url string by the path method
+                | #{f.submit 'Salvar Perfil'} ou #{link_to "Sair", '/logout?service=/login'}
