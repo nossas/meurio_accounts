@@ -386,7 +386,8 @@ CREATE TABLE organizations (
     email_signature_html text,
     bio text,
     pdp_sender_email character varying(255),
-    pdp_receiver_email character varying(255)
+    pdp_receiver_email character varying(255),
+    slug character varying(255)
 );
 
 
@@ -942,5 +943,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140530174655');
 INSERT INTO schema_migrations (version) VALUES ('20140611134544');
 
 INSERT INTO schema_migrations (version) VALUES ('20140611172025');
+
+INSERT INTO schema_migrations (version) VALUES ('20140627151702');
 
 INSERT INTO schema_migrations (version) VALUES ('20140708175259');
