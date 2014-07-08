@@ -3,6 +3,7 @@ class UsersController < InheritedResources::Base
   skip_authorize_resource :only => [:create, :update, :ssi_redirect, :validate_email, :create_password]
   skip_before_action :verify_authenticity_token, only: [:create, :update]
   before_action :set_allowed_user, only: [:edit, :update]
+  before_action :update_mailchimp_subscription, only: [:create]
   respond_to :json
 
   def update
@@ -37,6 +38,14 @@ class UsersController < InheritedResources::Base
   def set_allowed_user
     unless request.format.json?
       @user = current_user if @user.nil? or not current_user.admin?
+    end
+  end
+
+  def update_mailchimp_subscription
+    user = User.find_by_email(params[:user][:email])
+    if user.present? && params[:user][:organization_id].present?
+      user.organization_id = params[:user][:organization_id]
+      user.delay.update_mailchimp_subscription
     end
   end
 
