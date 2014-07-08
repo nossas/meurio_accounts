@@ -4,12 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
 
+  attr_accessor :organization_id
+
   validates :email, :first_name, :last_name, presence: true
   validates :email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }
   validates :password, on: :create, length: { minimum: 6, maximum: 128 }
   validates :secondary_email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }, allow_blank: true
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
+  validates :mailchimp_euid, uniqueness: true
 
   has_many :memberships
   has_many :organizations, through: :memberships
@@ -56,11 +59,12 @@ class User < ActiveRecord::Base
   end
 
   def update_mailchimp_subscription
-    # TODO: rewrite this method to support multiple accounts
-    if self.application_slug != "naopassarao"
+    organization = Organization.find_by_id(self.organization_id)
+
+    if organization.present?
       begin
-        Gibbon::API.lists.subscribe(
-          id: ENV["MAILCHIMP_LIST_ID"],
+        subscription = Gibbon::API.lists.subscribe(
+          id: organization.mailchimp_list_id,
           email: {email: self.email},
           merge_vars: {
             FNAME: self.first_name,
@@ -73,6 +77,8 @@ class User < ActiveRecord::Base
           update_existing: true,
           replace_interests: true
         )
+
+        self.update_attribute :mailchimp_euid, subscription["euid"]
       rescue Exception => e
         Rails.logger.error e
       end
@@ -85,7 +91,7 @@ class User < ActiveRecord::Base
 
   def import_image_from_gravatar
     if (self.avatar_url == self.avatar.default_url) and self.gravatar_exists?
-      self.update_attribute(:remote_avatar_url, self.gravatar_url) 
+      self.update_attribute(:remote_avatar_url, self.gravatar_url)
     end
   end
 

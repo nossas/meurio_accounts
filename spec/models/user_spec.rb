@@ -117,6 +117,25 @@ describe User do
         end
       end
     end
+  end
 
+  describe '#update_mailchimp_subscription' do
+    context 'when there is an organization_id' do
+      before { subject.organization_id = 1 }
+      before { Organization.stub(:find_by_id).with(1).and_return(stub_model Organization) }
+      before { Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "abc"}) }
+
+      it "should subscribe user into the MailChimp list" do
+        subject.should_receive(:update_attribute).with(:mailchimp_euid, "abc")
+        subject.update_mailchimp_subscription
+      end
+    end
+
+    context 'when there is no organization_id' do
+      it "should not subscribe user into the MailChimp list" do
+        subject.should_not_receive(:update_attribute)
+        subject.update_mailchimp_subscription
+      end
+    end
   end
 end
