@@ -59,9 +59,7 @@ class User < ActiveRecord::Base
   end
 
   def update_mailchimp_subscription
-    organization = Organization.find_by_id(self.organization_id)
-
-    if organization.present?
+    self.organizations.each do |organization|
       begin
         subscription = Gibbon::API.lists.subscribe(
           id: organization.mailchimp_list_id,

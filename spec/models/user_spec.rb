@@ -120,9 +120,8 @@ describe User do
   end
 
   describe '#update_mailchimp_subscription' do
-    context 'when there is an organization_id' do
-      before { subject.organization_id = 1 }
-      before { Organization.stub(:find_by_id).with(1).and_return(stub_model Organization) }
+    context 'when there is at least one organization' do
+      before { subject.organizations << Organization.make! }
       before { Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "abc"}) }
 
       it "should subscribe user into the MailChimp list" do
@@ -131,7 +130,7 @@ describe User do
       end
     end
 
-    context 'when there is no organization_id' do
+    context 'when there is no organization' do
       it "should not subscribe user into the MailChimp list" do
         subject.should_not_receive(:update_attribute)
         subject.update_mailchimp_subscription
