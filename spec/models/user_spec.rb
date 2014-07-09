@@ -118,23 +118,4 @@ describe User do
       end
     end
   end
-
-  describe '#update_mailchimp_subscription' do
-    context 'when there is at least one organization' do
-      before { subject.organizations << Organization.make! }
-      before { Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "abc"}) }
-
-      it "should subscribe user into the MailChimp list" do
-        subject.should_receive(:update_attribute).with(:mailchimp_euid, "abc")
-        subject.update_mailchimp_subscription
-      end
-    end
-
-    context 'when there is no organization' do
-      it "should not subscribe user into the MailChimp list" do
-        subject.should_not_receive(:update_attribute)
-        subject.update_mailchimp_subscription
-      end
-    end
-  end
 end

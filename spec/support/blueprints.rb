@@ -13,3 +13,8 @@ Organization.blueprint do
   city { "Rio de Janeiro" }
   mailchimp_list_id { "123" }
 end
+
+Membership.blueprint do
+  user { User.make! }
+  organization { Organization.make! }
+end

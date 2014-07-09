@@ -22,13 +22,12 @@ class User < ActiveRecord::Base
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
-  after_save { self.delay.update_location_and_mailchimp }
+  after_save { self.delay.update_location }
   after_create { self.delay.import_image_from_gravatar }
 
-  def update_location_and_mailchimp
+  def update_location
     self.fetch_address if self.postal_code.present?
     self.locate_ip if self.ip.present? and self.postal_code.blank?
-    self.update_mailchimp_subscription
   end
 
   def name
@@ -55,31 +54,6 @@ class User < ActiveRecord::Base
       )
     rescue Exception => e
       Rails.logger.error e
-    end
-  end
-
-  def update_mailchimp_subscription
-    self.organizations.each do |organization|
-      begin
-        subscription = Gibbon::API.lists.subscribe(
-          id: organization.mailchimp_list_id,
-          email: {email: self.email},
-          merge_vars: {
-            FNAME: self.first_name,
-            LNAME: self.last_name,
-            CITY: self.city,
-            PHONE: self.phone,
-            groupings: [ name: 'Skills', groups: self.translated_skills ]
-          },
-          double_optin: false,
-          update_existing: true,
-          replace_interests: true
-        )
-
-        self.update_attribute :mailchimp_euid, subscription["euid"]
-      rescue Exception => e
-        Rails.logger.error e
-      end
     end
   end
 
