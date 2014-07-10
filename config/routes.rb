@@ -8,6 +8,7 @@ MeurioAccounts::Application.routes.draw do
 
   resources :users, only: [:edit, :create, :update, :show] do
     resources :memberships, only: [:create]
+    resources :segment_subscriptions, only: [:create]
   end
 
   get 'ssi_redirect' => 'users#ssi_redirect', as: :ssi_redirect
