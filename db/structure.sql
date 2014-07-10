@@ -30,6 +30,277 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: casino_login_tickets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_login_tickets (
+    id integer NOT NULL,
+    ticket character varying(255) NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_login_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_login_tickets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_login_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_login_tickets_id_seq OWNED BY casino_login_tickets.id;
+
+
+--
+-- Name: casino_proxy_granting_tickets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_proxy_granting_tickets (
+    id integer NOT NULL,
+    ticket character varying(255) NOT NULL,
+    iou character varying(255) NOT NULL,
+    granter_id integer NOT NULL,
+    pgt_url character varying(255) NOT NULL,
+    granter_type character varying(255) NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_proxy_granting_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_proxy_granting_tickets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_proxy_granting_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_proxy_granting_tickets_id_seq OWNED BY casino_proxy_granting_tickets.id;
+
+
+--
+-- Name: casino_proxy_tickets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_proxy_tickets (
+    id integer NOT NULL,
+    ticket character varying(255) NOT NULL,
+    service text NOT NULL,
+    consumed boolean DEFAULT false NOT NULL,
+    proxy_granting_ticket_id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_proxy_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_proxy_tickets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_proxy_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_proxy_tickets_id_seq OWNED BY casino_proxy_tickets.id;
+
+
+--
+-- Name: casino_service_rules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_service_rules (
+    id integer NOT NULL,
+    enabled boolean DEFAULT true NOT NULL,
+    "order" integer DEFAULT 10 NOT NULL,
+    name character varying(255) NOT NULL,
+    url character varying(255) NOT NULL,
+    regex boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_service_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_service_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_service_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_service_rules_id_seq OWNED BY casino_service_rules.id;
+
+
+--
+-- Name: casino_service_tickets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_service_tickets (
+    id integer NOT NULL,
+    ticket character varying(255) NOT NULL,
+    service text NOT NULL,
+    ticket_granting_ticket_id integer,
+    consumed boolean DEFAULT false NOT NULL,
+    issued_from_credentials boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_service_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_service_tickets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_service_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_service_tickets_id_seq OWNED BY casino_service_tickets.id;
+
+
+--
+-- Name: casino_ticket_granting_tickets; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_ticket_granting_tickets (
+    id integer NOT NULL,
+    ticket character varying(255) NOT NULL,
+    user_agent character varying(255),
+    user_id integer NOT NULL,
+    awaiting_two_factor_authentication boolean DEFAULT false NOT NULL,
+    long_term boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_ticket_granting_tickets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_ticket_granting_tickets_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_ticket_granting_tickets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_ticket_granting_tickets_id_seq OWNED BY casino_ticket_granting_tickets.id;
+
+
+--
+-- Name: casino_two_factor_authenticators; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_two_factor_authenticators (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    secret character varying(255) NOT NULL,
+    active boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_two_factor_authenticators_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_two_factor_authenticators_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_two_factor_authenticators_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_two_factor_authenticators_id_seq OWNED BY casino_two_factor_authenticators.id;
+
+
+--
+-- Name: casino_users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE casino_users (
+    id integer NOT NULL,
+    authenticator character varying(255) NOT NULL,
+    username character varying(255) NOT NULL,
+    extra_attributes text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: casino_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE casino_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: casino_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE casino_users_id_seq OWNED BY casino_users.id;
+
+
+--
 -- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -226,6 +497,62 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY casino_login_tickets ALTER COLUMN id SET DEFAULT nextval('casino_login_tickets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_proxy_granting_tickets ALTER COLUMN id SET DEFAULT nextval('casino_proxy_granting_tickets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_proxy_tickets ALTER COLUMN id SET DEFAULT nextval('casino_proxy_tickets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_service_rules ALTER COLUMN id SET DEFAULT nextval('casino_service_rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_service_tickets ALTER COLUMN id SET DEFAULT nextval('casino_service_tickets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_ticket_granting_tickets ALTER COLUMN id SET DEFAULT nextval('casino_ticket_granting_tickets_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_two_factor_authenticators ALTER COLUMN id SET DEFAULT nextval('casino_two_factor_authenticators_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY casino_users ALTER COLUMN id SET DEFAULT nextval('casino_users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
 
 
@@ -259,11 +586,27 @@ ALTER TABLE ONLY organizations
 
 
 --
+-- Name: casino_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_users
+    ADD CONSTRAINT casino_users_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY delayed_jobs
     ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: login_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_login_tickets
+    ADD CONSTRAINT login_tickets_pkey PRIMARY KEY (id);
 
 
 --
@@ -275,6 +618,54 @@ ALTER TABLE ONLY memberships
 
 
 --
+-- Name: proxy_granting_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_proxy_granting_tickets
+    ADD CONSTRAINT proxy_granting_tickets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: proxy_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_proxy_tickets
+    ADD CONSTRAINT proxy_tickets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: service_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_service_rules
+    ADD CONSTRAINT service_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: service_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_service_tickets
+    ADD CONSTRAINT service_tickets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ticket_granting_tickets_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_ticket_granting_tickets
+    ADD CONSTRAINT ticket_granting_tickets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: two_factor_authenticators_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY casino_two_factor_authenticators
+    ADD CONSTRAINT two_factor_authenticators_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -283,10 +674,94 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: casino_proxy_tickets_on_pgt_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX casino_proxy_tickets_on_pgt_id ON casino_proxy_tickets USING btree (proxy_granting_ticket_id);
+
+
+--
+-- Name: casino_service_tickets_on_tgt_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX casino_service_tickets_on_tgt_id ON casino_service_tickets USING btree (ticket_granting_ticket_id);
+
+
+--
 -- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
+
+
+--
+-- Name: index_casino_login_tickets_on_ticket; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_login_tickets_on_ticket ON casino_login_tickets USING btree (ticket);
+
+
+--
+-- Name: index_casino_proxy_granting_tickets_on_granter; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_proxy_granting_tickets_on_granter ON casino_proxy_granting_tickets USING btree (granter_type, granter_id);
+
+
+--
+-- Name: index_casino_proxy_granting_tickets_on_iou; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_proxy_granting_tickets_on_iou ON casino_proxy_granting_tickets USING btree (iou);
+
+
+--
+-- Name: index_casino_proxy_granting_tickets_on_ticket; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_proxy_granting_tickets_on_ticket ON casino_proxy_granting_tickets USING btree (ticket);
+
+
+--
+-- Name: index_casino_proxy_tickets_on_ticket; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_proxy_tickets_on_ticket ON casino_proxy_tickets USING btree (ticket);
+
+
+--
+-- Name: index_casino_service_rules_on_url; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_service_rules_on_url ON casino_service_rules USING btree (url);
+
+
+--
+-- Name: index_casino_service_tickets_on_ticket; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_service_tickets_on_ticket ON casino_service_tickets USING btree (ticket);
+
+
+--
+-- Name: index_casino_ticket_granting_tickets_on_ticket; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_ticket_granting_tickets_on_ticket ON casino_ticket_granting_tickets USING btree (ticket);
+
+
+--
+-- Name: index_casino_two_factor_authenticators_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_casino_two_factor_authenticators_on_user_id ON casino_two_factor_authenticators USING btree (user_id);
+
+
+--
+-- Name: index_casino_users_on_authenticator_and_username; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_casino_users_on_authenticator_and_username ON casino_users USING btree (authenticator, username);
 
 
 --
@@ -301,6 +776,13 @@ CREATE UNIQUE INDEX index_memberships_on_organization_id_and_user_id ON membersh
 --
 
 CREATE UNIQUE INDEX index_organizations_on_name ON organizations USING btree (name);
+
+
+--
+-- Name: index_proxy_granting_tickets_on_granter; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_proxy_granting_tickets_on_granter ON casino_proxy_granting_tickets USING btree (granter_type, granter_id);
 
 
 --
@@ -420,6 +902,16 @@ INSERT INTO schema_migrations (version) VALUES ('20140328181211');
 INSERT INTO schema_migrations (version) VALUES ('20140407204415');
 
 INSERT INTO schema_migrations (version) VALUES ('20140505130346');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509130729');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509130730');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509130731');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509130732');
+
+INSERT INTO schema_migrations (version) VALUES ('20140509130733');
 
 INSERT INTO schema_migrations (version) VALUES ('20140519135656');
 
