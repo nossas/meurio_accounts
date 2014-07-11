@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
   def fetch_address
     json = JSON.parse(open("http://brazilapi.herokuapp.com/api?cep=#{self.postal_code}").read)
-    if(json[0]["cep"]["result"])
+    if(json[0]["cep"]["valid"])
       address = json[0]["cep"]["data"]
       if(self.city != address["cidade"] || self.address_street != "#{address["tp_logradouro"]} #{address["logradouro"]}" || self.address_district != address["bairro"] || self.state != address["uf"])
         self.update_columns(city: address["cidade"], address_street: "#{address["tp_logradouro"]} #{address["logradouro"]}", address_district: address["bairro"], state: address["uf"])
