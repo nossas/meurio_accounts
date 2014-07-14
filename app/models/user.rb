@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
           replace_interests: true
         )
 
-        self.update_attribute :mailchimp_euid, subscription["euid"]
+        self.update_column :mailchimp_euid, subscription["euid"]
       rescue Exception => e
         Rails.logger.error e
       end
