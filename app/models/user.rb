@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
             LNAME: self.last_name,
             CITY: self.city,
             PHONE: self.phone,
+            LOGINLINK: self.login_url,
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
@@ -107,6 +108,10 @@ class User < ActiveRecord::Base
     url = "#{self.gravatar_url}?d=404"
     response = Net::HTTP.get_response(URI.parse(url))
     response.code.to_i != 404
+  end
+
+  def login_url
+    "#{ENV['HOST']}?user_token=#{self.auth_token}&user_email=#{self.email}"
   end
 
   private
