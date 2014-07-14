@@ -9,6 +9,7 @@ class UsersController < InheritedResources::Base
     @user.availability = params[:user][:availability]
     @user.skills = params[:user][:skills]
     @user.topics = params[:user][:topics]
+    @user.ip = request.remote_ip
 
     update! do |success, failure|
       success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_user.id}" }
