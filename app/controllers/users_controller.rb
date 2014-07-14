@@ -6,9 +6,10 @@ class UsersController < InheritedResources::Base
   respond_to :json
 
   def update
-    @user.availability = params[:user][:availability]
-    @user.skills = params[:user][:skills]
-    @user.topics = params[:user][:topics]
+    @user.availability = params[:user][:availability] if params[:user][:availability].present?
+    @user.skills = params[:user][:skills] if params[:user][:skills].present?
+    @user.topics = params[:user][:topics] if params[:user][:topics].present?
+    @user.ip = request.remote_ip
 
     update! do |success, failure|
       success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_user.id}" }
