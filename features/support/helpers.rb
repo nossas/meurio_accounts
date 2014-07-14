@@ -8,6 +8,7 @@ def to_url string
   return edit_user_path(@user) if string == "this user edit page"
   return validate_email_path if string == "the email validation page"
   return create_password_path if string == "the create password page"
+  return root_path(user_token: @user.auth_token, user_email: @user.email) if string == "this user login with token page"
   return "/pdp" if string == "Panela de Pressão"
   return "/users/#{current_user.id}" if string == "my profile page"
   raise "Sorry dude but I don't know what '#{string}' means"

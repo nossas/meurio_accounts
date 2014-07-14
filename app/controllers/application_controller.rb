@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action { session.delete(:flash) }
   before_action { session[:ssi_user_id] = current_user.id if current_user.present? }
+  before_filter :authenticate_user_from_token!
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to new_user_session_path, :alert => exception.message
@@ -38,5 +39,17 @@ class ApplicationController < ActionController::Base
 
   def current_ability
     @current_ability ||= Ability.new(current_user, request)
+  end
+
+  private
+
+  def authenticate_user_from_token!
+    user_email = params[:user_email]
+    user = user_email && User.find_by_email(user_email)
+
+    if user && Devise.secure_compare(user.auth_token, params[:user_token])
+      sign_in user
+      redirect_to edit_user_path(user)
+    end
   end
 end
