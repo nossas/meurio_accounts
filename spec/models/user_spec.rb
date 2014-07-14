@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe User do
+  before { User.make! }
+
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
   it { should validate_presence_of :first_name }
@@ -10,6 +12,7 @@ describe User do
   it { should allow_value("(21) 99999999").for(:phone) }
   it { should allow_value("(21) 999999999").for(:phone) }
   it { should_not allow_value("(21) 9999999").for(:phone) }
+  it { should validate_uniqueness_of :auth_token }
 
   it { should have_many :memberships }
   it { should have_many :organizations }

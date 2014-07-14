@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
   validates :mailchimp_euid, uniqueness: true, allow_nil: true
+  validates :auth_token, uniqueness: true
 
   has_many :memberships
   has_many :organizations, through: :memberships
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
+  before_validation :set_auth_token
   after_save { self.delay.update_location }
   after_create { self.delay.import_image_from_gravatar }
 
@@ -75,5 +77,15 @@ class User < ActiveRecord::Base
     url = "#{self.gravatar_url}?d=404"
     response = Net::HTTP.get_response(URI.parse(url))
     response.code.to_i != 404
+  end
+
+  private
+
+  def set_auth_token
+    return if self.auth_token.present?
+
+    begin
+      self.auth_token = SecureRandom.hex
+    end while self.class.exists?(auth_token: self.auth_token)
   end
 end

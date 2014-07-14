@@ -469,6 +469,7 @@ CREATE TABLE users (
     application_slug character varying(255),
     sponsor boolean DEFAULT false,
     mailchimp_euid character varying(255),
+    auth_token character varying(255) NOT NULL,
     CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text)),
     CONSTRAINT proper_phone CHECK ((((phone)::text ~* '[(]{1}[0-9]{2}[)]{1} [0-9]{8,9}'::text) OR ((phone)::text = ''::text)))
 );
@@ -786,6 +787,13 @@ CREATE UNIQUE INDEX index_proxy_granting_tickets_on_granter ON casino_proxy_gran
 
 
 --
+-- Name: index_users_on_auth_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_auth_token ON users USING btree (auth_token);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -950,3 +958,9 @@ INSERT INTO schema_migrations (version) VALUES ('20140627151702');
 INSERT INTO schema_migrations (version) VALUES ('20140708175259');
 
 INSERT INTO schema_migrations (version) VALUES ('20140710132321');
+
+INSERT INTO schema_migrations (version) VALUES ('20140714211357');
+
+INSERT INTO schema_migrations (version) VALUES ('20140714211558');
+
+INSERT INTO schema_migrations (version) VALUES ('20140714211949');
