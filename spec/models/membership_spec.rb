@@ -24,7 +24,7 @@ describe Membership do
         double_optin: false,
         update_existing: true,
         replace_interests: true
-      ).and_return({"euid" => "123"})
+      ).at_least(:once).and_return({"euid" => "123"})
       membership.add_to_mailchimp_list
     end
 
