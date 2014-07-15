@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def login_url
-    "#{ENV['HOST']}?user_token=#{self.auth_token}&user_email=#{self.email}"
+    "http://#{ENV['HOST']}?user_token=#{self.auth_token}&user_email=#{self.email}"
   end
 
   private
