@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 
   has_many :memberships, inverse_of: :user
   has_many :organizations, through: :memberships
-  
+
   accepts_nested_attributes_for :memberships
 
   mount_uploader :avatar, AvatarUploader
