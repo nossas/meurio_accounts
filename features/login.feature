@@ -26,3 +26,8 @@ Feature: login
     When I submit "the login form"
     Then I should be in "the login page"
     And I should see "the login form errors"
+
+  Scenario: when I login with my token
+    Given there is an user
+    When I'm in "this user login with token page"
+    Then I should be redirected to "this user edit page"

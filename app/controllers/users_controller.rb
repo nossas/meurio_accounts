@@ -1,3 +1,5 @@
+# The UserController#create is not been used! It's the DeviseRegistration instead
+
 class UsersController < InheritedResources::Base
   load_and_authorize_resource
   skip_authorize_resource :only => [:create, :update, :ssi_redirect, :validate_email, :create_password]
@@ -42,6 +44,6 @@ class UsersController < InheritedResources::Base
   end
 
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug, :organization_ids)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug, :password, memberships_attributes: [:organization_id])}
   end
 end

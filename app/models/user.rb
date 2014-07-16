@@ -12,15 +12,19 @@ class User < ActiveRecord::Base
   validates :secondary_email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }, allow_blank: true
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
-  
-  has_many :memberships
+  validates :auth_token, uniqueness: true
+
+  has_many :memberships, inverse_of: :user
   has_many :organizations, through: :memberships
+
+  accepts_nested_attributes_for :memberships
 
   mount_uploader :avatar, AvatarUploader
 
   bitmask :availability, as: AVAILABILITY_OPTIONS
   bitmask :topics, as: TOPIC_OPTIONS
 
+  before_validation :set_auth_token
   after_create { self.delay.import_image_from_gravatar }
   after_save { self.delay.update_location_and_mailchimp }
 
@@ -45,6 +49,7 @@ class User < ActiveRecord::Base
             LNAME: self.last_name,
             CITY: self.city,
             PHONE: self.phone,
+            LOGINLINK: self.login_url,
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
@@ -104,5 +109,19 @@ class User < ActiveRecord::Base
     url = "#{self.gravatar_url}?d=404"
     response = Net::HTTP.get_response(URI.parse(url))
     response.code.to_i != 404
+  end
+
+  def login_url
+    "http://#{ENV['HOST']}?user_token=#{self.auth_token}&user_email=#{self.email}"
+  end
+
+  private
+
+  def set_auth_token
+    return if self.auth_token.present?
+
+    begin
+      self.auth_token = SecureRandom.hex
+    end while self.class.exists?(auth_token: self.auth_token)
   end
 end

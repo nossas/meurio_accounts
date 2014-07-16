@@ -4,7 +4,7 @@ describe Membership do
   it { should belong_to :organization }
   it { should validate_uniqueness_of(:organization_id).scoped_to(:user_id) }
   it { should validate_presence_of(:organization_id) }
-  it { should validate_presence_of(:user_id) }
+  it { should validate_presence_of(:user) }
 
   describe '#add_to_mailchimp_list' do
     it 'should subscribe user to the mailchimp list' do
