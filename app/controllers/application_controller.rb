@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
       :email,
       :ip,
       :application_slug,
-      :organization_ids => []
+      memberships_attributes: [:organization_id]
     ]
   end
 
