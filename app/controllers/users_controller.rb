@@ -1,3 +1,5 @@
+# The UserController#create is not been used! It's the DeviseRegistration instead
+
 class UsersController < InheritedResources::Base
   load_and_authorize_resource
   skip_authorize_resource :only => [:create, :update, :ssi_redirect, :validate_email, :create_password]
