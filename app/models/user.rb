@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   validates :secondary_email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }, allow_blank: true
   validates :phone, format: { with: /\([\d]{2}\)\s[\d]{8,9}/ }, allow_blank: true
   validates :website, format: { with: /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/ }, allow_blank: true
-  validates :mailchimp_euid, uniqueness: true, allow_nil: true
   validates :auth_token, uniqueness: true
 
   has_many :memberships, inverse_of: :user
