@@ -12,8 +12,10 @@ class Ability
     if request && request.params[:format] == "json"
       if request.params[:token] == ENV["API_TOKEN"]
         can :create, User
+        can :create, Membership
       else
         cannot :create, User
+        cannot :create, Membership
       end
     end
   end

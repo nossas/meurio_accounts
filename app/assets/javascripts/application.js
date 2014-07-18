@@ -35,7 +35,8 @@ $(function(){
     nextText: 'Próximo',
     prevText: 'Anterior',
     changeMonth: true,
-    changeYear: true
+    changeYear: true,
+    yearRange: "1900:+00"
   });
 
   $('form.edit_user a.btn').click(function(){ $('input#user_avatar').trigger('click'); });

@@ -9,7 +9,10 @@ MeurioAccounts::Application.routes.draw do
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
-  resources :users, only: [:edit, :create, :update, :show]
+  resources :users, only: [:edit, :create, :update, :show] do
+    resources :memberships, only: [:create]
+    resources :segment_subscriptions, only: [:create]
+  end
 
   get 'edit_profile' => 'users#edit', as: :edit_profile
   get 'sign_in_after_sign_up' => 'users#sign_in', as: :sign_in_after_sign_up

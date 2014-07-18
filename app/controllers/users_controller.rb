@@ -1,6 +1,6 @@
-class UsersController < InheritedResources::Base
-  include CASino::ProcessorConcern::LoginTickets
+# The UserController#create is not been used! It's the DeviseRegistration instead
 
+class UsersController < InheritedResources::Base
   load_and_authorize_resource
   skip_authorize_resource :only => [:create, :update, :validate_email, :create_password, :sign_in]
   skip_before_action :verify_authenticity_token, only: [:create, :update]
@@ -9,9 +9,10 @@ class UsersController < InheritedResources::Base
   respond_to :json
 
   def update
-    @user.availability = params[:user][:availability]
-    @user.skills = params[:user][:skills]
-    @user.topics = params[:user][:topics]
+    @user.availability = params[:user][:availability] if params[:user][:availability].present?
+    @user.skills = params[:user][:skills] if params[:user][:skills].present?
+    @user.topics = params[:user][:topics] if params[:user][:topics].present?
+    @user.ip = request.remote_ip
 
     update! do |success, failure|
       # TODO: find out why we are using redirect_url here, if it's useless, take it off
@@ -21,15 +22,7 @@ class UsersController < InheritedResources::Base
   end
 
   def sign_in
-    my_processor = processor(:LoginCredentialAcceptor)
-    my_processor.process(
-      {
-        username: params[:user][:email],
-        password: params[:user][:password],
-        lt: acquire_login_ticket.ticket
-      },
-      request.user_agent
-    )
+    sign_in_with_casino params[:user][:email], params[:user][:password]
   end
 
   def validate_email
@@ -51,6 +44,6 @@ class UsersController < InheritedResources::Base
   end
 
   def permitted_params
-    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug, :organization_ids)}
+    {:user => params.require(:user).permit(:avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug, :password, memberships_attributes: [:organization_id])}
   end
 end
