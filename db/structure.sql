@@ -804,7 +804,7 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 -- Name: index_users_on_mailchimp_euid; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_users_on_mailchimp_euid ON users USING btree (mailchimp_euid);
+CREATE INDEX index_users_on_mailchimp_euid ON users USING btree (mailchimp_euid);
 
 
 --
@@ -964,3 +964,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140714211357');
 INSERT INTO schema_migrations (version) VALUES ('20140714211558');
 
 INSERT INTO schema_migrations (version) VALUES ('20140714211949');
+
+INSERT INTO schema_migrations (version) VALUES ('20140716183847');
+
+INSERT INTO schema_migrations (version) VALUES ('20140716185238');
