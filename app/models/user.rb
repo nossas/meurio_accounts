@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
             CITY: self.city,
             PHONE: self.phone,
             LOGINLINK: self.login_url,
+            DISTRICT: self.address_district
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
