@@ -58,6 +58,7 @@ production: &production
           username: <%= ENV["DB_USER"] %>
           database: <%= ENV["DB_NAME"] %>
           password: <%= ENV["DB_PASSWORD"] %>
+          port: <%= ENV["DB_PORT"] %>
         table: "users"
         username_column: "email"
         password_column: "encrypted_password"
