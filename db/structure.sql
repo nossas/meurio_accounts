@@ -470,8 +470,6 @@ CREATE TABLE users (
     sponsor boolean DEFAULT false,
     mailchimp_euid character varying(255),
     auth_token character varying(255) NOT NULL,
-    facebook_friends_count integer,
-    facebook_subscribers_count integer,
     CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text)),
     CONSTRAINT proper_phone CHECK ((((phone)::text ~* '[(]{1}[0-9]{2}[)]{1} [0-9]{8,9}'::text) OR ((phone)::text = ''::text)))
 );
@@ -970,8 +968,4 @@ INSERT INTO schema_migrations (version) VALUES ('20140714211949');
 INSERT INTO schema_migrations (version) VALUES ('20140716183847');
 
 INSERT INTO schema_migrations (version) VALUES ('20140716185238');
-
-INSERT INTO schema_migrations (version) VALUES ('20140818174504');
-
-INSERT INTO schema_migrations (version) VALUES ('20140818174556');
 
