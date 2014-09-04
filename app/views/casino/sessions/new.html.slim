@@ -2,7 +2,7 @@
   .login.large-5.large-centered.columns
     = form_tag(login_path, method: :post, id: 'login-form') do
 
-      h2 Entre com a sua conta do Meu Rio
+      h2 Entre com a sua conta da Rede Minhas Cidades
       .signup Não é membro? #{ link_to 'Cadastre-se', '/validate_email' }
 
       = hidden_field_tag :lt, @login_ticket.ticket
