@@ -7,7 +7,7 @@ MeurioAccounts::Application.routes.draw do
   get '/logout', to: 'casino/sessions#logout', as: :logout
   get '/login', to: 'casino/sessions#login', as: :login
 
-  devise_for :users, :controllers => {:registrations => "registrations"}
+  devise_for :users, :controllers => {:registrations => "registrations", :passwords => "passwords"}
 
   resources :users, only: [:edit, :create, :update, :show] do
     resources :memberships, only: [:create]
