@@ -28,6 +28,7 @@ class Membership < ActiveRecord::Base
 
       self.user.update_attribute :mailchimp_euid, subscription["euid"]
     rescue Exception => e
+      Appsignal.add_exception e
       Rails.logger.error e
     end
   end

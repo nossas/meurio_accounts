@@ -15,6 +15,7 @@ class SegmentSubscriptionsController < InheritedResources::Base
         )
       end
     rescue Exception => e
+      Appsignal.add_exception e
       Rails.logger.error e
     end
 
