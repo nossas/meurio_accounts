@@ -18,4 +18,10 @@ MeurioAccounts::Application.routes.draw do
   get 'sign_in_after_sign_up' => 'users#sign_in', as: :sign_in_after_sign_up
 
   match 'validate_email' => "users#validate_email", as: :validate_email, via: [:get, :post]
+
+  namespace :api do
+    namespace :v1, constraints: { format: 'json' } do
+      resources :users, only: [:create]
+    end
+  end
 end
