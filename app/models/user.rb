@@ -60,6 +60,7 @@ class User < ActiveRecord::Base
 
         self.update_column :mailchimp_euid, subscription["euid"]
       rescue Exception => e
+        Appsignal.add_exception e
         Rails.logger.error e
       end
     end
@@ -79,6 +80,7 @@ class User < ActiveRecord::Base
         end
       end
     rescue Exception => e
+      Appsignal.add_exception e
       Rails.logger.error e
     end
   end
@@ -92,6 +94,7 @@ class User < ActiveRecord::Base
         country: location["geolocation_data"]["country_name"]
       )
     rescue Exception => e
+      Appsignal.add_exception e
       Rails.logger.error e
     end
   end

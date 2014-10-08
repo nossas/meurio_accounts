@@ -55,6 +55,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.5)
+    appsignal (0.10.6)
+      rack
+      thread_safe
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
     bcrypt-ruby (3.1.2)
@@ -358,6 +361,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  appsignal
   bitmask_attributes
   cancan
   carrierwave

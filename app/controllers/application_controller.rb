@@ -65,6 +65,7 @@ class ApplicationController < ActionController::Base
       begin
         sign_in_with_casino user.email, new_password
       rescue Exception => e
+        Appsignal.add_exception e
         Rails.logger e
       end
 
