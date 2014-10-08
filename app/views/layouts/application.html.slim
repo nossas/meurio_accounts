@@ -16,7 +16,7 @@ head
   / Set the viewport width to device width for mobile
   meta name="viewport" content="width=device-width, initial-scale=1.0"
 
-  title= content_for?(:title) ? yield(:title) : 'Minhas Cidades'
+  title= content_for?(:title) ? yield(:title) : 'Nossas Cidades'
 
   = stylesheet_link_tag "application"
   = javascript_include_tag "vendor/modernizr"
@@ -29,7 +29,7 @@ body class=[controller.controller_name, controller.action_name]
         .large-12.columns= flash[:notice] || flash[:alert] || params[:flash]
 
   header
-    = link_to image_tag('minhascidades.png'), 'http://meurio.org.br'
+    = link_to image_tag('nossas_cidades.png'), 'http://meurio.org.br'
     h1
       | Uma conta.
       br
@@ -38,12 +38,12 @@ body class=[controller.controller_name, controller.action_name]
   == yield
 
   footer
-    | Mobilize-se de várias formas com as ferramentas do Minhas Cidades
+    | Mobilize-se de várias formas com as ferramentas da Rede Nossas Cidades
     .apps
-      = link_to image_tag("pdp.png", title: "Panela de Pressão"), "http://paneladepressao.minhascidades.org.br/"
-      = link_to image_tag("multitude.png", title: "Multitude"), "http://multitude.minhascidades.org.br/"
-      = link_to image_tag("imagine.png", title: "Imagine"), "http://imagine.minhascidades.org.br/"
+      = link_to image_tag("pdp.png", title: "Panela de Pressão"), "http://paneladepressao.nossascidades.org/"
+      = link_to image_tag("multitude.png", title: "Multitude"), "http://multitude.nossascidades.org/"
+      = link_to image_tag("imagine.png", title: "Imagine"), "http://imagine.nossascidades.org/"
       = link_to image_tag("facaacontecer.png", title: "Faça Acontecer"), "http://facaacontecer.meurio.org.br/"
-      = link_to image_tag("deolho.png", title: "De Olho"), "http://deolho.minhascidades.org.br/"
+      = link_to image_tag("deolho.png", title: "De Olho"), "http://deolho.nossascidades.org/"
     = render 'layouts/analytics' if Rails.env.production?
   = javascript_include_tag "application"
