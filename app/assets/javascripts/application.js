@@ -20,6 +20,7 @@
 
 $(function(){
   Foundation.libs.abide.settings.patterns.password = /^\S{6,128}$/;
+  Foundation.libs.abide.settings.patterns.url = /^(http\:\/\/)?(?!www | www\.)[A-Za-z0-9_-]+\.+[A-Za-z0-9.\/%&=\?_:;-]+$/;
   $(document).foundation();
 
   $('.phone').mask('(00) 000000000');

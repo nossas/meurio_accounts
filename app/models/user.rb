@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   bitmask :topics, as: TOPIC_OPTIONS
 
   before_validation :set_auth_token
+  before_validation :process_website
   after_create { self.delay.import_image_from_gravatar }
   after_save { self.delay.update_location_and_mailchimp }
 
@@ -131,5 +132,9 @@ class User < ActiveRecord::Base
     begin
       self.auth_token = SecureRandom.hex
     end while self.class.exists?(auth_token: self.auth_token)
+  end
+
+  def process_website
+    self.website = "http://#{self.website}" if self.website.index("http://").nil?
   end
 end
