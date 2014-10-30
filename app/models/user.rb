@@ -135,6 +135,6 @@ class User < ActiveRecord::Base
   end
 
   def process_website
-    self.website = "http://#{self.website}" if self.website.index("http://").nil?
+    self.website = "http://#{self.website}" if self.website.present? && self.website.index("http://").nil?
   end
 end
