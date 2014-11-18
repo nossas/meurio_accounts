@@ -51,7 +51,10 @@ class User < ActiveRecord::Base
           PHONE: self.phone,
           LOGINLINK: self.login_url,
           DISTRICT: self.address_district,
-          groupings: [ name: 'Skills', groups: self.translated_skills ]
+          groupings: [
+            [ name: 'Skills', groups: self.translated_skills ],
+            [ name: 'Organizations', groups: self.organizations.map{|o| o.name} ]
+          ]
         },
         double_optin: false,
         update_existing: true,

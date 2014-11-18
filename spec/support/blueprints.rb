@@ -9,9 +9,9 @@ User.blueprint do
 end
 
 Organization.blueprint do
-  name { "Meu Rio" }
-  city { "Rio de Janeiro" }
-  mailchimp_list_id { "123" }
+  name { "Meu Rio #{sn}" }
+  city { "Rio de Janeiro #{sn}" }
+  mailchimp_list_id { "#{sn}" }
 end
 
 Membership.blueprint do
