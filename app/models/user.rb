@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
           LOGINLINK: self.login_url,
           DISTRICT: self.address_district,
           groupings: [
-            [ name: 'Skills', groups: self.translated_skills ],
-            [ name: 'Organizations', groups: self.organizations.map{|o| o.name} ]
+            { name: 'Skills', groups: self.translated_skills },
+            { name: 'Organizations', groups: self.organizations.map{|o| o.name} }
           ]
         },
         double_optin: false,
