@@ -81,3 +81,4 @@ gem 'ipaddresslabs'
 gem 'casino', github: 'nicolasiensen/CASino', branch: 'rails4'
 gem 'casino-activerecord_authenticator', github: 'rbCAS/casino-activerecord_authenticator', branch: 'casino3'
 gem 'appsignal'
+gem 'quiet_assets', group: :development

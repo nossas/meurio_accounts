@@ -39,7 +39,7 @@ class UsersController < InheritedResources::Base
   # TODO: We need an API, for God sake!
   def set_allowed_user
     unless request.format.json?
-      @user = current_account if @user.nil? or not current_account.admin?
+      @user = current_account if @user.nil? || !current_account.admin?
     end
   end
 
