@@ -213,12 +213,12 @@ pt:
         first_name: Nome
         last_name: Sobrenome
         remember_me: Continuar conectado
-        profession: Profissão
-        website: Website
-        bio: Um pouco mais sobre você
+        profession: Ocupação
+        website: Sua página na internet
+        bio: Conte um pouco mais sobre você
         facebook: facebook.com/
         twitter: twitter.com/
-        public: Outros podem ver meu perfil?
+        public: Sim, gostaria que outros membros possam ver meu perfil!
         secondary_email: Email secundário
         birthday: Data de nascimento
         postal_code: CEP
@@ -230,8 +230,8 @@ pt:
     manage:
       all: "Você tentou acessar uma página que não tem autorização."
 
-  remote: Quando você estaria disponível para trabalhar pela cidade de forma virtual?
-  local: Quando você estaria disponível para trabalhar pela cidade nas ruas?
+  remote: Em que momentos você estaria disponível para se voluntariar de forma virtual?
+  local: Em que momentos você estaria disponível para se voluntariar em ações presenciais?
   sunday: Domingo
   monday: Segunda
   tuesday: Terça
