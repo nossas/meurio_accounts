@@ -388,7 +388,8 @@ CREATE TABLE organizations (
     pdp_sender_email character varying(255),
     pdp_receiver_email character varying(255),
     slug character varying(255),
-    multitude_mailchimp_segment_id character varying(255)
+    multitude_mailchimp_segment_id character varying(255),
+    facebook_page_uid character varying(255)
 );
 
 
@@ -968,4 +969,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140714211949');
 INSERT INTO schema_migrations (version) VALUES ('20140716183847');
 
 INSERT INTO schema_migrations (version) VALUES ('20140716185238');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113123806');
 
