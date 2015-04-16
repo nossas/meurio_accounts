@@ -2,7 +2,7 @@
   .registration.large-5.large-centered.columns
     = form_for(resource, as: resource_name, url: registration_path(resource_name), data: {abide: true}) do |f|
       h2 Faça seu cadastro na Rede Nossas Cidades
-      .signup Já é membro? #{link_to 'Faça seu login', new_session_path(resource_name)}
+      .signup Já é membro? #{link_to 'Faça seu login', login_path}
       .row
         .first_name.large-6.columns
             = f.text_field :first_name, placeholder: 'Nome', value: params[:first_name], required: true

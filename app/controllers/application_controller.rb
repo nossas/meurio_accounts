@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_user_from_token!
+  before_filter :avoid_devise_to_login
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to '/login', alert: exception.message
@@ -71,5 +72,9 @@ class ApplicationController < ActionController::Base
 
       user.update_column :encrypted_password, old_password
     end
+  end
+
+  def avoid_devise_to_login
+    session.delete("warden.user.user.key")
   end
 end
