@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_filter :authenticate_user_from_token!
   before_filter :avoid_devise_to_login
+  before_filter :avoid_devise_login_page
+  before_filter :set_default_language
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to '/login', alert: exception.message
@@ -76,5 +78,15 @@ class ApplicationController < ActionController::Base
 
   def avoid_devise_to_login
     session.delete("warden.user.user.key")
+  end
+
+  def avoid_devise_login_page
+    if request.path == "/users/sign_in"
+      redirect_to login_path
+    end
+  end
+
+  def set_default_language
+    I18n.locale = I18n.default_locale
   end
 end

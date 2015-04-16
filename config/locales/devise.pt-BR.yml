@@ -1,60 +1,60 @@
-# encoding: UTF-8
-# pt-BR translations for Devise
+# https://gist.github.com/mateusdelbianco/7129195
+
 pt-BR:
   devise:
     confirmations:
-      confirmed: 'Sua conta foi confirmada com sucesso. VocÃª estÃ¡ logado.'
-      send_instructions: 'Dentro de minutos, vocÃª receberÃ¡ um e-mail com instruÃ§Ãµes para a confirmaÃ§Ã£o da sua conta.'
-      send_paranoid_instructions: 'Se o seu endereÃ§o de e-mail estiver cadastrado, vocÃª receberÃ¡ uma mensagem com instruÃ§Ãµes para confirmaÃ§Ã£o da sua conta.'
+      confirmed: "Sua conta foi confirmada com sucesso."
+      confirmed_and_signed_in: "Sua conta foi confirmada com sucesso. Você está logado."
+      send_instructions: "Dentro de minutos você receberá um e-mail com instruções para confirmar a sua conta."
+      send_paranoid_instructions: "Caso seu e-mail exista em nossa base, você receberá um e-mail em poucos minutos com instruções sobre como confirmar sua conta."
     failure:
-      already_authenticated: 'VocÃª jÃ¡ estÃ¡ logado.'
-      inactive: 'Sua conta ainda nÃ£o foi ativada.'
-      invalid: 'E-mail ou senha invÃ¡lidos.'
-      invalid_token: 'O token de autenticaÃ§Ã£o nÃ£o Ã© vÃ¡lido.'
-      locked: 'Sua conta estÃ¡ bloqueada.'
-      not_found_in_database: 'E-mail ou senha invÃ¡lidos.'
-      timeout: 'Sua sessÃ£o expirou, por favor, efetue login novamente para continuar.'
-      unauthenticated: 'Para continuar, efetue login ou registre-se.'
-      unconfirmed: 'Antes de continuar, confirme a sua conta.'
+      already_authenticated: "Você já está logado."
+      inactive: "A sua conta não foi ativada ainda."
+      invalid: "E-mail ou senha inválidos."
+      invalid_token: "Token de autenticação inválido."
+      locked: "Sua conta está bloqueada."
+      not_found_in_database: "Email ou senha inválida."
+      timeout: "A sua sessão expirou, por favor faça login novamente para continuar."
+      unauthenticated: "Você precisa registrar-se ou fazer login para continuar."
+      unconfirmed: "Você deve confirmar sua conta antes de continuar."
     mailer:
       confirmation_instructions:
-        subject: 'InstruÃ§Ãµes de confirmaÃ§Ã£o'
+        subject: "Instruções para confirmação de conta"
       reset_password_instructions:
-        subject: 'InstruÃ§Ãµes de troca de senha'
+        subject: "Instruções para reinicialização de senha"
       unlock_instructions:
-        subject: 'InstruÃ§Ãµes de desbloqueio'
+        subject: "Instruções para desbloqueio de conta"
     omniauth_callbacks:
-      failure: 'NÃ£o foi possÃ­vel autenticÃ¡-lo como %{kind} porque "%{reason}".'
-      success: 'Autenticado com sucesso com uma conta de %{kind}.'
+      failure: "Não foi possível autorizar você através do %{kind} porque \"%{reason}\"."
+      success: "Autorizado com sucesso pela conta %{kind}."
     passwords:
-      no_token: "VocÃª sÃ³ pode acessar essa pÃ¡gina atravÃ©s de um e-mail de troca de senha. Se jÃ¡ estiver acessando por um e-mail, verifique se a URL fornecida estÃ¡ completa."
-      send_instructions: 'Dentro de minutos, vocÃª receberÃ¡ um e-mail com instruÃ§Ãµes para a troca da sua senha.'
-      send_paranoid_instructions: 'Se o seu endereÃ§o de e-mail estiver cadastrado, vocÃª receberÃ¡ um link de recuperaÃ§Ã£o da senha via e-mail.'
-      updated: 'Sua senha foi alterada com sucesso. VocÃª estÃ¡ logado.'
-      updated_not_active: 'Sua senha foi alterada com sucesso.'
+      no_token: "Você não pode acessar esta página sem que seja a partir de um e-mail de reinicialização de senha. Se você chegou aqui através de um e-mail de reinicialização de senha, por favor verifique se você usou a URL completa que foi informada."
+      send_instructions: "Você receberá um e-mail com instruções sobre como reinicializar sua senha em poucos minutos."
+      send_paranoid_instructions: "Caso seu e-mail esteja cadastrado, você receberá um link para recuperação de senha no seu e-mail em poucos minutos."
+      updated: "Sua senha foi alterada com sucesso. Você está logado agora."
+      updated_not_active: "Sua senha foi alterada com sucesso."
     registrations:
-      destroyed: 'Tchau! Sua conta foi cancelada com sucesso. Esperamos vÃª-lo novamente em breve.'
-      signed_up: 'Login efetuado com sucesso. Se nÃ£o foi autorizado, a confirmaÃ§Ã£o serÃ¡ enviada por e-mail.'
-      signed_up_but_inactive: 'VocÃª foi cadastrado com sucesso. No entanto, nÃ£o foi possÃ­vel efetuar login, pois sua conta nÃ£o foi ativada.'
-      signed_up_but_locked: 'VocÃª foi cadastrado com sucesso. No entanto, nÃ£o foi possÃ­vel efetuar login, pois sua conta estÃ¡ bloqueada.'
-      signed_up_but_unconfirmed: 'Uma mensagem com um link de confirmaÃ§Ã£o foi enviada para o seu endereÃ§o de e-mail. Por favor, abra o link para confirmar a sua conta.'
-      update_needs_confirmation: 'VocÃª atualizou a sua conta com sucesso, mas o seu novo endereÃ§o de e-mail precisa ser confirmado. Por favor, acesse-o e clique no link de confirmaÃ§Ã£o que enviamos.'
-      updated: 'Sua conta foi atualizada com sucesso.'
+      destroyed: "Até mais! Sua conta foi cancelada com sucesso. Esperamos vê-lo novamente em breve."
+      signed_up: "Bem-vindo! Você se registrou com sucesso."
+      signed_up_but_inactive: "Você se cadastrou com sucesso. Porém, sua conta ainda não está ativada."
+      signed_up_but_locked: "Você se cadastrou com sucesso. Porém, sua conta está bloqueada."
+      signed_up_but_unconfirmed: "Uma mensagem com um link de confirmação foi enviado para o seu e-mail. Por favor, abra o link para ativar sua conta."
+      update_needs_confirmation: "Você atualizou sua conta com sucesso, mas nós precisamos verificar seu endereço de e-mail. Por favor, verifique seus e-mails e clique no link de confirmação para finalizar a criação da sua conta."
+      updated: "Você atualizou sua conta com sucesso."
     sessions:
-      signed_in: 'Login efetuado com sucesso!'
-      signed_out: 'Saiu com sucesso.'
+      signed_in: "Autenticado com sucesso."
+      signed_out: "Logout feito com sucesso."
     unlocks:
-      send_instructions: 'Dentro de minutos, vocÃª receberÃ¡ um email com instruÃ§Ãµes para o desbloqueio da sua conta.'
-      send_paranoid_instructions: 'Se sua conta existir, vocÃª receberÃ¡ um e-mail com instruÃ§Ãµes para desbloqueÃ¡-la em alguns minutos.'
-      unlocked: 'Sua conta foi desbloqueada com sucesso. Efetue login para continuar.'
-
+      send_instructions: "Você receberá um e-mail em poucos minutos com instruções sobre como desbloquear sua conta."
+      send_paranoid_instructions: "Caso sua e-mail exista em nossa base, você receberá um e-mail em poucos minutos com instruções sobre como desbloqueá-la."
+      unlocked: "Sua conta foi desbloqueada com sucesso. Por favor, faça login para continuar."
   errors:
     messages:
-      already_confirmed: "jÃ¡ foi confirmado"
-      confirmation_period_expired: "precisa ser confirmada em atÃ© %{period}, por favor, solicite uma nova"
-      expired: "expirou, por favor, solicite uma nova"
-      not_found: "nÃ£o encontrado"
-      not_locked: "nÃ£o foi bloqueado"
+      already_confirmed: "já foi confirmado, por favor tente fazer login"
+      confirmation_period_expired: "precisa ser confirmado em %{period}, solicite novamente por favor"
+      expired: "expirou, por favor solicite um novo"
+      not_found: "não encontrado"
+      not_locked: "não estava bloqueado"
       not_saved:
-        one: "NÃ£o foi possÃ­vel salvar %{resource}: 1 erro"
-        other: "NÃ£o foi possÃ­vel salvar %{resource}: %{count} erros."
+        one: "1 erro impediu que %{resource} fosse salvo:"
+        other: "%{count} erros impediram que %{resource} fosse salvo:"
