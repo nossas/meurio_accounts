@@ -10,7 +10,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'Nossas Cidades <contato@minhascidades.org.br>'
+  config.mailer_sender = 'Nossas Cidades <contato@nossascidades.org>'
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'CustomMailer'
