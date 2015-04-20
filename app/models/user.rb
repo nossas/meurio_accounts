@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :memberships, inverse_of: :user
   has_many :organizations, through: :memberships
+  belongs_to :organization
 
   accepts_nested_attributes_for :memberships
 
@@ -52,6 +53,8 @@ class User < ActiveRecord::Base
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
+            # Remove the ternary conditional when the organization_id became required
+            ORG: self.organization.present? ? self.organization.name : nil,
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
