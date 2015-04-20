@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
 
   before_validation :set_auth_token
   before_validation :process_website
+  before_create :create_first_membership
   after_create { self.delay.import_image_from_gravatar }
   after_save { self.delay.update_location_and_mailchimp }
 
@@ -51,7 +52,7 @@ class User < ActiveRecord::Base
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            # Remove the ternary conditional when the organization_id became required
+            # TODO: remove the ternary conditional when the organization_id became required
             ORG: self.organization.present? ? self.organization.name : nil,
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
@@ -137,5 +138,12 @@ class User < ActiveRecord::Base
 
   def process_website
     self.website = "http://#{self.website}" if self.website.present? && self.website.index("http://").nil?
+  end
+
+  def create_first_membership
+    # TODO: remove this condition when organization_id became required
+    if self.organization.present?
+      self.organizations << self.organization
+    end
   end
 end
