@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
   before_validation :set_auth_token
   before_validation :process_website
-  before_create :create_first_membership
+  after_create :create_first_membership
   after_create { self.delay.import_image_from_gravatar }
   after_save { self.delay.update_location_and_mailchimp }
 
@@ -142,8 +142,8 @@ class User < ActiveRecord::Base
 
   def create_first_membership
     # TODO: remove this condition when organization_id became required
-    if self.organization.present?
-      self.organization_ids << self.organization_id
+    if self.organization_id.present?
+      Membership.create organization_id: self.organization_id, user_id: self.id
     end
   end
 end
