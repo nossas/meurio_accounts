@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
   def create_first_membership
     # TODO: remove this condition when organization_id became required
     if self.organization.present?
-      self.organizations << self.organization
+      self.organization_ids << self.organization_id
     end
   end
 end
