@@ -48,12 +48,12 @@ class User < ActiveRecord::Base
           merge_vars: {
             FNAME: self.first_name,
             LNAME: self.last_name,
+            # TODO: remove 'try' when the organization_id became required
+            ORG: self.organization.try(:name),
             CITY: self.city,
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            # TODO: remove 'try' when the organization_id became required
-            ORG: self.organization.try(:name),
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
