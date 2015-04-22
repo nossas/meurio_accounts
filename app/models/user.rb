@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            # TODO: remove the ternary conditional when the organization_id became required
-            ORG: self.organization_id.present? ? Organization.find(self.organization_id).name : nil,
+            # TODO: remove 'try' when the organization_id became required
+            ORG: self.organization.try(:name),
             groupings: [ name: 'Skills', groups: self.translated_skills ]
           },
           double_optin: false,
@@ -144,7 +144,6 @@ class User < ActiveRecord::Base
     # TODO: remove this condition when organization_id become required
     if self.organization_id.present?
       Membership.create organization_id: self.organization_id, user_id: self.id
-      self.delay.update_mailchimp_subscription
     end
   end
 end
