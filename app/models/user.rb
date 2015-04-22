@@ -142,8 +142,8 @@ class User < ActiveRecord::Base
 
   def create_first_membership
     # TODO: remove this condition when organization_id become required
-    if self.organization_id.present?
-      Membership.create organization_id: self.organization_id, user_id: self.id
+    if self.organization.present?
+      Membership.create organization: self.organization, user: self
     end
   end
 end
