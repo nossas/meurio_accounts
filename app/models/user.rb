@@ -141,9 +141,10 @@ class User < ActiveRecord::Base
   end
 
   def create_first_membership
-    # TODO: remove this condition when organization_id became required
+    # TODO: remove this condition when organization_id become required
     if self.organization_id.present?
       Membership.create organization_id: self.organization_id, user_id: self.id
+      self.delay.update_location_and_mailchimp
     end
   end
 end
