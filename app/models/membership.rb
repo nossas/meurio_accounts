@@ -7,5 +7,5 @@ class Membership < ActiveRecord::Base
 
   accepts_nested_attributes_for :organization
 
-  after_create { self.user.delay.update_location_and_mailchimp }
+  after_create { self.user.delay.update_mailchimp_subscription }
 end
