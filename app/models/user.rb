@@ -48,12 +48,12 @@ class User < ActiveRecord::Base
           merge_vars: {
             FNAME: self.first_name,
             LNAME: self.last_name,
+            # TODO: remove 'try' when the organization_id became required
+            ORG: self.organization.try(:name),
             CITY: self.city,
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            # TODO: remove the ternary conditional when the organization_id became required
-            ORG: self.organization.present? ? self.organization.name : nil,
             groupings: [ 
               { name: 'Skills', groups: self.translated_skills },
               { name: 'Organizations', groups: self.organization_names }
@@ -148,9 +148,9 @@ class User < ActiveRecord::Base
   end
 
   def create_first_membership
-    # TODO: remove this condition when organization_id became required
-    if self.organization_id.present?
-      Membership.create organization_id: self.organization_id, user_id: self.id
+    # TODO: remove this condition when organization_id become required
+    if self.organization.present?
+      Membership.create organization: self.organization, user: self
     end
   end
 end
