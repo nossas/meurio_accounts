@@ -54,7 +54,10 @@ class User < ActiveRecord::Base
             DISTRICT: self.address_district,
             # TODO: remove the ternary conditional when the organization_id became required
             ORG: self.organization.present? ? self.organization.name : nil,
-            groupings: [ name: 'Skills', groups: self.translated_skills ]
+            groupings: [ 
+              { name: 'Skills', groups: self.translated_skills },
+              { name: 'Organizations', groups: self.organization_names }
+            ]
           },
           double_optin: false,
           update_existing: true,
@@ -63,7 +66,7 @@ class User < ActiveRecord::Base
 
         self.update_column :mailchimp_euid, subscription["euid"]
       rescue Exception => e
-        Appsignal.add_exception e
+        Appsignal.add_exception e        
         Rails.logger.error e
       end
     end
@@ -102,8 +105,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def organization_names
+    self.memberships.any? ? self.memberships.map { |m| m.organization.try(:name) } : []
+  end
+
   def translated_skills
-    self.skills.map { |s| I18n.t("skills.#{s}") } unless self.skills.blank?
+    self.skills.any? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
   end
 
   def import_image_from_gravatar
