@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
   end
 
   def translated_skills
-    self.skills.any? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
+    self.skills.present? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
   end
 
   def import_image_from_gravatar
