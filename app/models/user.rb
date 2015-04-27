@@ -94,16 +94,21 @@ class User < ActiveRecord::Base
 
   def self.batch_update_mailchimp_subscriptions ids = []
     begin
-      Rails.logger.info "Starting MailChimp subscriptions update..."
+      puts "Starting MailChimp subscriptions update..."
       Organization.all.each do |organization|
-        Rails.logger.info "Organization: #{organization.name}"
+        puts "Organization: #{organization.name}"
         
         subscriptions_data = []
         users = ids.empty? ? organization.users : organization.users.find(ids)
-        Rails.logger.info "Users found: #{users.count}"
+        users_count = users.count
+        puts "Users found: #{users_count}"
 
-        users.each { |user| subscriptions_data.push(user.subscription_data) }
+        users.each_with_index do |user, idx|
+          puts "#{users_count - idx} left... #{user.id} - #{user.email}"
+          subscriptions_data.push(user.subscription_data)
+        end
 
+        puts "Calling MailChimp API"
         subscriptions = Gibbon::API.lists.batch_subscribe(
           id: organization.mailchimp_list_id,
           batch: subscriptions_data,
@@ -113,15 +118,15 @@ class User < ActiveRecord::Base
         )
 
         if subscriptions['status'] == 'error'
-          Rails.logger.error "Error: #{subscriptions['error']}"
+          puts "Error: #{subscriptions['error']}"
         else
-          Rails.logger.info "Total users added: #{subscriptions['add_count']}"
-          Rails.logger.info "Total users updated: #{subscriptions['update_count']}"
-          Rails.logger.info "Total errors: #{subscriptions['error_count']}"
+          puts "Total users added: #{subscriptions['add_count']}"
+          puts "Total users updated: #{subscriptions['update_count']}"
+          puts "Total errors: #{subscriptions['error_count']}"
 
           update_mailchimp_euids subscriptions["adds"]
           update_mailchimp_euids subscriptions["updates"]
-          Rails.logger.info "MailChimp subscriptions successfully updated!"
+          puts "MailChimp subscriptions successfully updated!"
         end
       end
     rescue Exception => e
