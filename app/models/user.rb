@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   def self.batch_update_mailchimp_subscriptions ids = []
     begin
       Rails.logger.info "Starting MailChimp subscriptions update..."
-      Organizations.all.each do |organization|
+      Organization.all.each do |organization|
         Rails.logger.info "Organization: #{organization.name}"
         
         subscriptions_data = []
