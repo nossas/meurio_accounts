@@ -72,6 +72,71 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscription_data
+    {
+      email: { email: self.email },
+      merge_vars: {
+        FNAME: self.first_name,
+        LNAME: self.last_name,
+        # TODO: remove 'try' when the organization_id became required
+        ORG: self.organization.try(:name),
+        CITY: self.city,
+        PHONE: self.phone,
+        LOGINLINK: self.login_url,
+        DISTRICT: self.address_district,
+        groupings: [ 
+          { name: 'Skills', groups: self.translated_skills },
+          { name: 'Organizations', groups: self.organization_names }
+        ]
+      }
+    }
+  end
+
+  def self.batch_update_mailchimp_subscriptions ids = []
+    begin
+      Rails.logger.info "Starting MailChimp subscriptions update..."
+      Organizations.all.each do |organization|
+        Rails.logger.info "Organization: #{organization.name}"
+        
+        subscriptions_data = []
+        users = ids.empty? ? organization.users : organization.users.find(ids)
+        Rails.logger.info "Users found: #{users.count}"
+
+        users.each { |user| subscriptions_data.push(user.subscription_data) }
+
+        subscriptions = Gibbon::API.lists.batch_subscribe(
+          id: organization.mailchimp_list_id,
+          batch: subscriptions_data,
+          double_optin: false,
+          update_existing: true,
+          replace_interests: true
+        )
+
+        if subscriptions['status'] == 'error'
+          Rails.logger.error "Error: #{subscriptions['error']}"
+        else
+          Rails.logger.info "Total users added: #{subscriptions['add_count']}"
+          Rails.logger.info "Total users updated: #{subscriptions['update_count']}"
+          Rails.logger.info "Total errors: #{subscriptions['error_count']}"
+
+          update_mailchimp_euids subscriptions["adds"]
+          update_mailchimp_euids subscriptions["updates"]
+          Rails.logger.info "MailChimp subscriptions successfully updated!"
+        end
+      end
+    rescue Exception => e
+      Appsignal.add_exception e        
+      Rails.logger.error e
+    end
+  end
+
+  def self.update_mailchimp_euids subscriptions
+    subscriptions.each do |subscription|
+      user = User.find_by email: subscription["email"]
+      user.update_column :mailchimp_euid, subscription["euid"]
+    end
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -110,7 +175,7 @@ class User < ActiveRecord::Base
   end
 
   def translated_skills
-    self.skills.any? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
+    self.skills.present? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
   end
 
   def import_image_from_gravatar

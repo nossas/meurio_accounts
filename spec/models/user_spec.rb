@@ -144,4 +144,17 @@ describe User do
       end
     end
   end
+
+  describe '#update_mailchimp_subscription' do
+    before do
+      @user = User.make!
+      Membership.make! user: @user
+    end
+
+    it 'updates the user mailchimp_euid' do
+      Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "123"})
+      @user.should_receive(:update_column).with(:mailchimp_euid, '123')
+      @user.update_mailchimp_subscription
+    end
+  end
 end
