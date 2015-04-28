@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
         users_count = users.count
         puts "Users found: #{users_count}"
 
-        users.in_groups_of(200, false) do |group|
+        users.in_groups_of(100, false) do |group|
           group.each_with_index do |user, idx|
             puts "#{ users_count } left... #{user.id} - #{user.email}"
             subscriptions_data.push(user.subscription_data)
