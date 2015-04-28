@@ -54,7 +54,10 @@ class User < ActiveRecord::Base
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            groupings: [ name: 'Skills', groups: self.translated_skills ]
+            groupings: [ 
+              { name: 'Skills', groups: self.translated_skills },
+              { name: 'Organizations', groups: self.organization_names }
+            ]
           },
           double_optin: false,
           update_existing: true,
@@ -63,9 +66,79 @@ class User < ActiveRecord::Base
 
         self.update_column :mailchimp_euid, subscription["euid"]
       rescue Exception => e
-        Appsignal.add_exception e
+        Appsignal.add_exception e        
         Rails.logger.error e
       end
+    end
+  end
+
+  def subscription_data
+    {
+      email: { email: self.email },
+      merge_vars: {
+        FNAME: self.first_name,
+        LNAME: self.last_name,
+        # TODO: remove 'try' when the organization_id became required
+        ORG: self.organization.try(:name),
+        CITY: self.city,
+        PHONE: self.phone,
+        LOGINLINK: self.login_url,
+        DISTRICT: self.address_district,
+        groupings: [ 
+          { name: 'Skills', groups: self.translated_skills },
+          { name: 'Organizations', groups: self.organization_names }
+        ]
+      }
+    }
+  end
+
+  def self.batch_update_mailchimp_subscriptions ids = []
+    begin
+      puts "Starting MailChimp subscriptions update..."
+      Organization.all.each do |organization|
+        puts "Organization: #{organization.name}"
+        
+        subscriptions_data = []
+        users = ids.empty? ? organization.users : organization.users.find(ids)
+        users_count = users.count
+        puts "Users found: #{users_count}"
+
+        users.each_with_index do |user, idx|
+          puts "#{users_count - idx} left... #{user.id} - #{user.email}"
+          subscriptions_data.push(user.subscription_data)
+        end
+
+        puts "Calling MailChimp API"
+        subscriptions = Gibbon::API.lists.batch_subscribe(
+          id: organization.mailchimp_list_id,
+          batch: subscriptions_data,
+          double_optin: false,
+          update_existing: true,
+          replace_interests: true
+        )
+
+        if subscriptions['status'] == 'error'
+          puts "Error: #{subscriptions['error']}"
+        else
+          puts "Total users added: #{subscriptions['add_count']}"
+          puts "Total users updated: #{subscriptions['update_count']}"
+          puts "Total errors: #{subscriptions['error_count']}"
+
+          update_mailchimp_euids subscriptions["adds"]
+          update_mailchimp_euids subscriptions["updates"]
+          puts "MailChimp subscriptions successfully updated!"
+        end
+      end
+    rescue Exception => e
+      Appsignal.add_exception e        
+      Rails.logger.error e
+    end
+  end
+
+  def self.update_mailchimp_euids subscriptions
+    subscriptions.each do |subscription|
+      user = User.find_by email: subscription["email"]
+      user.update_column :mailchimp_euid, subscription["euid"]
     end
   end
 
@@ -102,8 +175,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def organization_names
+    self.memberships.any? ? self.memberships.map { |m| m.organization.try(:name) } : []
+  end
+
   def translated_skills
-    self.skills.map { |s| I18n.t("skills.#{s}") } unless self.skills.blank?
+    self.skills.present? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
   end
 
   def import_image_from_gravatar

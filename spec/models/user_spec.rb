@@ -56,6 +56,27 @@ describe User do
     end
   end
 
+  describe "#organization_names" do
+    it "is empty" do
+      expect(subject.organization_names).to be_empty
+    end
+    
+    context "when it has memberships" do
+      before do
+        subject.memberships << Membership.make!        
+      end
+
+      it 'has at least one organization name' do
+        expect(subject.organization_names.empty?).to be_falsy
+      end
+
+      it 'includes the organization name' do
+        membership = subject.memberships.first
+        expect(subject.organization_names.include?(membership.organization.name)).to be_truthy
+      end
+    end
+  end
+
   describe "#fetch_address" do
     context "when the postcode is valid" do
       subject { User.make! }
@@ -121,6 +142,19 @@ describe User do
           expect(@user.avatar_url).to eq(default_image)
         end
       end
+    end
+  end
+
+  describe '#update_mailchimp_subscription' do
+    before do
+      @user = User.make!
+      Membership.make! user: @user
+    end
+
+    it 'updates the user mailchimp_euid' do
+      Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "123"})
+      @user.should_receive(:update_column).with(:mailchimp_euid, '123')
+      @user.update_mailchimp_subscription
     end
   end
 end

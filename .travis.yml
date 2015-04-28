@@ -16,5 +16,4 @@ script: "bundle exec rake db:migrate && bundle exec rspec spec && bundle exec cu
 branches:
   only:
     - master
-    - cas
-    - minhascidades
+    - mc-list-integration
