@@ -16,7 +16,7 @@
           small.error Email é obrigatório e deve ser válido
       .row
         .organization_id.large-12.columns
-          = f.select :organization_id, @organizations.collect {|o| [ o.city, o.id ] }, {include_blank: "Escolha a sua cidade"}, required: true
+          = f.select :organization_id, @organizations.collect {|o| [ o.city, o.id ] }, {include_blank: "Cidade"}, required: true
           small.error Cidade é obrigatória
       .row
         .password.large-12.columns
