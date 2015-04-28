@@ -92,8 +92,13 @@ class User < ActiveRecord::Base
     }
   end
 
-  def self.batch_update_mailchimp_subscriptions ids = []
+  def self.batch_update_mailchimp_subscriptions(*args)
     begin
+      options = args.extract_options!
+      sleep_time = options[:sleep_time] || 1.0
+      group_size = options[:group_size] || 100
+      ids = options[:ids] || []
+      
       puts "Starting MailChimp subscriptions update..."
       Organization.all.each do |organization|
         puts "Organization: #{organization.name}"
@@ -103,8 +108,8 @@ class User < ActiveRecord::Base
         users_count = users.count
         puts "Users found: #{users_count}"
 
-        users.in_groups_of(100, false) do |group|
-          group.each_with_index do |user, idx|
+        users.in_groups_of(group_size, false) do |group|
+          group.each do |user|
             puts "#{ users_count } left... #{user.id} - #{user.email}"
             subscriptions_data.push(user.subscription_data)
             users_count -= 1
@@ -130,6 +135,8 @@ class User < ActiveRecord::Base
             update_mailchimp_euids subscriptions["updates"]
             puts "MailChimp subscriptions successfully updated!"
           end
+          
+          sleep(sleep_time)
         end
       end
     rescue Exception => e
