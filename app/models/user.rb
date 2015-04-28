@@ -103,30 +103,33 @@ class User < ActiveRecord::Base
         users_count = users.count
         puts "Users found: #{users_count}"
 
-        users.each_with_index do |user, idx|
-          puts "#{users_count - idx} left... #{user.id} - #{user.email}"
-          subscriptions_data.push(user.subscription_data)
-        end
+        users.in_groups_of(5000, false) do |group|
+          group.each_with_index do |user, idx|
+            puts "#{ users_count } left... #{user.id} - #{user.email}"
+            subscriptions_data.push(user.subscription_data)
+            users_count -= 1
+          end
 
-        puts "Calling MailChimp API"
-        subscriptions = Gibbon::API.lists.batch_subscribe(
-          id: organization.mailchimp_list_id,
-          batch: subscriptions_data,
-          double_optin: false,
-          update_existing: true,
-          replace_interests: true
-        )
+          puts "Calling MailChimp API"
+          subscriptions = Gibbon::API.lists.batch_subscribe(
+            id: organization.mailchimp_list_id,
+            batch: subscriptions_data,
+            double_optin: false,
+            update_existing: true,
+            replace_interests: true
+          )
 
-        if subscriptions['status'] == 'error'
-          puts "Error: #{subscriptions['error']}"
-        else
-          puts "Total users added: #{subscriptions['add_count']}"
-          puts "Total users updated: #{subscriptions['update_count']}"
-          puts "Total errors: #{subscriptions['error_count']}"
+          if subscriptions['status'] == 'error'
+            puts "Error: #{subscriptions['error']}"
+          else
+            puts "Total users added: #{subscriptions['add_count']}"
+            puts "Total users updated: #{subscriptions['update_count']}"
+            puts "Total errors: #{subscriptions['error_count']}"
 
-          update_mailchimp_euids subscriptions["adds"]
-          update_mailchimp_euids subscriptions["updates"]
-          puts "MailChimp subscriptions successfully updated!"
+            update_mailchimp_euids subscriptions["adds"]
+            update_mailchimp_euids subscriptions["updates"]
+            puts "MailChimp subscriptions successfully updated!"
+          end
         end
       end
     rescue Exception => e
