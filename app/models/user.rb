@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   def self.update_mailchimp_euids subscriptions
     subscriptions.each do |subscription|
       user = User.find_by email: subscription["email"]
-      user.update_column :mailchimp_euid, subscription["euid"]
+      user.update_column :mailchimp_euid, subscription["euid"] if user
     end
   end
 
