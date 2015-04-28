@@ -14,7 +14,13 @@ describe API::V1::UsersController do
 
       context "when the params are valid" do
         it "should respond with 201" do
-          post :create, user: {first_name: "Leonel", last_name: "Messi", email: "messi@minhascidades.org.br", password: "123456"}, format: :json
+          post :create, user: {
+            first_name: "Leonel",
+            last_name: "Messi",
+            email: "messi@minhascidades.org.br",
+            password: "123456",
+            organization_id: 1
+          }, format: :json
           expect(subject).to respond_with 201
         end
       end

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
 
-  validates :email, :first_name, :last_name, presence: true
+  validates :email, :first_name, :last_name, :organization_id, presence: true
   validates :email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }
   validates :password, on: :create, length: { minimum: 6, maximum: 128 }
   validates :secondary_email, format: { with: /([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z\_\-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}/ }, allow_blank: true
@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
             PHONE: self.phone,
             LOGINLINK: self.login_url,
             DISTRICT: self.address_district,
-            groupings: [ 
+            groupings: [
               { name: 'Skills', groups: self.translated_skills },
               { name: 'Organizations', groups: self.organization_names }
             ]
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
 
         self.update_column :mailchimp_euid, subscription["euid"]
       rescue Exception => e
-        Appsignal.add_exception e        
+        Appsignal.add_exception e
         Rails.logger.error e
       end
     end
@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
         PHONE: self.phone,
         LOGINLINK: self.login_url,
         DISTRICT: self.address_district,
-        groupings: [ 
+        groupings: [
           { name: 'Skills', groups: self.translated_skills },
           { name: 'Organizations', groups: self.organization_names }
         ]
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
       puts "Starting MailChimp subscriptions update..."
       Organization.all.each do |organization|
         puts "Organization: #{organization.name}"
-        
+
         subscriptions_data = []
         users = ids.empty? ? organization.users : organization.users.find(ids)
         users_count = users.count
@@ -130,7 +130,7 @@ class User < ActiveRecord::Base
         end
       end
     rescue Exception => e
-      Appsignal.add_exception e        
+      Appsignal.add_exception e
       Rails.logger.error e
     end
   end

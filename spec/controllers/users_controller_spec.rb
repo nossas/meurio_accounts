@@ -16,7 +16,7 @@ describe UsersController do
               last_name: "Einstein",
               email: "einstein@minhascidades.org.br",
               password: "sda8d7s6876das87d6a87s6da78s6d87as",
-              memberships_attributes: [{organization_id: organization.id}]
+              organization_id: organization.id
             }
           )
         }.to change{ Membership.count }.by(1)

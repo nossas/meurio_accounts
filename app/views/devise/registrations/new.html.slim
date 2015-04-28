@@ -15,6 +15,10 @@
           = f.email_field :email, placeholder: 'Email', value: params[:email], required: true
           small.error Email é obrigatório e deve ser válido
       .row
+        .organization_id.large-12.columns
+          = f.select :organization_id, @organizations.collect {|o| [ o.city, o.id ] }, {include_blank: "Escolha a sua cidade"}, required: true
+          small.error Cidade é obrigatória
+      .row
         .password.large-12.columns
           = f.password_field :password, placeholder: 'Senha', required: true, pattern: 'password'
           small.error Senha é obrigatória

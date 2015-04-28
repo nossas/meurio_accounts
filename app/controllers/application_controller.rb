@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
       :last_name,
       :email,
       :ip,
+      :organization_id,
       :application_slug,
       memberships_attributes: [:organization_id]
     ]

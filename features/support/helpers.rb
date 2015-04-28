@@ -15,6 +15,7 @@ def to_url string
 end
 
 def to_element string
+  return 'user_organization_id' if string == "the register organization"
   return 'username' if string == "the login email"
   return 'password' if string == "the login password"
   return 'form#login-form input[type="submit"]' if string == "the login form"

@@ -5,11 +5,13 @@ Feature: register
 
   @javascript
   Scenario: when I don't came from another application
-    Given I'm in "the register page"
+    Given there is an organization in "Rio de Janeiro"
+    And I'm in "the register page"
     And I fill "the register first name" with "Meu"
     And I fill "the register last name" with "Rio"
     And I fill "the register email" with "trashmail@meurio.org.br"
     And I fill "the register password" with "12345678"
+    And I select "Rio de Janeiro" for "the register organization"
     When I submit "the register form"
     Then an user should be created
     And I should be redirected to "the edit page of my profile"

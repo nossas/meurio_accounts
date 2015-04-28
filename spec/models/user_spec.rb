@@ -60,10 +60,10 @@ describe User do
     it "is empty" do
       expect(subject.organization_names).to be_empty
     end
-    
+
     context "when it has memberships" do
       before do
-        subject.memberships << Membership.make!        
+        subject.memberships << Membership.make!
       end
 
       it 'has at least one organization name' do
@@ -146,12 +146,8 @@ describe User do
   end
 
   describe '#update_mailchimp_subscription' do
-    before do
-      @user = User.make!
-      Membership.make! user: @user
-    end
-
     it 'updates the user mailchimp_euid' do
+      @user = User.make!
       Gibbon::API.stub_chain(:lists, :subscribe).and_return({"euid" => "123"})
       @user.should_receive(:update_column).with(:mailchimp_euid, '123')
       @user.update_mailchimp_subscription

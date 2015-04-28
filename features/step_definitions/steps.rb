@@ -39,6 +39,14 @@ Given(/^there is an user$/) do
   @user = User.make!
 end
 
+Given(/^I select "(.*?)" for "(.*?)"$/) do |arg1, arg2|
+  select arg1, from: to_element(arg2)
+end
+
+Given(/^there is an organization in "(.*?)"$/) do |arg1|
+  Organization.make! city: arg1
+end
+
 When(/^I submit "(.*?)"$/) do |arg1|
   page.find(to_element(arg1)).click
 end
