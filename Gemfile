@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.2.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.1.5'
+gem 'rails', '~> 4.1.10'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -74,7 +74,6 @@ gem 'fog'
 gem 'unf'
 gem 'delayed_job_active_record'
 gem 'bitmask_attributes'
-gem 'thin'
 gem 'gibbon'
 gem 'google-analytics-rails'
 gem 'ipaddresslabs'
@@ -82,3 +81,4 @@ gem 'casino', github: 'nicolasiensen/CASino', branch: 'rails4'
 gem 'casino-activerecord_authenticator', github: 'rbCAS/casino-activerecord_authenticator', branch: 'casino3'
 gem 'appsignal'
 gem 'quiet_assets', group: :development
+gem 'puma'

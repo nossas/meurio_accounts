@@ -7,12 +7,12 @@ describe Membership do
 
   describe "#after_create" do
     before do
-      allow_any_instance_of(User).to receive(:update_location_and_mailchimp).and_return(true)
+      allow_any_instance_of(User).to receive(:update_mailchimp_subscription).and_return(true)
       @user = User.make!
     end
 
     it 'calls update method from user' do
-      expect(@user).to receive(:update_location_and_mailchimp).once
+      expect(@user).to receive(:update_mailchimp_subscription).once
       Membership.make! user: @user
     end
   end
