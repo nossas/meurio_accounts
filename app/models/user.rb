@@ -125,23 +125,24 @@ class User < ActiveRecord::Base
                 update_existing: true,
                 replace_interests: true
               )
+
+              if subscriptions['status'] == 'error'
+                puts "Error: #{subscriptions['error']}"
+              else
+                puts "Total users added: #{subscriptions['add_count']}"
+                puts "Total users updated: #{subscriptions['update_count']}"
+                puts "Total errors: #{subscriptions['error_count']}"
+
+                update_mailchimp_euids subscriptions["adds"]
+                update_mailchimp_euids subscriptions["updates"]
+                puts "MailChimp subscriptions successfully updated!"
+              end
+
               break
             rescue Exception => e
               puts e.message
               sleep(sleep_time)
             end
-          end
-
-          if subscriptions['status'] == 'error'
-            puts "Error: #{subscriptions['error']}"
-          else
-            puts "Total users added: #{subscriptions['add_count']}"
-            puts "Total users updated: #{subscriptions['update_count']}"
-            puts "Total errors: #{subscriptions['error_count']}"
-
-            update_mailchimp_euids subscriptions["adds"]
-            update_mailchimp_euids subscriptions["updates"]
-            puts "MailChimp subscriptions successfully updated!"
           end
         end
       end
