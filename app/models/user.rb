@@ -103,12 +103,13 @@ class User < ActiveRecord::Base
       Organization.all.each do |organization|
         puts "Organization: #{organization.name}"
 
-        subscriptions_data = []
         users = ids.empty? ? organization.users : organization.users.find(ids)
         users_count = users.count
         puts "Users found: #{users_count}"
 
         users.in_groups_of(group_size, false) do |group|
+          subscriptions_data = []
+
           group.each do |user|
             puts "#{ users_count } left... #{user.id} - #{user.email}"
             subscriptions_data.push(user.subscription_data)
