@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
       sleep_time = options[:sleep_time] || 1.0
       group_size = options[:group_size] || 100
       ids = options[:ids] || []
-      
+
       puts "Starting MailChimp subscriptions update..."
       Organization.all.each do |organization|
         puts "Organization: #{organization.name}"
@@ -115,14 +115,22 @@ class User < ActiveRecord::Base
             users_count -= 1
           end
 
-          puts "Calling MailChimp API"
-          subscriptions = Gibbon::API.lists.batch_subscribe(
-            id: organization.mailchimp_list_id,
-            batch: subscriptions_data,
-            double_optin: false,
-            update_existing: true,
-            replace_interests: true
-          )
+          loop do
+            begin
+              puts "Calling MailChimp API..."
+              subscriptions = Gibbon::API.lists.batch_subscribe(
+                id: organization.mailchimp_list_id,
+                batch: subscriptions_data,
+                double_optin: false,
+                update_existing: true,
+                replace_interests: true
+              )
+              break
+            rescue Exception => e
+              puts e.message
+              sleep(sleep_time)
+            end
+          end
 
           if subscriptions['status'] == 'error'
             puts "Error: #{subscriptions['error']}"
@@ -135,8 +143,6 @@ class User < ActiveRecord::Base
             update_mailchimp_euids subscriptions["updates"]
             puts "MailChimp subscriptions successfully updated!"
           end
-          
-          sleep(sleep_time)
         end
       end
     rescue Exception => e
