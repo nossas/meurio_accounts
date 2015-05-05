@@ -110,6 +110,14 @@
               - [ values_for_local_availability, values_for_remote_availability ].each do |values|
                 = render 'availability', availability_options: values
 
+            .row.memberships
+              .large-12.columns
+                h3 De quais organizações você gostaria de receber emails?
+              = collection_check_boxes(:user, :organization_ids, Organization.all, :id, :name) do |b|
+                .large-12.columns
+                  = b.check_box
+                  = b.label
+
             .row
               .large-12.columns
                 | #{f.submit 'Salvar Perfil'} ou #{link_to "Sair", logout_path(service: login_path), class: [:alert]}
