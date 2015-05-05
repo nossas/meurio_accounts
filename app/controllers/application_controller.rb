@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_account, request)
   end
 
-  def sign_in_with_casino email, password, redirect_url
+  def sign_in_with_casino email, password, redirect_url = ''
     my_processor = processor(:LoginCredentialAcceptor)
     my_processor.process(
       {
