@@ -49,6 +49,14 @@
                 = f.check_box :public
                 = f.label :public
 
+            .row#memberships
+              .large-12.columns
+                h3 De quais organizações você gostaria de receber emails?
+              = collection_check_boxes(:user, :organization_ids, Organization.all, :id, :name) do |b|
+                .large-12.columns
+                  = b.check_box
+                  = b.label
+
             hr
             .row.header
               .large-12.columns
@@ -109,14 +117,6 @@
             .row
               - [ values_for_local_availability, values_for_remote_availability ].each do |values|
                 = render 'availability', availability_options: values
-
-            .row.memberships
-              .large-12.columns
-                h3 De quais organizações você gostaria de receber emails?
-              = collection_check_boxes(:user, :organization_ids, Organization.all, :id, :name) do |b|
-                .large-12.columns
-                  = b.check_box
-                  = b.label
 
             .row
               .large-12.columns
