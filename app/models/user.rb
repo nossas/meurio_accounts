@@ -40,123 +40,32 @@ class User < ActiveRecord::Base
   end
 
   def update_mailchimp_subscription
-    self.organizations.each do |organization|
-      begin
-        subscription = Gibbon::API.lists.subscribe(
-          id: organization.mailchimp_list_id,
-          email: { email: self.email },
-          merge_vars: {
-            FNAME: self.first_name,
-            LNAME: self.last_name,
-            # TODO: remove 'try' when the organization_id became required
-            ORG: self.organization.try(:name),
-            CITY: self.city,
-            PHONE: self.phone,
-            LOGINLINK: self.login_url,
-            DISTRICT: self.address_district,
-            groupings: [
-              { name: 'Skills', groups: self.translated_skills },
-              { name: 'Organizations', groups: self.organization_names }
-            ]
-          },
-          double_optin: false,
-          update_existing: true,
-          replace_interests: true
-        )
-
-        self.update_column :mailchimp_euid, subscription["euid"]
-      rescue Exception => e
-        Appsignal.add_exception e
-        Rails.logger.error e
-      end
-    end
-  end
-
-  def subscription_data
-    {
-      email: { email: self.email },
-      merge_vars: {
-        FNAME: self.first_name,
-        LNAME: self.last_name,
-        # TODO: remove 'try' when the organization_id became required
-        ORG: self.organization.try(:name),
-        CITY: self.city,
-        PHONE: self.phone,
-        LOGINLINK: self.login_url,
-        DISTRICT: self.address_district,
-        groupings: [
-          { name: 'Skills', groups: self.translated_skills },
-          { name: 'Organizations', groups: self.organization_names }
-        ]
-      }
-    }
-  end
-
-  def self.batch_update_mailchimp_subscriptions(*args)
     begin
-      options = args.extract_options!
-      sleep_time = options[:sleep_time] || 1.0
-      group_size = options[:group_size] || 100
-      ids = options[:ids] || []
+      subscription = Gibbon::API.lists.subscribe(
+        id: ENV["MAILCHIMP_LIST_ID"],
+        email: { email: self.email },
+        merge_vars: {
+          FNAME: self.first_name,
+          LNAME: self.last_name,
+          ORG: self.organization.name,
+          CITY: self.city,
+          PHONE: self.phone,
+          LOGINLINK: self.login_url,
+          DISTRICT: self.address_district,
+          groupings: [
+            { id: 1, groups: self.translated_skills },
+            { id: 49, groups: self.organizations.map{|o| o.name} }
+          ]
+        },
+        double_optin: false,
+        update_existing: true,
+        replace_interests: true
+      )
 
-      puts "Starting MailChimp subscriptions update..."
-      Organization.all.each do |organization|
-        puts "Organization: #{organization.name}"
-
-        users = ids.empty? ? organization.users : organization.users.find(ids)
-        users_count = users.count
-        puts "Users found: #{users_count}"
-
-        users.in_groups_of(group_size, false) do |group|
-          subscriptions_data = []
-
-          group.each do |user|
-            puts "#{ users_count } left... #{user.id} - #{user.email}"
-            subscriptions_data.push(user.subscription_data)
-            users_count -= 1
-          end
-
-          loop do
-            begin
-              puts "Calling MailChimp API..."
-              subscriptions = Gibbon::API.lists.batch_subscribe(
-                id: organization.mailchimp_list_id,
-                batch: subscriptions_data,
-                double_optin: false,
-                update_existing: true,
-                replace_interests: true
-              )
-
-              if subscriptions['status'] == 'error'
-                puts "Error: #{subscriptions['error']}"
-              else
-                puts "Total users added: #{subscriptions['add_count']}"
-                puts "Total users updated: #{subscriptions['update_count']}"
-                puts "Total errors: #{subscriptions['error_count']}"
-
-                update_mailchimp_euids subscriptions["adds"]
-                update_mailchimp_euids subscriptions["updates"]
-                puts "MailChimp subscriptions successfully updated!"
-              end
-
-              break
-            rescue Exception => e
-              puts e.message
-              sleep(sleep_time)
-            end
-          end
-        end
-      end
+      self.update_column :mailchimp_euid, subscription["euid"]
     rescue Exception => e
       Appsignal.add_exception e
       Rails.logger.error e
-    end
-  end
-
-  def self.update_mailchimp_euids subscriptions
-    subscriptions.each do |subscription|
-      user = User.find_by email: subscription["email"]
-      user.update_column :mailchimp_euid, subscription["euid"] if user
     end
   end
 
@@ -191,10 +100,6 @@ class User < ActiveRecord::Base
       Appsignal.add_exception e
       Rails.logger.error e
     end
-  end
-
-  def organization_names
-    self.memberships.any? ? self.memberships.map { |m| m.organization.try(:name) } : []
   end
 
   def translated_skills
@@ -236,9 +141,6 @@ class User < ActiveRecord::Base
   end
 
   def create_first_membership
-    # TODO: remove this condition when organization_id become required
-    if self.organization.present?
-      Membership.create organization: self.organization, user: self
-    end
+    Membership.create organization: self.organization, user: self
   end
 end
