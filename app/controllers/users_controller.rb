@@ -45,9 +45,9 @@ class UsersController < InheritedResources::Base
 
   def permitted_params
     { user: params.require(:user).permit(
-      :avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone,
-      :secondary_email, :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics,
-      :ip, :application_slug, :password, :organization_id, memberships_attributes: [:organization_id])
+      :avatar, :first_name, :last_name, :email, :bio, :birthday, :profession, :postal_code, :phone, :secondary_email,
+      :gender, :public, :facebook, :twitter, :website, :availability, :skills, :topics, :ip, :application_slug,
+      :password, :organization_id, memberships_attributes: [:organization_id], organization_ids: [])
     }
   end
 end

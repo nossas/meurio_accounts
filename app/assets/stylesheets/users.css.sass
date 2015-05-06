@@ -32,7 +32,7 @@
     label[for='user_facebook'], label[for='user_twitter']
       margin-right: .5em
 
-    .availability, .skills, .topics
+    .availability, .skills, .topics, #memberships
       h3
         font-size: 1em
 
@@ -51,6 +51,16 @@
     .skills, .topics
       input, label
         display: inline-block
+
+    #memberships .organization_check
+      margin-top: .5em
+      line-height: 3.15em
+      img
+        float: left
+        height: 50px
+        margin-right: 10px
+        width: 50px
+        +border-radius(50px)
 
   .large-3.columns
     text-align: center

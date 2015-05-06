@@ -40,13 +40,14 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_account, request)
   end
 
-  def sign_in_with_casino email, password
+  def sign_in_with_casino email, password, redirect_url = ''
     my_processor = processor(:LoginCredentialAcceptor)
     my_processor.process(
       {
         username: email,
         password: password,
-        lt: acquire_login_ticket.ticket
+        lt: acquire_login_ticket.ticket,
+        service: redirect_url
       },
       request.user_agent
     )
@@ -67,7 +68,7 @@ class ApplicationController < ActionController::Base
       user.update_attribute :password, new_password
 
       begin
-        sign_in_with_casino user.email, new_password
+        sign_in_with_casino user.email, new_password, params[:service]
       rescue Exception => e
         Appsignal.add_exception e
         Rails.logger e
