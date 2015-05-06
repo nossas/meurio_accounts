@@ -40,34 +40,32 @@ class User < ActiveRecord::Base
   end
 
   def update_mailchimp_subscription
-    self.organizations.each do |organization|
-      begin
-        subscription = Gibbon::API.lists.subscribe(
-          id: organization.mailchimp_list_id,
-          email: { email: self.email },
-          merge_vars: {
-            FNAME: self.first_name,
-            LNAME: self.last_name,
-            ORG: self.organization.name,
-            CITY: self.city,
-            PHONE: self.phone,
-            LOGINLINK: self.login_url,
-            DISTRICT: self.address_district,
-            groupings: [
-              { id: 1, groups: self.translated_skills },
-              { id: 49, groups: self.organizations.map{|o| o.name} }
-            ]
-          },
-          double_optin: false,
-          update_existing: true,
-          replace_interests: true
-        )
+    begin
+      subscription = Gibbon::API.lists.subscribe(
+        id: ENV["MAILCHIMP_LIST_ID"],
+        email: { email: self.email },
+        merge_vars: {
+          FNAME: self.first_name,
+          LNAME: self.last_name,
+          ORG: self.organization.name,
+          CITY: self.city,
+          PHONE: self.phone,
+          LOGINLINK: self.login_url,
+          DISTRICT: self.address_district,
+          groupings: [
+            { id: 1, groups: self.translated_skills },
+            { id: 49, groups: self.organizations.map{|o| o.name} }
+          ]
+        },
+        double_optin: false,
+        update_existing: true,
+        replace_interests: true
+      )
 
-        self.update_column :mailchimp_euid, subscription["euid"]
-      rescue Exception => e
-        Appsignal.add_exception e
-        Rails.logger.error e
-      end
+      self.update_column :mailchimp_euid, subscription["euid"]
+    rescue Exception => e
+      Appsignal.add_exception e
+      Rails.logger.error e
     end
   end
 
