@@ -54,8 +54,10 @@
                 h3 De quais organizações você gostaria de receber emails?
               = collection_check_boxes(:user, :organization_ids, Organization.all, :id, :name) do |b|
                 .large-12.columns
-                  = b.check_box
-                  = b.label
+                  .organization_check
+                    = image_tag b.object.avatar_url
+                    = b.check_box
+                    = b.label
 
             hr
             .row.header
