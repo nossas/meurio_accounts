@@ -53,14 +53,28 @@
         display: inline-block
 
     #memberships .organization_check
-      margin-top: .5em
-      line-height: 3.15em
-      img
-        float: left
+      display: inline-block
+      margin: .5em .5em .5em 0
+      position: relative
+      input[type="checkbox"]
         height: 50px
-        margin-right: 10px
         width: 50px
-        +border-radius(50px)
+        opacity: 0
+        top: 0
+        left: 0
+      input[type='checkbox'] + label
+        +filter(grayscale(100%))
+        +border-radius(100%)
+        position: absolute
+        color: transparent
+        cursor: pointer
+        height: 50px
+        width: 50px
+        margin: 0
+        top: 0
+        left: 0
+      input[type='checkbox']:checked + label
+        +filter(grayscale(0%))
 
   .large-3.columns
     text-align: center
