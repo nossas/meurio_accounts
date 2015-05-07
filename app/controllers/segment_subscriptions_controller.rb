@@ -13,7 +13,7 @@ class SegmentSubscriptionsController < InheritedResources::Base
         # TODO: after create the Segments table we must change segment_id to represent
         # Segment#id instead of Segment#mailchimp_uid
         seg_id: params[:segment_subscription][:segment_id],
-        batch: [{ email: .try(:email) }]
+        batch: [{ email: user.email }]
       )
     rescue Exception => e
       Appsignal.add_exception e
