@@ -12,7 +12,6 @@ end
 Organization.blueprint do
   name { "Meu Rio #{sn}" }
   city { "Rio de Janeiro #{sn}" }
-  mailchimp_list_id { "123456-#{sn}" }
 end
 
 Membership.blueprint do
