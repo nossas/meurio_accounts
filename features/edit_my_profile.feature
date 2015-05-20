@@ -6,7 +6,9 @@ Feature: edit my profile
   @javascript
   Scenario: when I submit the form correctly
     Given I'm logged in
+    And there is an organization in "Recife"
     And I'm in "the edit page of my profile"
+    And I select "Recife" for "the city field"
     And I fill "the profession field" with "Programmer"
     And I fill "the website field" with "http://meurio.org.br"
     And I fill "the bio field" with "Hello World"

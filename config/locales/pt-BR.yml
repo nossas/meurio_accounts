@@ -215,7 +215,7 @@ pt-BR:
         remember_me: Continuar conectado
         profession: Ocupação
         website: Sua página na internet
-        bio: Conte um pouco mais sobre você
+        bio: Fale um pouco mais sobre você, suas paixões e seus sonhos para a sua cidade.
         facebook: facebook.com/
         twitter: twitter.com/
         public: Sim, gostaria que outros membros possam ver meu perfil!
@@ -224,6 +224,7 @@ pt-BR:
         postal_code: CEP
         phone: Celular
         availability: Disponibilidade
+        organization_id: Qual é a cidade do seu coração?
     errors:
       <<: *errors
   unauthorized:

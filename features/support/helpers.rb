@@ -57,6 +57,7 @@ def to_element string
   return 'form.validate_email input[type="submit"]' if string == "the validation email form"
   return 'password' if string == "the new password"
   return 'form.create_password input[type="submit"]' if string == "the new password form"
+  return 'user_organization_id' if string == "the city field"
   raise "Sorry dude but I don't know what '#{string}' means"
 end
 

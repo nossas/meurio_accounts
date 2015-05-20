@@ -12,7 +12,11 @@
             .row.header
               .large-12.columns
                 h2 Perfil
-                | Esses dados poderão ser visualizados pelos membros da Rede Nossas Cidades.
+                | Nossos membros querem te conhecer. Conte pra todos um pouco mais sobre você!
+            .row
+              .large-12.columns
+                = f.label :organization_id
+                = f.collection_select :organization_id, Organization.all.order(:city), :id, :city, required: true
             .row
               .large-6.columns
                 = f.label :first_name
@@ -51,7 +55,7 @@
 
             .row#memberships
               .large-12.columns
-                h3 De quais organizações você gostaria de receber emails?
+                h3 De quais Redes de Mobilização você gostaria de receber emails?
               .large-12.columns
                 = collection_check_boxes(:user, :organization_ids, Organization.all.order(:created_at), :id, :name) do |b|
                   .organization_check
