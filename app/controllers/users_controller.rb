@@ -16,7 +16,7 @@ class UsersController < InheritedResources::Base
 
     update! do |success, failure|
       # TODO: find out why we are using redirect_url here, if it's useless, take it off
-      success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{current_account.id}" }
+      success.html { redirect_to session[:redirect_url].present? ? session[:redirect_url] : "#{ENV['MR_PATH']}/users/#{@user.id}" }
       failure.html { render :edit }
     end
   end
