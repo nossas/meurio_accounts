@@ -64,7 +64,7 @@ gem 'ffi', '1.9.3'
 gem 'slim-rails'
 gem 'compass-rails'
 gem 'foundation-rails'
-gem 'rails_12factor'
+gem 'rails_12factor', group: [:production, :staging]
 gem 'inherited_resources'
 gem 'cancan'
 gem 'jquery-ui-rails'
