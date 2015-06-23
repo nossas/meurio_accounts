@@ -60,7 +60,6 @@ GEM
       thread_safe
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    bcrypt-ruby (3.1.2)
     bitmask_attributes (1.0.0)
       activerecord (>= 3.1)
     builder (3.2.2)
@@ -117,10 +116,11 @@ GEM
     delayed_job_active_record (4.0.1)
       activerecord (>= 3.0, < 4.2)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.1.1)
-      bcrypt-ruby (~> 3.0)
+    devise (3.5.1)
+      bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
+      responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
@@ -185,7 +185,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.0.5)
       railties (>= 3.1.0)
-    json (1.8.2)
+    json (1.8.3)
     launchy (2.3.0)
       addressable (~> 2.3)
     machinist (2.0)
@@ -205,7 +205,7 @@ GEM
     mini_magick (3.6.0)
       subexec (~> 0.2.1)
     mini_portile (0.5.3)
-    minitest (5.6.1)
+    minitest (5.7.0)
     multi_json (1.11.0)
     multi_test (0.1.1)
     multi_xml (0.5.5)
@@ -215,14 +215,14 @@ GEM
     net-ssh (2.9.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    orm_adapter (0.4.0)
+    orm_adapter (0.5.0)
     pg (0.17.0)
     phpass-ruby (0.1.2)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
     quiet_assets (1.0.3)
       railties (>= 3.1, < 5.0)
-    rack (1.5.2)
+    rack (1.5.5)
     rack-protection (1.5.0)
       rack
     rack-test (0.6.3)
@@ -401,6 +401,3 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unf
   webmock
-
-BUNDLED WITH
-   1.10.4
