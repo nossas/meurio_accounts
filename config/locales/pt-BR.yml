@@ -225,6 +225,7 @@ pt-BR:
         phone: Celular
         availability: Disponibilidade
         organization_id: Qual é a cidade do seu coração?
+        reset_password_token: Link para recuperação de senha
     errors:
       <<: *errors
   unauthorized:
