@@ -5,18 +5,18 @@
       .signup Já é membro? #{link_to 'Faça seu login', login_path}
       .row
         .first_name.large-6.columns
-            = f.text_field :first_name, placeholder: 'Nome', value: params[:first_name] || params[:user][:first_name], required: true
+            = f.text_field :first_name, placeholder: 'Nome', value: (params[:user].present? ? params[:user][:first_name] : params[:first_name]), required: true
             small.error Nome é obrigatório
         .last_name.large-6.columns
-            = f.text_field :last_name, placeholder: 'Sobrenome', value: params[:last_name] || params[:user][:last_name], required: true
+            = f.text_field :last_name, placeholder: 'Sobrenome', value: (params[:user].present? ? params[:user][:last_name] : params[:last_name]), required: true
             small.error Sobrenome é obrigatório
       .row
         .email.large-12.columns
-          = f.email_field :email, placeholder: 'Email', value: params[:email] || params[:user][:email], required: true
+          = f.email_field :email, placeholder: 'Email', value: (params[:user].present? ? params[:user][:email] : params[:email]), required: true
           small.error Email é obrigatório e deve ser válido
       .row
         .organization_id.large-12.columns
-          = f.select :organization_id, @organizations.collect {|o| [ o.city, o.id ] }, {include_blank: "Cidade"}, value: params[:user][:organization_id], required: true
+          = f.select :organization_id, @organizations.collect {|o| [ o.city, o.id ] }, {include_blank: "Cidade"}, value: (params[:user][:organization_id] if params[:user].present?), required: true
           small.error Cidade é obrigatória
       .row
         .password.large-12.columns
