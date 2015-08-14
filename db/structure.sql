@@ -472,8 +472,7 @@ CREATE TABLE users (
     auth_token character varying(255) NOT NULL,
     politician boolean,
     organization_id integer,
-    CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text)),
-    CONSTRAINT proper_phone CHECK ((((phone)::text ~* '[(]{1}[0-9]{2}[)]{1} [0-9]{8,9}'::text) OR ((phone)::text = ''::text)))
+    CONSTRAINT proper_email CHECK (((email)::text ~* '([0-9a-zA-Z]+[-._+&amp;])*[0-9a-zA-Z_-]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}'::text))
 );
 
 
@@ -978,4 +977,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150313193154');
 INSERT INTO schema_migrations (version) VALUES ('20150420165257');
 
 INSERT INTO schema_migrations (version) VALUES ('20150508151231');
+
+INSERT INTO schema_migrations (version) VALUES ('20150814161656');
 
