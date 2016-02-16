@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Organization.create!(city: "Rio de Janeiro",
+                     email_signature_html: 'Equipe do Meu Rio',
+                     pdp_sender_email: "contato@meurio.org.br",
+                     pdp_receiver_email: "contato@meurio.org.br",
+                     slug: "riodejaneiro", name: "Meu Rio"
+                    )
