@@ -54,7 +54,8 @@ class User < ActiveRecord::Base
           DISTRICT: self.address_district,
           groupings: [
             { id: 1, groups: self.translated_skills },
-            { id: 49, groups: self.organizations.map{|o| o.name} }
+            { id: 49, groups: self.organizations.map{|o| o.name} },
+            { id: 73, groups: self.translated_topics }
           ]
         },
         double_optin: false,
@@ -104,6 +105,10 @@ class User < ActiveRecord::Base
 
   def translated_skills
     self.skills.present? ? self.skills.map { |s| I18n.t("skills.#{s}") } : []
+  end
+
+  def translated_topics
+    self.topics.present? ? self.topics.map { |t| I18n.t("topics.#{t}") } : []
   end
 
   def import_image_from_gravatar
